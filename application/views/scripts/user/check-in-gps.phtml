@@ -1,0 +1,115 @@
+<div class="page-header">
+    <h1>Chấm công GPS</h1>
+</div>
+
+<?php
+if (isset($this->messages) and $this->messages)
+    foreach ($this->messages as $message):
+        echo '<div class="alert alert-danger">'.$message.'</div>';
+    endforeach;
+
+if (isset($this->messages_success) and $this->messages_success)
+    foreach ($this->messages_success as $messages_success):
+        echo '<div class="alert alert-success">'.$messages_success.'</div>';
+    endforeach;
+?>
+
+<form method="POST" action="/user/save-check-in-gps">
+    <div class="row pl-5 pl-md-0">
+        <div class="col-12 col-md-6 p-0">
+            <div class="form-group">
+                <label for="staff_name">Ngày chấm công:</label>
+                <h5><?php echo date('d/m/Y') ; ?></h5>
+            </div>
+
+            <div class="form-group">
+                <label for="staff_name">Tên nhân viên:</label>
+                <h5><?php isset($this->staff) and $this->staff and printf($this->staff->firstname . " " . $this->staff->lastname);?></h5>
+            </div>
+
+            <div class="form-group">
+                <label for="staff_code">Mã nhân viên:</label>
+                <h5><?php isset($this->staff) and $this->staff and printf($this->staff->code);?></h5>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Vị trí GPS nhân viên: </label>
+                <input id="latitude" name="latitude" value="" readonly/> 
+                <input id="longitude" name="longitude" value="" readonly/>
+            </div>
+
+            <div class="warning">
+                <span id="fail-message" class="warning-msg"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 p-0">
+            <div class="title-open-gps">
+                <p><a target="_blank" href="#" style="color: #046A38">* Hướng dẫn chấm công GPS</a></p>
+                <p><span style="color: red; font-size: 1.1rem;">* Ghi chú: Ưu tiên sử dụng trình duyệt Chrome đối với chức năng chấm công GPS</span></p>
+                <p><span style="color: red; font-size: 1.1rem;">* Ưu tiên sử dụng 3G/4G thay Wifi đối với chức năng chấm công GPS</span></p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-12 p-0">
+            <button type="submit" class="btn btn-primary mt-5 w-auto h-auto">Chấm công</button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    $(document).ready(function(){
+        getLocation();
+        setInterval(function(){getLocation();}, 100000);
+    });
+
+    function getLocation() {
+        x =  document.getElementById("fail-message");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position,showError) {
+                window.latitude = position.coords.latitude;
+                window.longitude = position.coords.longitude;            
+                document.getElementById('latitude').value = position.coords.latitude;
+                document.getElementById('longitude').value = position.coords.longitude;
+
+                var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+
+                $.getJSON(GEOCODING).done(function(location) {
+                    
+                })
+            });
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude; 
+        
+        window.latitude = position.coords.latitude;
+        window.longitude = position.coords.longitude;
+        document.getElementById('latitude').value = position.coords.latitude;
+        document.getElementById('latitude1').value = position.coords.latitude;
+    }
+
+    function showError(error) {
+        x =  document.getElementById("fail-message");
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "An unknown error occurred."
+                break;
+        }
+    }
+</script>

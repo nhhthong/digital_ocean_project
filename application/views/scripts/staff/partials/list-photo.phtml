@@ -1,0 +1,136 @@
+<style>
+    .photo-list
+    {
+        border: 1px solid #aaa;
+        margin-bottom: 30px;
+        padding: 10px;
+        height: 500px;
+    }
+
+    .staff_img
+    {
+        text-align: center;
+        height: 150px;
+        overflow: hidden;
+    }
+
+    .staff_img img
+    {
+        width: 56%;
+        height: auto;
+    }
+
+    .button-group
+    {
+        margin: 10px 0px;
+    }
+
+    .button-group button, .button-group a
+    {
+        margin-top: 5px;
+    }
+
+    .button-group button
+    {
+        width: 100%;
+        display: block;
+    }
+
+    .button-group a
+    {
+        display: block;
+    }
+
+    span.staff_name {
+        display: block;
+        font-size: 15px;
+        margin: 5px 0px;
+        font-weight: bold;
+    }
+
+    .span-info-group
+    {
+        min-height: 150px;
+        margin: 0px;
+    }
+
+    @media (min-width: 1920px){
+        .span-info-group
+        {
+            min-height: 120px;
+        }
+    }
+
+    .span-info-group > span
+    {
+        display: block;
+        font-size: 12px;
+    }
+
+    .span-info-group > span > span
+    {
+        font-weight: bold;
+    }
+
+    .btn-download-all
+    {
+        margin: 10px 0px;
+    }
+</style>
+
+<form action="" method="post" id="form_upload_photo_staff">
+    <div class="alert alert-success" id="alert-update-photo" style="display: none;">
+        <span id="alert-content"></span>
+    </div>
+    <div class="row">
+        <div class="span2">
+            <button type="button" class="btn btn-success btn-download-all" onclick="download_all_photo()">Download photo in page</button>
+        </div>
+    </div>
+    <div class="row">
+    <?php
+    if (isset($this->list) and $this->list)
+        foreach ($this->list as $k => $staff): ?>
+        <div class="col-5 col-md-3 col-xl-2 photo-list ml-5 mr-5">
+            <?php
+                    if(!empty($staff['photo']))
+                    {
+                        $img_url = HOST .'photo/staff/' . $staff['id'] . '/' . $staff['photo'];
+                        $css_btn = "";
+                    }
+                    else
+                    {
+                        $img_url = '/img/chude.png';
+                        $css_btn = " style='display: none' ";
+                    }
+                ?>
+                <div class="staff_img">                    
+                    <img class="lightbox_img" id="staffphoto_<?php echo $staff['id']; ?>" name="staffphoto_<?php echo $staff['id']; ?>" onerror="show_default_photo('<?php echo $staff['id']; ?>')" style=" cursor: pointer;" src="<?php echo $img_url ; ?>" />                    
+                </div>
+                <div class="info-group">
+                    <a href="/staff/create?id=<?php echo $staff['id']; ?>">
+                        <span class="staff_name"><?php echo $staff['firstname'] .' '. $staff['lastname']; ?></span>
+                    </a>
+                    <div class="span-info-group">
+                        <span>CODE: <span><?php echo $staff['code'] ?></span></span>
+                        <span>DEPARTMENT: <span><?php echo $staff['department'];?></span></span>
+                        <span>TEAM: <span><?php echo $staff['team'];?></span></span>
+                        <span>TITLE: <span><?php echo $staff['title'];?></span></span>             
+                    </div>
+                </div>
+                <input type="file" />
+                <div class="button-group">
+                    <button type="button" <?php echo $css_btn; ?> class="btn btn-warning" onclick="">Delete Photo</button>
+                    <a class="btn btn-success btn-download-photo" <?php echo $css_btn; ?>>Download Photo</a>
+                    <button type="button" class="btn btn-primary btn-update" style="display: none" onclick="">Update Photo</button>
+                </div>
+        </div>
+        <?php endforeach;?>
+    </div>
+</form>
+
+<script>
+    function download_all_photo() { 
+
+    }
+</script>

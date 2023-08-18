@@ -1,0 +1,118 @@
+    <div class="span6">
+        <div class="control-group">
+            <label for="photo" class="control-label">ID Card Photo - Front</label>
+            <div class="controls">
+                <?php 
+                if(isset($this->staff) && !empty($this->staff->id_photo)){                        
+                    $url_front_image = 'photo/staff/'.$this->staff->id.'/ID_Front/'.$this->staff->id_photo;
+                ?>
+                <a target="_blank" title="View" href="<?php if(isset($this->staff) and !empty($this->staff->id_photo)) printf(HOST.$url_front_image);  ?>"><img width="210" height="239" class="staff-photo" src="<?php if(isset($this->staff) and !empty($this->staff->id_photo)) printf(HOST.$url_front_image);  ?>" /></a>
+                <?php } ?>
+                <div class="clear"></div>
+                <input type="file" id="id_photo" name="id_photo" class="has-preview" />
+                <div class="clear"></div>
+                <div class="control-group">
+                    <label for="del_id_photo" class="pull-left mt-3 mr-2">Delete Photo</label>
+                    <input type="checkbox" class="pull-left" name="del_id_photo" id="del_id_photo" />
+                </div>
+            </div>
+        </div>  
+
+        <div class="control-group">
+            <label for="dob" class="control-label">Date of birth</label>
+            <div class="controls">
+                <input type="text" class="date" required id="dob" placeholder="Enter Date of birth" name="dob" value="<?php isset($this->staff) and $this->staff->dob and printf($this->staff->dob);?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="ID_number" class="control-label">ID Card number</label>
+            <div class="controls">
+                <input required type="text" id="ID_number" data-id="<?php if(isset($this->staff['id']) && $this->staff['id']) echo $this->staff['id'] ?>" placeholder="Enter ID number" name="ID_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->ID_number);?>">
+                <p id="id_card_validate" class="text-warning"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="ID_place" class="control-label">ID Card place Province</label>
+            <div class="controls">
+                <select name="id_place_province" id="id_place_province" style="width: 210px;">
+                    <option value>choose</option>
+                    <?php                        
+                        foreach($this->provinces as $key => $value):
+                    ?>
+                        <option value="<?php echo $key;?>" <?php if(isset($this->staff['id_place_province']) AND $this->staff['id_place_province'] == $key) echo 'selected';?>> <?php echo $value;?> </option>
+                    <?php 
+                        endforeach;
+                    ?>
+                </select>
+            </div>
+        </div>
+       
+       <div class="control-group">
+            <label for="id_citizen_province" class="control-label">ID Citizen Identity Card Province</label>
+            <div class="controls">
+                <select name="id_citizen_province" id="id_citizen_province" style="width: 210px;">
+                    <option value>choose</option>
+                    <?php 
+                        foreach($this->provinces_citizen as $key => $value):
+                    ?>
+                    <option value="<?php echo $key;?>" <?php if(isset($this->staff['id_citizen_province']) AND $this->staff['id_citizen_province'] == $key) echo 'selected';?>> <?php echo $value;?> </option>
+                    <?php 
+                        endforeach;
+                    ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="ID_date" class="control-label">ID Card date</label>
+            <div class="controls">
+                <input type="text" class="date" id="ID_date" placeholder="Enter ID date" name="ID_date" value="<?php isset($this->staff) and $this->staff->ID_date and printf(date('d/m/Y',strtotime($this->staff->ID_date)));?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="nationality" class="control-label">Nationality</label>
+            <div class="controls">
+                <select name="nationality" id="nationality">
+                    <option value>Choose</option>
+                    <?php foreach ($this->nationalities as $item):?>
+                        <option value="<?php echo $item->id;?>" <?php if (isset($this->staff) and $this->staff and $item->id==$this->staff->nationality):?>selected<?php endif;?>><?php echo $item->name;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="religion" class="control-label">Religion</label>
+            <div class="controls">
+                <select name="religion" id="religion">
+                    <option value>Choose</option>
+                    <?php foreach ($this->religions as $item):?>
+                        <option value="<?php echo $item->id;?>" <?php if (isset($this->staff) and $this->staff and $item->id==$this->staff->religion):?>selected<?php endif;?>><?php echo $item->name;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label for="photo" class="control-label">ID Card Photo - Back</label>
+            <div class="controls">
+                <?php if(isset($this->staff) && !empty($this->staff->id_photo_back) ){
+                        $url_back_image = 'photo/staff/'.$this->staff->id.'/ID_Back/'.$this->staff->id_photo_back;
+                    ?>
+                    <a target="_blank" title="View" href="<?php if(isset($this->staff) and !empty($this->staff['id_photo_back'])) printf(HOST.$url_back_image);  ?>"><img width="210" height="239" class="staff-photo" src="<?php if(isset($this->staff) and !empty($this->staff['id_photo_back'])) printf(HOST.$url_back_image);  ?>" /></a>
+                <?php } ?>
+                <div class="clear"></div>
+                <input type="file" id="id_photo_back" name="id_photo_back" class="has-preview" />
+                <div class="clear"></div>
+                <div class="control-group">
+                    <label for="del_id_photo_back" class="pull-left">Delete Photo</label>
+                    <input type="checkbox" class="pull-left" name="del_id_photo_back" id="del_id_photo_back" />
+                </div>
+            </div>
+        </div>
+    </div>

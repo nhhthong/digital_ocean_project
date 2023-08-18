@@ -1,0 +1,204 @@
+
+<style>
+
+.div_maxim{
+    text-align: center !important; 
+    margin-top: 30px;
+}  
+.maxim{
+    color: #008b56; 
+    width: auto; 
+    font-size: 16px;
+    font-style: oblique; 
+    font-weight: bold;
+} 
+.img_logo_login{
+    max-height: 50px;
+}
+
+@media (min-width: 1920px) {
+  .login.login-1 .login-content {
+    width: 100%;
+    max-width: 600px; }
+    .login.login-1 .login-content .login-form {
+      width: 100%;
+      max-width: 600px; } 
+}
+
+@media screen and (min-width: 992px) {
+    .login.login-1 .login-aside {
+    width: 100%;
+    max-width: 50%; 
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .div_maxim {
+        display: none !important;
+    }
+    .image_bottom_mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .maxim {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .aside-img {
+        display: none !important;
+    }
+    .img_logo_login{
+        max-height: 40px;
+    }
+    .login-content{
+        width: 100%;
+    }
+    .wrapper_img_logo{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .login-content .login-form{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .img_logo_login {
+        max-height: 35px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .login-content .login-form{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .login-content{
+        padding: 0px !important;
+        padding-top: 10px !important;
+    }
+}
+
+@media (min-width: 1920px){
+    .login.login-1 .login-content {
+        width: 100%;
+        max-width: 800px;
+    }
+}
+</style>
+<div class="d-flex flex-column flex-root">
+    <div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid bg-white" id="kt_login">
+        <div class="login-content flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
+            <div class="d-flex flex-column-fluid flex-center">
+                <div class="login-form login-signin">
+                    <form class="form" action="/user/auth" method="post" novalidate="novalidate" id="kt_login_signin_form">
+                        <div class="pb-10 pt-lg-0">
+                            <h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Welcome!!</h2>
+                            <span class="text-muted font-weight-bold font-size-h4">Please provide your details</span>
+                            <?php
+                            if (isset($this->messages) and $this->messages) :
+                                foreach ($this->messages as $message): ?>
+                                <div class="alert alert-error mt-5">
+                                    <?php echo $message;?>
+                                </div>
+                                <?php endforeach;
+                            endif;?>
+
+                            <?php
+                            if (isset($this->messages_success) and $this->messages_success) :
+                                foreach ($this->messages_success as $message): ?>
+                                    <div class="alert alert-success mt-5">
+                                        <?php echo $message;?>
+                                    </div>
+                                <?php endforeach;
+                            endif;?>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" id="email" name="email" style="width: 100%" type="text" name="username" autocomplete="off"/>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between mt-n5">
+                                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
+                                <a href="javascript:;" class="text-success font-size-h6 font-weight-bolder text-hover-access pt-5" id="kt_login_forgot">
+                                    Forgot Password ?
+                                </a>
+                            </div>
+                            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg"  id="password" name="password" style="width: 100%" type="password" name="password" autocomplete="off"/>
+                        </div>
+                        <div class="pb-lg-0 pb-5 mt-3">
+                            <button type="button" id="kt_login_signin_submit" class="btn btn-success font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="background: #fff"> 
+    <div class="div_maxim" style="text-align: center; margin-top: 30px;"> 
+    </div>
+</div> 
+
+<style>
+@media screen and (max-width: 575px){
+	#rc-imageselect, .g-recaptcha {
+        transform:scale(0.75) !important;
+        -webkit-transform:scale(0.75) !important;
+        transform-origin:0 0 !important;
+        -webkit-transform-origin:0 0 !important;
+	}
+}
+</style>
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script type="application/javascript" src="/js/mobile-handler.js"></script>
+<script type="application/javascript" src="/js/mobile-library.js"></script>
+<script>
+    window.parent.postMessage("login", '*');
+    hideLoadingPage();
+    $(function() {
+        $('form').each(function() {
+            $(this).find('input').keypress(function(e) {
+                if(e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
+            });
+
+            $(this).find('input[type=submit]').hide();
+        });
+    });
+
+    $(document).ready(function () { 
+        getMaxim();
+        $('[data-toggle="tooltip"]').tooltip();  
+    });
+   
+	function getMaxim(){
+		$.ajax({
+	        type: 'get',
+	        url: '/ajax/get-maxim-mobi',
+      
+	        error: function(error){
+                    console.log(eval(error)); 
+	        },
+	        success: function(data){
+	            console.log(data); 
+	            var response = $.parseJSON(data);  
+	             if (response.status == 1) {
+	        	$('.div_maxim').append('<i  class="maxim" style=" display: none;"  >'+response.data+'</i>');
+	             }
+	        }
+	    });	
+	}
+</script>

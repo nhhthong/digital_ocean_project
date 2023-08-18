@@ -1,0 +1,33 @@
+$(document).ready(function(){
+    var aboutUsContent ={}, visionContent={};
+        aboutUsContent.title ="ABOUT US";
+        aboutUsContent.contentTitle1 ="About OPPO";
+        aboutUsContent.contentTitle2 ="The Art of Technology";
+        aboutUsContent.contentTitle3 ="OPPO Global Business";
+        aboutUsContent.param1="OPPO is a global electronics and technology service provider that delivers the latest and most exquisite mobile electronic devices in over 20 countries, including the United States, China, Australia and many countries throughout Europe, Southeast Asia, South Asia, the Middle East and Africa. OPPO is dedicated to delivering customers with the most extraordinary mobile experience through meticulous designs and smart technology.";
+        aboutUsContent.param2="There’s an Art to Living Life.<br><br>At OPPO, we’re here for those that expect more from their smartphone than a run-of-the-mill experience. This is the reason for the dedication and effort we put into bringing users the very best, which is why we put as much effort into what our phones can do for you. We are driven by our love for art. Our devotion and dedication to the art of technology is what inspires us to create beautiful products-inside and out. Everything is considered. From the tactile qualities to the aesthetic aspects of each of our devices; every angle, every color, every piece is meticulously crafted…so we are left with not just a remarkable looking device, but a cultivated experience. We put as much thought and consideration into the designing of our products as one would into designing their own unique lifestyle, right down to the very minute of details. It is here, where the art of technology and life convene.";
+        aboutUsContent.param3="OPPO is relentless in the pursuit of the latest technology, the highest hardware quality standards and in delivering the best user experience possible. We design, manufacture, and promote our own products to assure customers of reliable and the highest end products possible from beginning to end.<br>Since its founding in 2004, OPPO has consistently strived to deliver users this ideology across the globe. Having successfully entered into the mobile phone market in 2008, OPPO began looking at expansion into international markets in 2010 and opened its first overseas business in April of 2010 in Thailand.Today, OPPO is present in 21 markets worldwide.<br>From the start, OPPO’s products have pushed boundaries. As OPPO continues to expand into new markets, the goal of making our products more accessible around the globe without compromising product service and quality has never been clearer.";
+        
+        visionContent.title ="OUR MISSION";
+        visionContent.contentTitle1 ="People";
+        visionContent.contentTitle2 ="Product";
+        visionContent.contentTitle3 ="Customer";
+        visionContent.param1="OPPO is a global electronics and technology service provider that delivers the latest and most exquisite mobile electronic devices in over 20 countries, including the United States, China, Australia and many countries throughout Europe, Southeast Asia, South Asia, the Middle East and Africa. OPPO is dedicated to delivering customers with the most extraordinary mobile experience through meticulous designs and smart technology.";
+        visionContent.param2="There’s an Art to Living Life.<br><br>At OPPO, we’re here for those that expect more from their smartphone than a run-of-the-mill experience. This is the reason for the dedication and effort we put into bringing users the very best, which is why we put as much effort into what our phones can do for you. We are driven by our love for art. Our devotion and dedication to the art of technology is what inspires us to create beautiful products-inside and out. Everything is considered. From the tactile qualities to the aesthetic aspects of each of our devices; every angle, every color, every piece is meticulously crafted…so we are left with not just a remarkable looking device, but a cultivated experience. We put as much thought and consideration into the designing of our products as one would into designing their own unique lifestyle, right down to the very minute of details. It is here, where the art of technology and life convene.";
+        visionContent.param3="OPPO is relentless in the pursuit of the latest technology, the highest hardware quality standards and in delivering the best user experience possible. We design, manufacture, and promote our own products to assure customers of reliable and the highest end products possible from beginning to end.<br>Since its founding in 2004, OPPO has consistently strived to deliver users this ideology across the globe. Having successfully entered into the mobile phone market in 2008, OPPO began looking at expansion into international markets in 2010 and opened its first overseas business in April of 2010 in Thailand.Today, OPPO is present in 21 markets worldwide.<br>From the start, OPPO’s products have pushed boundaries. As OPPO continues to expand into new markets, the goal of making our products more accessible around the globe without compromising product service and quality has never been clearer.";
+    
+    $('#tab-about').click(function(){
+        var contentBuilder ='<div class ="article-content"><span class="close-btn" onclick="closeArticle();">&times;</span><div class="article-header"><h2 class="page-title">'+aboutUsContent.title+'</h2>'+
+        '<h2 class="page-subtitle"></h2></div><div class="article-context"><h2 class="page-subtitle">'+aboutUsContent.contentTitle1+'</h2><p>'+aboutUsContent.param1+'</p><h2 class="page-subtitle">'+aboutUsContent.contentTitle2+
+        '</h2><p>'+aboutUsContent.param2+'</p><h2 class="page-subtitle">'+aboutUsContent.contentTitle1+'</h2><p>'+aboutUsContent.param3+'</p></div></div>';  
+        $(".article-img").html(contentBuilder);
+        setTimeout(function(){showIMGArticle()},100);
+        });
+    $('#tab-people').click(function(){
+        var contentBuilder ='<div class ="article-content"><span class="close-btn" onclick="closeArticle();">&times;</span><div class="article-header"><h2 class="page-title">'+visionContent.title+'</h2>'+
+        '<h2 class="page-subtitle"></h2></div><div class="article-context"><h2 class="page-subtitle">'+visionContent.contentTitle1+'</h2><p>'+visionContent.param1+'</p><h2 class="page-subtitle">'+visionContent.contentTitle2+
+        '</h2><p>'+visionContent.param2+'</p><h2 class="page-subtitle">'+visionContent.contentTitle1+'</h2><p>'+visionContent.param3+'</p></div></div>';  
+        $(".article-img").html(contentBuilder);
+        setTimeout(function(){showIMGArticle()},100);
+        });    
+    });

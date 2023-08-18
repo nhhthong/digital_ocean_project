@@ -1,0 +1,46 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Team</th>
+            <th>Title</th>
+            <th>Phone Number</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php $intStt = $this->offset;
+            foreach ($this->list as $key => $value):
+                ?>
+        <tr>
+            <td><?=++$intStt?></td>
+            <td><?php echo $value['code']; ?></td>
+            <td><?php echo $value['fullname']; ?></td>
+            <td><?php echo $value['email']; ?></td>
+            <td><?php echo $value['department']; ?></td>
+            <td><?php echo $value['team']; ?></td>
+            <td><?php echo $value['title']; ?></td>
+            <td><?php echo $value['phone_number']; ?></td>
+            <td>Enabled</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Action<span class=""></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/staff/create?id=<?php echo $value['id'];?>"> <i class="icon-edit"></i> Điều chỉnh</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<div class="paging">
+    <?php echo $this->paging($this->total, $this->limit, $this->offset, $this->url);?>
+</div>

@@ -1,0 +1,87 @@
+<div class="page-header">
+<h1>
+Create Staff
+</h1>    
+</div>
+<?php
+if (isset($this->messages) and $this->messages)
+    foreach ($this->messages as $message):
+        echo '<div class="alert alert-error">'.$message.'</div>';
+    endforeach;
+?>
+<form role="form" id="form" autocomplete="nope" action="staff/save" class="form-horizontal" method="post" enctype="multipart/form-data">
+    <div class="row-fluid">
+        <div class="span12">
+            <p class="pull-right">
+                <input type="hidden" name="id" id="id" value="<?php isset($this->staff) and $this->staff and printf($this->staff->id);?>">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type="hidden" name="back_url" id="back_url" value="<?php if ( isset($this->back_url) and $this->back_url) echo $this->back_url;?>">
+                <button type="button" class="btn btn-danger go-back">Go back</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_basic_info" data-toggle="tab">Basic Info</a></li>
+                <li><a href="#tab_personal_info" data-toggle="tab">Personal Info</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_basic_info"><?php echo $this->render( 'staff/partials/form-basic-info.phtml' ) ?></div>
+                <div class="tab-pane" id="tab_personal_info"><?php echo $this->render( 'staff/partials/form-personal-info.phtml' ) ?></div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="/js/jquery-ui-1.8.12.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.8.12.custom.css"/>
+<script>
+    $('#department,.department').change(function(){			
+        $('.loading').remove();
+        $(this).after('<span class="loading"></span>');
+        var _self = $(this);
+        var department_id = $(this).val();
+        $('form').bind('submit',function(e){e.preventDefault();});
+        $('button, .btn, input, select').prop('disabled', true);
+        $.get("/ajax/load-team",
+        {department_id: [department_id]}
+        ,function(data,status){
+            var obj = $.parseJSON( data );
+            $('#team,.team').find('option:not(:first)').remove();
+            for (var i = 0; i < obj.length; i++) {
+                $('#team,.team').append('<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>');
+            }
+            $('button, .btn, input, select').prop('disabled', false);
+            $('form').unbind('submit');
+            $('.loading').remove();
+        });
+    });
+
+    $('#team,.team').change(function(){
+        $('.loading').remove();
+        $(this).after('<span class="loading"></span>');
+        var _self = $(this);
+        var team_id = $(this).val();
+        $('form').bind('submit',function(e){e.preventDefault();});
+        $('button, .btn, input, select').prop('disabled', true);
+        $.get("/ajax/load-title",
+        {team_id: [team_id]}
+        ,function(data,status){
+            var obj = $.parseJSON( data );
+            $('#title,.title').find('option:not(:first)').remove();
+            for (var i = 0; i < obj.length; i++) {
+                $('#title,.title').append('<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>');
+            }
+
+            $('button, .btn, input, select').prop('disabled', false);
+            $('form').unbind('submit');
+            $('.loading').remove();
+        });
+    });
+
+    $(document).ready(function () {
+        $( '.date' ).datepicker({ dateFormat: "dd/mm/yy" });
+    });
+
+</script>

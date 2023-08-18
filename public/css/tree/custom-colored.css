@@ -1,0 +1,60 @@
+#custom-colored{
+    zoom: 80%;
+}
+/* optional Container STYLES */
+.chart { margin: 5px; width: 100%;  }
+.Treant > .node {  }
+.Treant > p { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: bold; font-size: 12px; }
+.node-name { font-weight: bold; text-align: center; color: #fff;}
+.node-title{
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+.hide-node-name .node-name {
+    visibility: hidden;
+}
+.chart_level {
+    padding: 2px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 200px;
+    font-family: Tahoma;
+    font-size: 12px;
+}
+.node.chart_level.color_manager .node-title{
+    color: #333300;
+}
+.chart_level img {
+    margin-right:  10px;
+}
+path {
+    stroke: #016936 !important;
+}
+.gray {
+    background-color: #909090;
+}
+
+.light-gray {
+    background-color: #D3D3C7;
+}
+
+.blue {
+    background-color: #A2BDFD;
+}
+.color_vice {
+    background-color: #003300;
+}
+.color_ceo{
+    background-color: #21594C;
+}
+.color_dr{
+    background-color: #3E664C;
+}
+.color_manager{
+    background-color: #68A042;
+}

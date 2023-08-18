@@ -1,0 +1,138 @@
+
+*{font-family:tahoma !important}
+[class^="icon-"], [class*=" icon-"]{font-family: FontAwesome !important;}
+body {
+    background: #008b56;
+    font-family:tahoma;
+}
+
+.dashboard-drawer .user-info .user-img .user-name{font-size: 9px;line-height: 13px;}
+.dashboard-drawer .user-info .user-img .user-avatar{
+    margin: 6px auto 3px;
+    overflow: hidden;
+    position: relative;
+    width: 67px;
+    height: 67px;
+    margin: 7px auto 2px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background-color: #fafafa;
+    border: 2px solid #caf2df;
+}
+.dashboard-drawer .user-info .user-img .user-avatar img{width: 60px;height: auto;border: none;-moz-border-radius: 25px;margin: 0 auto;display: block;}
+
+
+.container{border:none;width: auto;}
+.content_layout{/* overflow: hidden; */padding: 0px 8px;background: #FFF;overflow-x: scroll;min-height: 800px;}
+.dashboard-content{background: #FFF;}
+
+.dashboard-content input{height: auto !important;}
+
+.dashboard-content select{height: auto !important;}
+.dashboard-content button{height: auto !important;}
+
+.menu_new [class^="icon-"]:before{position: absolute;left: 13px;font-size: 21px;}
+
+.menu_new [class*=" icon-"]:before{position: absolute;}
+
+/*.menu_new ul li .hasUl:after{content:  "Ã¢â€“Â¼";right: 7px;position: absolute;font-size: 10px;color: #c8c8c8;}*/
+.menu_new ul li .hasUl:after{
+    float: right;
+     margin-top: 0px; 
+    margin-right: 7px;
+    display: inline;
+    font-family: FontAwesome;
+    height: auto;
+    font-size: 16px;
+    content: "\f107";
+    font-weight: 300;
+    text-shadow: none;
+}
+
+
+.menu_new ul li:active{color:red;}
+
+
+.menu_new ul li a.hasUl{pointer-events: none;cursor: default;}
+
+.dashboard-drawer .drawer-menu ul li span.icon1{top: 11px;}
+.dashboard-drawer .drawer-menu ul li a{font-size: 1em}
+.user-name .clear_cache{
+    position: absolute;
+    right: 25px;
+    bottom: -1px;
+    color: #FFF;
+}
+
+
+
+@media screen and (max-width: 360px){
+  .dashboard-header .user-config .user-name p{max-width: 130px;}
+  .dashboard-header .user-config .user-name {
+      font-family: 'Myriad Pro';
+      color: #dff7ec;
+      height: 50px;
+      margin-left: 15px;
+      cursor: pointer;
+      position: relative;
+      /* padding: 0 20px 0 10px; */
+  }
+  .content_layout{/* overflow: hidden; */padding: 0px 8px;background: #FFF;overflow-y: auto;}
+}
+
+@media screen and (max-width: 480px){
+  .dashboard-drawer{overflow: auto;}
+  .dropdown-menu a{white-space:normal}
+  .dashboard-header .user-config .user-name p{max-width: 130px;}
+}
+
+@media screen and (max-width: 720px){
+  .content_layout{/* overflow: hidden; */padding: 0px 8px;background: #FFF;overflow-y: auto;}
+}
+
+
+.menu-notification-new{display:none;background:#FFF;position: fixed;min-width: 156px;top: 100px;left: 119px;z-index: 100;margin-left: -111px;padding: 3px;border: 1px solid #CCC;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
+
+.dashboard-header .hidden-menu a img{margin-right: 5px;height: 16px;}
+
+.dashboard-header .user-config .setting-button{margin-right: 24px;}
+
+.dashboard-header{margin-left: 0px;background: #EDEDED;border-bottom: 1px solid #D9DEE4;}
+.dashboard-drawer{background-color: #008B56;margin-top: 50px;position: absolute;}
+.dashboard-drawer .drawer-menu .hide-btn{background-color: #2aad6f;}
+.dashboard-drawer .drawer-menu li{border-bottom: 1px solid #83c5a6;}
+.dashboard-drawer .user-info .notification .earth .message-num{border: 1px solid #008b56;}
+.dashboard-header .user-config .user-name p{color: #008B56;height: 26px;margin-top: 11px;line-height: 25px;padding: 0px 10px;border-radius: 4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;}
+.dashboard-header .user-config .user-name:hover p{color:#FFF;background: #008B56;}
+.dashboard-header .user-config .user-name:hover{background-color: #ededed;}
+.dashboard-header .user-config .setting-button span.icon1{color: #00935f;}
+.pull-right{margin-top: -12px;}
+.dashboard-header .hidden-menu{right: 0px}
+.dashboard-header .user-config .user-name{max-width:none}
+
+.content_layout .btn-group.open .dropdown-menu{right: 0;left: inherit;z-index: 10000;}
+
+.content{display: block;overflow: hidden;}
+
+
+.content .block_lesson{padding: 10px 20px 20px 20px;}
+.content .block_lesson:nth-child(2){background: #FAFAFA;}
+.content .block_lesson .title_bl{display: block;font-size: 17px;/* font-weight: bold; */line-height: 35px;text-align: center;background: url(../img/line.png) repeat-x center;background-size: 1px;margin-bottom: 16px;}
+.content .block_lesson .title_bl span{background: #FFF;padding: 0px 15px;}
+.content .block_lesson:nth-child(2) .title_bl span{background: #FAFAFA;padding: 0px 15px;}
+
+.content .lesson{}
+.content .lesson .lesson_wrap{position: relative;overflow: hidden;border: 1px solid #E6E9ED;transition:all 1s;-webkit-transition:all 1s;margin-bottom: 20px;width: 23%;float: left;display: block;margin: 5px;padding: 10px;}
+.content .lesson .lesson_wrap a{background: rgba(51, 122, 183,0.8);text-decoration:none;position: absolute;width: 134px;text-align: center;padding: 8px 5px 5px 5px;color: #FFF;border-radius: 4px;height: 25px;left: 0;right: 0;bottom: -47px;margin: 0 auto;transition:all 0.5s;-webkit-transition:all 0.5s;}
+.content .lesson .lesson_wrap a .icon{color:#FFF}
+.content .lesson .lesson_wrap:hover{background: rgba(51, 122, 183,0.1)}
+.content .lesson .lesson_wrap:hover .description{background: rgba(51, 122, 183,0.1)}
+.content .lesson .lesson_wrap:hover a{bottom: 5px;}
+.content .lesson .lesson_wrap .img_wrap{width: 100%;height: 150px;border-radius: 10px;overflow: hidden;transition:all 1s;-webkit-transition:all 1s;}
+.content .lesson .lesson_wrap .img_wrap:hover a{top: 57px;}
+.content .lesson .lesson_wrap .img_wrap img{height: 100%;margin: 0 auto;display: block;}
+
+.content .lesson .lesson_wrap .description{border-top: 1px solid #E6E9ED;padding: 10px 5px 22px 5px;background: #F7F7F7;}
+.content .lesson .lesson_wrap .description .title_lesson{color: #3A93CD;font-weight: 500;font-size: 15px;}
+.content .lesson .lesson_wrap .description .cat_lesson{color: #BDBABA;font-size: 12px;position: absolute;bottom: 0px;}

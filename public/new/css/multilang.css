@@ -1,0 +1,36 @@
+@media screen and (max-width: 992px) {
+  .multi-lang {
+    top: 10px;
+    right: 10px; } }
+.multi-lang a {
+  border-radius: 4px;
+  color: white;
+  background-color: #9ea89e;
+  padding: 2px 5px;
+  font-family: "Myriad Pro";
+  border: 1px solid #9ea89e;
+  height: 30px;
+  width: 80px;
+  display: block;
+  cursor: pointer; }
+.multi-lang img {
+  width: 30px;
+  height: 20px;
+  display: inline-block;
+  line-height: 35px;
+  top: 3px;
+  position: relative; }
+.multi-lang .lang-selector {
+  display: none;
+  top: 100%;
+  left: 0; }
+  .multi-lang .lang-selector a {
+    border-radius: 4px;
+    color: dimgray;
+    background-color: white;
+    border: 1px solid #dedede; }
+    .multi-lang .lang-selector a:hover {
+      color: #555555;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); }
+
+/*# sourceMappingURL=multilang.css.map */

@@ -1,0 +1,513 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 12, 2017, 11:08:56 AM
+    Author     : DiemQuynh
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2017, 6:27:13 PM
+    Author     : hero
+*/
+* {
+    /*    color: #333;*/
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+}
+
+* {
+    margin: 0;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.clearfix {
+    clear: both;
+}
+
+ul {
+    outline: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    text-align: left;
+}
+
+@media screen and (max-width: 1080px) {
+    .sm-left {
+        float: left;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .sm-right {
+        float: right;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .sm-hide {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .desktop-hide {
+        display: none !important;
+    }
+}
+
+.sm-show {
+    display: none;
+}
+
+@media screen and (max-width: 1080px) {
+    .sm-show {
+        display: block;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.m-fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.m-fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+/*STYLE FOR OVERLAY POPUP*/
+.pop_up_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1080px) {
+    .wrapper {
+        padding: 0 .75rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2017, 6:14:04 PM
+    Author     : hero
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 25, 2017, 11:51:18 AM
+    Author     : nhat
+*/
+@font-face {
+    font-family: 'myriad pro';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MyriadPro-Regular.otf");
+}
+
+@font-face {
+    font-family: 'myriad pro light';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MyriadPro-Light.otf");
+}
+
+@font-face {
+    font-family: 'myriad pro semibold';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MyriadPro-Semibold.otf");
+}
+
+@font-face {
+    font-family: 'avo';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/Avo.ttf");
+}
+
+@font-face {
+    font-family: 'avo bold';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/AvoBold.ttf");
+}
+
+@font-face {
+    font-family: 'avo italic';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/AvoItalic.ttf");
+}
+
+@font-face {
+    font-family: 'avo bold italic';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/AvoBold_Italic.ttf");
+}
+
+/*-----------------------------*/
+@font-face {
+    font-family: 'myriad pro black';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MYRIADPRO-BLACK.OTF");
+}
+
+@font-face {
+    font-family: 'myriad pro black it';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MYRIADPRO-BLACKIT.OTF");
+}
+
+@font-face {
+    font-family: 'myriad pro bold it';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MYRIADPRO-BOLDIT.OTF");
+}
+
+@font-face {
+    font-family: 'myriad pro semibold it';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MYRIADPRO-SEMIBOLDIT.OTF");
+}
+
+@font-face {
+    font-family: 'myriad pro it';
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/MYRIADPRO-IT.OTF");
+}
+
+@font-face {
+    font-family: utmavo;
+    src: url(/font/utm_avo.ttf);
+}
+
+body{
+    font-family: utmavo;
+}
+
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+    .signup-page {
+        height: 67vw;
+        position: relative;
+        background: url(../img/lunar2023.png) center no-repeat;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100%;
+        color: #ffffff;
+    }
+
+    .signup-content {
+        padding-left: 14vw;
+    }
+
+    .signup-page .signup-wrap {
+        width: 80%;
+        position: absolute;
+        top: 20vw;
+        left: 12vw;    
+    }
+
+    .signup-page .signup-wrap .signup-intro {
+        margin-bottom: 1vw;
+    }
+
+    .signup-page .signup-wrap .signup-intro span {
+        padding: 1vw 0;
+        display: block;
+    }
+
+    .signup-page .signup-wrap .signup-content .input {
+        -webkit-border-radius: 22px;
+        -moz-border-radius: 22px;
+        -ms-border-radius: 22px;
+        border-radius: 22px;
+        color: #fff;
+        width: 20vw;
+        border-style: hidden;
+        float: right;
+        clear: both;
+        font-size: 1vw;
+    }
+
+    .signup-page .signup-wrap .signup-content input::placeholder {
+        color: #fff;
+    }
+
+    .signup-page .signup-wrap .signup-content input {
+        background-color: #71717180;
+        margin: 0.25vw 0vw 0.5vw 0vw;
+        padding: 0.55vw 1vw;
+    }
+
+    .signup-page .signup-wrap .signup-content label {
+        clear: both;
+        padding: 0.4vw 0vw;
+        vertical-align: -0.8vw;
+    }
+
+    .signup-page .signup-wrap .signup-content p {
+        width: 38vw;
+        clear: both;
+    }
+
+    .signup-page .signup-wrap .signup-content select {
+        margin: 0.25vw 0vw 0.5vw 0vw;
+        padding: 0.55vw 1vw;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(../img/down-triangle-line.png);
+        background-size: 30px;
+        background-repeat: no-repeat;
+        background-color: #71717180;
+        background-position: 17.4vw 0.6vw;
+    }
+}
+
+@media only screen and (min-width: 1080px) and (max-width: 2560px) and (max-width: 1600px) {
+    .signup-page .signup-wrap .signup-content select {
+        background-size: 22px;
+    }
+}
+
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+    body{
+        font-size: 1.1vw;
+    }
+
+    .signup-page .signup-wrap .signup-content .note {
+        display: inline-block;
+        vertical-align: text-top;
+    }
+
+    .signup-page .signup-wrap .signup-content .last-line {
+        width: 100%;
+    }
+
+    .signup-page .signup-wrap .signup-content #full-width {
+        display: inline-block;
+    }
+
+    .signup-page .signup-wrap .signup-content .parsley-errors-list {
+        position: absolute;
+        right: 25%;
+        transform: translateY(-1vw);
+        font-style: italic;
+        color: #ffffff;
+    }
+
+    .signup-page .signup-wrap .signup-content .submit-btn {
+        background: url(../img/submit-bt.png) center no-repeat;
+        border-style: hidden;
+        background-size: 100% 100%;
+        font-size: 2vw;
+        font-weight: bold;
+        width: 18vw;
+        height: 7vw;
+        color: #3b2a2e;
+        position: absolute;
+        right: 11vw;
+        margin: 1vw auto;
+        left: 0;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+    body{
+        font-size: 2.2vw;
+    }
+    .sm-note {
+        margin-right: 2rem !important;
+    }
+
+    .signup-page {
+        height: 200vw;
+        position: relative;
+        background: url(../img/lunar_2023_mb.png) center no-repeat;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100%;
+        color: #ffffff;
+    }
+
+    .signup-page .signup-wrap {
+        width: 80vw;
+        position: absolute;
+        top: 42vw;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    .signup-page .signup-wrap .signup-intro {
+        margin-bottom: 12vw;
+    }
+
+    .signup-page .signup-wrap .signup-intro .intro {
+        padding: 1vw 0;
+        display: block;
+    }
+
+    .signup-page .signup-wrap .signup-content .input {
+        -webkit-border-radius: 2.8vw;
+        -moz-border-radius: 2.8vw;
+        -ms-border-radius: 2.8vw;
+        border-radius: 2.8vw;
+        color: #fff;
+        width: 48vw;
+        margin: 0vw 0vw 1.5vw 0vw;
+        border-style: hidden;
+        float: right;
+        clear: both;
+        font-size: 2.6vw;
+    }
+
+    .signup-page .signup-wrap .signup-content input::placeholder {
+        color: #fff;
+    }
+
+    .signup-page .signup-wrap .signup-content input {
+        background-color: #71717180;
+        padding: 1.8vw 2vw;
+    }
+
+    .signup-page .signup-wrap .signup-content label {
+        clear: both;
+        padding: 0.4vw 0vw;
+    }
+
+    .signup-page .signup-wrap .signup-content p {
+        padding: 0.4vw 1vw;
+        margin: 0.25vw;
+        clear: both;
+    }
+
+    .signup-page .signup-wrap .signup-content select {
+        padding: 1.5vw 2vw;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(../img/down-triangle-line.png);
+        background-size: 65px;
+        background-repeat: no-repeat;
+        background-color: #71717180;
+        background-position: 42vw 1.3vw;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 820px) {
+    .signup-page .signup-wrap .signup-content select {
+        background-size: 50px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 590px) {
+    .signup-page .signup-wrap .signup-content select {
+        background-size: 15px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+    .signup-page .signup-wrap .signup-content .sm-note {
+        display: block;
+        margin: 1vw 0vw;
+        text-align: right;
+    }
+
+    .signup-page .signup-wrap .signup-content .parsley-errors-list {
+        font-style: italic;
+        color: #ffffff;
+    }
+
+    .signup-page .signup-wrap .signup-content .submit-btn {
+        background: url(../img/submit-bt.png) center no-repeat;
+        border-style: hidden;
+        background-size: 100% 100%;
+        font-weight: bold;
+        width: 40vw;
+        height: 15vw;
+        color: #3b2a2e;
+        position: absolute;
+        right: 50%;
+        right: 0;
+        margin: 8vw auto;
+        left: 0;
+        font-size: 4vw;
+    }
+}
+
+/*# sourceMappingURL=signup-page.css.map */

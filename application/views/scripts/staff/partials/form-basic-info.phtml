@@ -1,0 +1,158 @@
+    <div class="span4">
+        <div class="control-group">
+            <label for="photo" class="control-label">Staff Photo</label>
+            <div class="controls">
+                <?php if(isset($this->staff) and !empty($this->staff->photo)){?>
+                    <a target="_blank" title="View" href="<?php if(isset($this->staff) and !empty($this->staff->photo)) printf(HOST.'photo/staff/'.$this->staff->id.'/'.$this->staff->photo);  ?>"><img class="staff-photo" src="<?php if(isset($this->staff) and !empty($this->staff->photo)) printf(HOST.'photo/staff/'.$this->staff->id.'/'.$this->staff->photo);  ?>" /></a>
+                <?php } ?>
+                <div class="clear"></div>
+                <input type="file" id="photo" name="photo" class="has-preview" />
+                <div class="clear"></div>
+                <div class="control-group">
+                    <label for="del_photo" class="pull-left">Delete Photo</label>
+                    <input type="checkbox" class="pull-left" name="del_photo" id="del_photo" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span4">
+        <?php if (isset($this->staff) and $this->staff){?>
+        <div class="control-group">
+            <label for="code" class="control-label">Staff code</label>
+            <div class="controls">
+                <input type="text" id="code" placeholder="Enter Code" name="code" required="required" value="<?php isset($this->staff) and $this->staff and printf($this->staff->code);?>">
+            </div>
+        </div>
+        <?php } ?>
+
+        <div class="control-group">
+            <label for="full_name" class="control-label">Full name</label>
+            <div class="controls">
+                <input type="text" id="full_name" required placeholder="Enter Full name" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="gender_1" class="control-label">Gender</label>
+            <div class="controls">
+                <input type="radio" class="form-control" id="gender_1" name="gender" value="1" <?php if (!isset($this->staff)):?>checked <?php else: isset($this->staff) and $this->staff->gender==1 and printf('checked'); endif;?>><span>Male</span>
+                <input type="radio" class="form-control" id="gender_2" name="gender" value="0" <?php isset($this->staff) and $this->staff->gender==0 and printf('checked');?>><span>Female</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="department" class="control-label">Department</label>
+            <div class="controls">
+                <select name="department" id="department" required>
+                    <option value>Choose</option>
+                    <?php if (isset($this->recursiveDeparmentTeamTitle)): ?>
+                        <?php foreach ($this->recursiveDeparmentTeamTitle as $item_id => $item):?>
+                            <option value="<?php echo $item_id;?>" <?php if (isset($this->staff) and $this->staff and $item_id==$this->staff->department):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                        <?php endforeach;?>
+                    <?php endif ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="team" class="control-label">Team</label>
+            <div class="controls">
+                <select name="team" id="team" required>
+                    <option value>Choose</option>
+                    <?php if ( isset($this->staff) AND isset($this->recursiveDeparmentTeamTitle[$this->staff->department]['children'])): ?>
+                        <?php foreach ($this->recursiveDeparmentTeamTitle[$this->staff->department]['children'] as $item_id => $item):?>
+                            <option value="<?php echo $item_id;?>" <?php if (isset($this->staff) and $this->staff and $item_id==$this->staff->team):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                        <?php endforeach;?>
+                    <?php endif ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="title" class="control-label">Job Title</label>
+            <div class="controls">
+                <select name="title" id="title" required>
+                    <option value>Choose</option>
+                    <?php if ( isset($this->staff) AND isset($this->recursiveDeparmentTeamTitle[$this->staff->department]['children'][$this->staff->team]['children']) ): ?>
+                        <?php foreach ($this->recursiveDeparmentTeamTitle[$this->staff->department]['children'][$this->staff->team]['children'] as $item_id => $item):?>
+                            <option value="<?php echo $item_id;?>" <?php if (isset($this->staff) and $this->staff and $item_id==$this->staff->title):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                        <?php endforeach;?>
+                    <?php endif ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="joined_at" class="control-label">Joined at</label>
+            <div class="controls">
+                <input type="text" class="date" required id="joined_at" placeholder="Enter Joined at" name="joined_at" value="<?php isset($this->staff) and $this->staff->joined_at and printf(date('d/m/Y',strtotime($this->staff->joined_at)));?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_date" class="control-label">Off date</label>
+            <div class="controls">
+                <input type="text" class="date" id="off_date" placeholder="Enter Off date" name="off_date" value="<?php isset($this->staff) and $this->staff->off_date and printf(date('d/m/Y',strtotime($this->staff->off_date)));?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_date" class="control-label">Off date reason</label>
+            <div class="controls">
+                <select name="date_off_purpose_reason" id="date_off_purpose_reason">
+                    <option value="">Choose</option>
+                    <?php foreach($this->staff_dateoff_reason as $k => $v):?>
+                        <option value="<?php echo $k;?>" <?php echo (isset($this->staff) && $this->staff['date_off_purpose_reason'] == $k) ? 'selected="selected"' : '';?>><?php echo $v;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_type" class="control-label">Off date reason detail</label>
+            <div class="controls">
+                <textarea name="date_off_purpose_detail" id="date_off_purpose_detail"><?php echo isset($this->staff) ? $this->staff->date_off_purpose_detail : '' ;?></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_type" class="control-label">Off Type</label>
+            <div class="controls">
+                <select name="off_type" id="off_type">
+                    <option value>---</option>
+                    <option value="1" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 1) echo "selected" ?>>Unfinshed File</option>
+                    <option value="2" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 2) echo "selected" ?>>Finished File</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_type" class="control-label">Off date file</label>
+            <div class="controls">
+                <?php if ($this->staff && $this->staff['offdate_file']):?>
+                    <?php 
+                        $download_link  = "";
+                        $link_s3        = HOST.'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];
+                        $link_center    = HOST .'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];  
+                        $image_checking = getimagesize($link_s3);    
+                        $link_image     = !$image_checking ? $link_center : $link_s3;
+                    ?>
+                    <a target="_blank" href="<?php echo $link_image;?>">Download file</a>
+                <?php endif;?>
+                <input type="file" id="offdate_file" name="offdate_file" class="has-preview" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="status" class="control-label">Status</label>
+            <div class="controls">
+                <select name="status" id="status" required>
+                    <option value>---</option>
+                    <option value="1" <?php if (isset($this->staff['status']) && $this->staff['status'] == 1) echo "selected" ?>>On</option>
+                    <option value="0" <?php if (isset($this->staff['status']) && $this->staff['status'] == 0) echo "selected" ?>>Off</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    

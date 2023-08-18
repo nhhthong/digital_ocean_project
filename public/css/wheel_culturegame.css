@@ -1,0 +1,362 @@
+/* Main Style
+ * 1/ Core Style
+ * 2/ Home Page
+ * 3/ Question Page
+ * 4/ Wrong Page
+ * 5/ Wheel of Fortune page
+*/
+/* 1/ Core Style */
+/* ========== */
+/* Font Definition */
+/* End Font Definition */
+
+.game-container .wheel-container .wheel {
+  position: relative;
+  display: inline-block;
+  -webkit-transition: all cubic-bezier(0.18, 1, 0.42, 0.99) 15000ms;
+  transition: all cubic-bezier(0.18, 1, 0.42, 0.99) 15000ms;
+}
+.game-container .wheel-container .wheel.prize1 {
+  transform: rotate(2540deg);
+}
+
+.game-container .wheel-container .wheel.prize2 {
+  transform: rotate(2575deg);
+}
+
+.game-container .wheel-container .wheel.prize3 {
+  transform: rotate(2610deg);
+}
+
+.game-container .wheel-container .wheel.prize4 {
+  transform: rotate(2645deg);
+}
+
+.game-container .wheel-container .wheel.prize5 {
+  transform: rotate(2680deg);
+}
+
+.game-container .wheel-container .wheel.prize6 {
+  transform: rotate(2715deg);
+}
+
+.game-container .wheel-container .wheel.prize7 {
+  transform: rotate(2752deg);
+}
+
+.game-container .wheel-container .wheel.prize8 {
+  transform: rotate(2790deg);
+}
+
+.game-container .wheel-container .wheel.prize9 {
+  transform: rotate(2825deg);
+}
+
+.game-container .wheel-container .wheel.prize10 {
+  transform: rotate(2864deg);
+}
+
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+  body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+  }
+
+  .row {
+    overflow: hidden;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .count-player {
+    color: #0d7d4d;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .sm-show {
+    display: none;
+  }
+
+  .game-container .wheel-container .pointer {
+    position: absolute;
+    width: 3vw;
+    margin: 22.4vw 0vw 0vw 40.2vw;
+    z-index: 1;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .game-container .wheel-container .wheel {
+    width: 27vw;
+    margin: 9vw 0vw 0vw 16.5vw;
+  }
+
+  .game-container .spin-btn img {
+    width: 15vw;
+    margin: -2vw -2vw 2.4vw 50vw;
+    cursor: pointer;
+  }
+
+  .back-wheel{
+    width: 15vw;
+    margin: -13vw 0vw 0vw 69vw;
+    cursor: pointer;
+  }
+
+  .game-container .congratulation {
+    position: absolute;
+    text-align: center;
+    width: 20vw;
+    font-size: 1vw;
+    opacity: 0;
+    visibility: hidden;
+    margin: 0vw 0vw 0vw 6vw;
+  }
+
+  .game-container .turned {
+    margin: 5vw 0vw 0vw 0vw;
+    font-size: 2vw !important;
+  }
+
+  .game-container .none_turn {
+    margin: -1vw 0vw 0vw -5vw;
+    font-size: 1.5vw !important;
+  }
+
+  .game-container .not_condition {
+    margin: 3vw 0vw 0vw 0vw;
+
+  }
+
+  .game-container .congratulation p {
+    font-size: 1.6vw;
+    font-size: 1.6vw;
+    color: #ffffff;
+    margin: 3vw 0vw -1vw -6vw;
+  }
+
+  .game-container .congratulation p .prize-name {
+    color: #f17aae;
+  }
+
+  .game-container .congratulation.active {
+    -webkit-animation-name: congrat;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: congrat;
+    animation-timing-function: ease-in-out;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+  body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+  }
+
+  .row {
+    overflow: hidden;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .count-player {
+    color: #0d7d4d;
+    font-weight: bold;
+    font-size: 40px;
+  }
+
+  .sm-show {
+    display: none;
+  }
+
+
+  .game-container .wheel-container .pointer {
+    position: absolute;
+    width: 7vw;
+    margin: 54vw 0vw 0vw 73vw;
+    z-index: 3;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .game-container .wheel-container .wheel {
+    width: 64vw;
+    margin: 21.5vw 0vw 0vw 19vw;
+  }
+
+  .game-container .spin-btn img {
+    width: 30vw;
+    margin: 65vw 0vw 0vw 18vw;
+    cursor: pointer;
+    position: absolute;
+  }
+
+  /* .game-container .spin-btn img {
+    width: 15vw;
+    margin: -2vw -2vw 2.4vw 50vw;
+    cursor: pointer;
+  } */
+  .back-wheel{
+    width: 30vw;
+    margin: 65vw 0vw 0vw 53vw;
+    cursor: pointer;
+    position: absolute;
+  }
+
+  .info_win_prize{
+    margin: 5vw 0vw 0vw 0vw;
+  }
+
+  .game-container .congratulation {
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .game-container .turned {
+    margin: 18vw 0vw 0vw 0vw;
+    font-size: 4vw !important;
+  }
+
+  .game-container .none_turn {
+    margin: 22vw 0vw 0vw 0vw;
+    font-size: 4vw !important;
+  }
+
+  .game-container .not_condition {
+    margin: 20vw 0vw 0vw 0vw;
+
+  }
+
+  .game-container .congratulation p {
+    margin-top: 10vw;
+    font-size: 2.5vw;
+    color: #ffffff;
+  }
+
+  .game-container .congratulation p .prize-name {
+    color: #f17aae;
+  }
+
+  .game-container .congratulation.active {
+    -webkit-animation-name: congrat;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: congrat;
+    animation-timing-function: ease-in-out;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+
+@-webkit-keyframes congrat {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  40% {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  60% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  80% {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes congrat {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  40% {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  60% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  80% {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* End of Wheel of Fortune Page */
+/* ========== */

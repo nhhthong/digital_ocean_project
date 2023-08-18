@@ -1,0 +1,32 @@
+@media (min-width: 1200px){
+    [class*="span"] {
+        margin-left: 0px;
+    }
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.info .info_details .in {
+    width: 370px;
+}
+
+.info .img img {
+    max-width: 144px;
+}
+
+.info .job_details {
+    width: 500px;
+    margin-left: 10px;
+}
+
+
+#kt_header_menu_wrapper {
+    top: 0px;
+}
+
+#kt_header_topbar {
+    top: 0px;
+}

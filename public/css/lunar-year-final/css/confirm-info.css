@@ -1,0 +1,376 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 12, 2017, 11:10:22 AM
+    Author     : DiemQuynh
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2017, 6:27:13 PM
+    Author     : hero
+*/
+* {
+  /*    color: #333;*/
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+body {
+  margin: 0; }
+
+* {
+  margin: 0; }
+
+a {
+  text-decoration: none; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.text-left {
+  text-align: left; }
+
+.text-right {
+  text-align: right; }
+
+.clearfix {
+  clear: both; }
+
+ul {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+li {
+  text-align: left; }
+
+@media screen and (max-width: 1080px) {
+  .sm-left {
+    float: left; } }
+
+@media screen and (max-width: 1080px) {
+  .sm-right {
+    float: right; } }
+
+@media screen and (max-width: 1080px) {
+  .sm-hide {
+    display: none !important; } }
+
+@media screen and (min-width: 1080px) {
+  .desktop-hide {
+    display: none !important; } }
+
+.sm-show {
+  display: none; }
+  @media screen and (max-width: 1080px) {
+    .sm-show {
+      display: block; } }
+
+.hide {
+  display: none; }
+
+.m-fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms; }
+
+.m-fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms; }
+
+/*STYLE FOR OVERLAY POPUP*/
+.pop_up_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 99999; }
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto; }
+
+@media screen and (max-width: 1080px) {
+  .wrapper {
+    padding: 0 .75rem;
+    max-width: 1200px;
+    margin: 0 auto; } }
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2017, 6:14:04 PM
+    Author     : hero
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 25, 2017, 11:51:18 AM
+    Author     : nhat
+*/
+@font-face {
+  font-family: 'myriad pro';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Regular.otf"); }
+@font-face {
+  font-family: 'myriad pro light';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Light.otf"); }
+@font-face {
+  font-family: 'myriad pro semibold';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Semibold.otf"); }
+@font-face {
+  font-family: 'avo';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Avo.ttf"); }
+@font-face {
+  font-family: 'avo bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoBold.ttf"); }
+@font-face {
+  font-family: 'avo italic';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoItalic.ttf"); }
+@font-face {
+  font-family: 'avo bold italic';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoBold_Italic.ttf"); }
+/*-----------------------------*/
+@font-face {
+  font-family: 'myriad pro black';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BLACK.OTF"); }
+@font-face {
+  font-family: 'myriad pro black it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BLACKIT.OTF"); }
+@font-face {
+  font-family: 'myriad pro bold it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BOLDIT.OTF"); }
+@font-face {
+  font-family: 'myriad pro semibold it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-SEMIBOLDIT.OTF"); }
+@font-face {
+  font-family: 'myriad pro it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-IT.OTF"); }
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+  .signup-review {
+    height: 62.5vw;
+    position: relative;
+    background: url(../img/lunar2021.jpg) center no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    color: #ed1c24; }
+    .signup-review .review-wrap {
+      width: 70%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 52%;
+      left: 50%; }
+      .signup-review .review-wrap .review-intro {
+        font-family: 'myriad pro black it';
+        font-size: 1.4vw;
+        padding: 1vw 0;
+        display: block;
+        text-align: center; }
+        .signup-review .review-wrap .review-intro p {
+          margin-bottom: 0.8vw; }
+      .signup-review .review-wrap .review-content {
+        font-family: "myriad pro";
+        margin-left: 10vw; }
+        .signup-review .review-wrap .review-content .rounded {
+          -webkit-border-radius: 22px;
+          -moz-border-radius: 22px;
+          -ms-border-radius: 22px;
+          border-radius: 22px;
+          color: #fff;
+          width: 20vw;
+          border: 1px solid white;
+          background-color: #ed1c24;
+          float: right;
+          clear: both;
+          margin: 0vw 0vw 0.5vw 0vw;
+          padding: 0.55vw 1vw;
+          font-size: 1.1vw; }
+        .signup-review .review-wrap .review-content p {
+          width: 38vw;
+          padding: 0.4vw 1vw;
+          font-size: 1.1vw;
+          margin: 0.25vw;
+          clear: both; }
+        .signup-review .review-wrap .review-content .last-line {
+          display: inline-block; }
+        .signup-review .review-wrap .review-content .note {
+          font-size: 0.8vw;
+          display: inline-block;
+          vertical-align: text-top;
+          font-family: 'myriad pro it'; }
+        .signup-review .review-wrap .review-content .btn-wrap {
+          position: absolute;
+          left: 25%; }
+        .signup-review .review-wrap .review-content .submit-btn {
+          background: url(../img/submit-btn.png) center no-repeat;
+          background-position: 100% 100%;
+          background-size: cover;
+          width: 283px;
+          height: 98px;
+          margin: 0 1vw;
+          border-style: hidden;
+          font-family: 'myriad pro black';
+          font-size: 1.8vw;
+          color: #fff; } }
+        @media only screen and (min-width: 1080px) and (max-width: 2560px) and (max-width: 1600px) {
+          .signup-review .review-wrap .review-content .submit-btn {
+            width: 254.7px;
+            height: 88.2px; } }
+        @media only screen and (min-width: 1080px) and (max-width: 2560px) and (max-width: 1400px) {
+          .signup-review .review-wrap .review-content .submit-btn {
+            width: 226.4px;
+            height: 78.4px; } }
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+          .signup-review .review-wrap .review-content .submit-btn.link-btn {
+            padding: 26.88px 69.12px;
+            background-size: contain; } }
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+  .signup-review {
+    height: 166.666vw;
+    position: relative;
+    background: url(../img/m-bg-withtext.png) center no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    color: #ed1c24; }
+    .signup-review .review-wrap {
+      width: 80vw;
+      position: absolute;
+      margin: 0 auto;
+      top: 29%;
+      left: 0;
+      right: 0; }
+      .signup-review .review-wrap .review-intro {
+        font-family: 'myriad pro black it';
+        font-size: 3vw;
+        padding: 1vw 0;
+        display: block;
+        text-align: center; }
+        .signup-review .review-wrap .review-intro p {
+          margin-bottom: 1.5vw; }
+      .signup-review .review-wrap .review-content {
+        font-family: "myriad pro"; }
+        .signup-review .review-wrap .review-content .rounded {
+          -webkit-border-radius: 2.8vw;
+          -moz-border-radius: 2.8vw;
+          -ms-border-radius: 2.8vw;
+          border-radius: 2.8vw;
+          color: #fff;
+          width: 45vw;
+          border: 1px solid white;
+          background-color: #ed1c24;
+          float: right;
+          clear: both;
+          margin: 0vw 0vw 1.5vw 0vw;
+          padding: 1.8vw 2vw;
+          font-size: 2.5vw; }
+        .signup-review .review-wrap .review-content p {
+          padding: 0.4vw 1vw;
+          font-size: 2.5vw;
+          margin: 0.25vw;
+          clear: both; }
+        .signup-review .review-wrap .review-content .last-line {
+          display: block; }
+        .signup-review .review-wrap .review-content .sm-note {
+          font-size: 1.9vw;
+          display: block;
+          margin: 1vw 0vw;
+          text-align: right;
+          font-family: 'myriad pro it'; }
+        .signup-review .review-wrap .review-content .btn-wrap {
+          position: absolute;
+          left: 30%; } }
+        @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 380px) {
+          .signup-review .review-wrap .review-content .btn-wrap {
+            left: 25%; } }
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+        .signup-review .review-wrap .review-content .submit-btn {
+          background: url(../img/submit-btn.png) center no-repeat;
+          background-position: 100% 100%;
+          width: 283px;
+          height: 97px;
+          border-style: hidden;
+          font-family: 'myriad pro black';
+          font-size: 2.5vw;
+          color: #ED1C24;
+          outline-style: none;
+          display: block;
+          margin: 2vw 0; } }
+        @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 880px) {
+          .signup-review .review-wrap .review-content .submit-btn {
+            width: 226.4px;
+            height: 78.4px;
+            background-size: cover;
+            font-size: 3.5vw; } }
+        @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 550px) {
+          .signup-review .review-wrap .review-content .submit-btn {
+            width: 169.8px;
+            height: 58.8px;
+            font-size: 4vw; } }
+        @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 440px) {
+          .signup-review .review-wrap .review-content .submit-btn {
+            width: 141.5px;
+            height: 49px;
+            font-size: 4vw; } }
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+          .signup-review .review-wrap .review-content .submit-btn.link-btn {
+            padding: 3vw 0vw;
+            background-size: contain;
+            text-align: center; } }
+          @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 650px) {
+            .signup-review .review-wrap .review-content .submit-btn.link-btn {
+              padding: 4vw 0vw; } }
+          @media only screen and (min-width: 320px) and (max-width: 1080px) and (max-width: 380px) {
+            .signup-review .review-wrap .review-content .submit-btn.link-btn {
+              padding: 3.6vw 0vw; } }
+
+/*# sourceMappingURL=confirm-info.css.map */

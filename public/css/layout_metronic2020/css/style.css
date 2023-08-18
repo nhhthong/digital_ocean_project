@@ -1,0 +1,217 @@
+#kt_wrapper{
+    padding-top:0px !important;
+    margin: 0px;
+}
+
+#kt_header{
+    background-color: #046A38;
+}
+
+.menu-left .menu-nav {
+    height: 100%;
+}
+
+.menu-left .menu-nav .menu-item a.menu-link {
+    border-radius: 5px;
+}
+
+a.menu-parent{
+    color: #fff;
+    text-transform: uppercase;
+}
+.menu-parent:hover{
+    background-color: #2DC84D;
+    color: #fff;
+}
+
+#kt_aside_toggle, #kt_aside_toggle:hover{
+    background-color: #1a1a27;
+}
+
+.dashboard-header{
+    background: none !important;
+    border-bottom: none !important; 
+    width: 100%;
+    padding-left: 0px;
+}
+
+.dashboard-header .user-info {
+    margin-top: -5px;
+}
+
+.dashboard-header .user-config .user-name p {
+    color: #fff !important;
+}
+
+.dashboard-header .user-config{
+    min-width: 160px;
+}
+
+.dashboard-header .user-config:hover, .dashboard-header .user-config .user-name:hover{
+    background-color: #046A38;
+}
+
+.dashboard-header .hidden-menu {
+    right: 0px;
+    left: 0px;
+}
+
+.img-user {
+    width: 55px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.topbar .topbar-item .btn-icon {
+    height: calc(0.5em + 1.65rem + 2px);
+    width: calc(9.5em + 1.65rem + 2px);
+    color: #fff;
+}
+
+.topbar .topbar-item .btn-icon:hover{
+    color: #046A38 !important;
+}
+
+.navi:hover, .navi .navi-item:hover, .navi .navi-item a.navi-link:hover, .navi .navi-item a span:hover, .navi .navi-item a.navi-link span.symbol img:hover{
+    color: #046A38 !important;
+    /* background-color: #CACAC8 !important; */
+}
+
+
+.notification {
+    /* position: absolute;
+    top: 0px;
+    right: 0; */
+}
+
+.notification .earth {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.notification .earth .message-num {
+    background-color: #2aad6f;
+}
+.notification .earth span.icon1 {
+    line-height: 20px;
+    color: #caf2df;
+}
+
+.message-num {
+    border: 1px solid #008b56;
+    color: #fff;
+    position: absolute;
+    top: 8px;
+}
+
+.menu-notification-new {
+    top: 47px !important;
+    width: 1160px;
+    margin-left: 0px !important;
+    left: -1100px !important;
+}
+
+.pagination ul {
+    margin: 0 auto;
+}
+
+.btn.btn-default {
+    color: #555555;
+}
+
+.btn {
+    padding: 0.4rem 1rem;
+}
+
+@media (min-width: 992px){
+    .header-menu.header-menu-layout-default .menu-nav > .menu-item > .menu-link {
+        padding: 0.7rem 0.3rem;
+    }
+}
+
+@media(max-width: 1365px) {
+    .header-menu.header-menu-layout-default .menu-nav > .menu-item > .menu-link {
+        padding: 0.5rem 0.1rem;
+    }
+    a.menu-parent{
+        font-size: 9px;
+    }
+    .menu-left .menu-nav {
+        margin-top: 9px;
+    }
+}
+
+@media(min-width: 1366px) {
+    #kt_header .header-menu-wrapper-left {
+        /* max-width: 1060px; */
+    }
+    /* a.menu-parent{
+        font-size: 12px;
+    } */
+}
+
+@media (min-width: 1920px){
+    .header-menu.header-menu-layout-default .menu-nav > .menu-item > .menu-link {
+        padding: 0.7rem 1.2rem;
+    }
+    .menu-notification-new {
+        left: -1010px !important;
+    }
+}
+
+/* Moblie */
+@media(max-width: 992px) {
+    #kt_wrapper{
+        padding:0px !important;
+    }
+}
+
+@media (max-width: 991.98px){
+    #kt_header{
+        display: none;
+    }
+
+    #kt_aside_mobile_toggle {
+        margin-right: 10px;
+        margin-top: 18px;
+    }
+
+    .dashboard-header .user-config {
+        min-width: 0px !important;
+        margin-top: 5px;
+    }
+
+    .dashboard-header .hidden-menu {
+        min-width: 160px;
+    }
+
+    .header-mobile {
+        background-color: #046A38;
+    }
+    .header-mobile .burger-icon span, .header-mobile .burger-icon span::before, .header-mobile .burger-icon span::after {
+        background-color: #fff !important;
+    }
+
+    .mobile-toggle-active{
+        background-color: #2DC84D !important;
+    }
+}
+
+@media(max-width: 480px) {
+    .user-config .setting-button{
+        display:  none !important;
+    }
+    #kt_aside_mobile_toggle {
+        margin-left: 69%;
+    }
+}
+
+@media(max-width: 375px) {
+    #kt_aside_mobile_toggle {
+        margin-left: 70%;
+    }
+}
+

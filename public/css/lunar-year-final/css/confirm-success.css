@@ -1,0 +1,319 @@
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.clearfix {
+  clear: both;
+}
+
+ul {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  text-align: left;
+}
+
+@media screen and (max-width: 1080px) {
+  .sm-left {
+    float: left;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .sm-right {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .sm-hide {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .desktop-hide {
+    display: none !important;
+  }
+}
+
+.sm-show {
+  display: none;
+}
+
+@media screen and (max-width: 1080px) {
+  .sm-show {
+    display: block;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.m-fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.m-fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+/*STYLE FOR OVERLAY POPUP*/
+.pop_up_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 99999;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1080px) {
+  .wrapper {
+    padding: 0 .75rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 12, 2017, 6:14:04 PM
+    Author     : hero
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 25, 2017, 11:51:18 AM
+    Author     : nhat
+*/
+@font-face {
+  font-family: 'myriad pro';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Regular.otf");
+}
+
+@font-face {
+  font-family: 'myriad pro light';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Light.otf");
+}
+
+@font-face {
+  font-family: 'myriad pro semibold';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MyriadPro-Semibold.otf");
+}
+
+@font-face {
+  font-family: 'avo';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/Avo.ttf");
+}
+
+@font-face {
+  font-family: 'avo bold';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoBold.ttf");
+}
+
+@font-face {
+  font-family: 'avo italic';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoItalic.ttf");
+}
+
+@font-face {
+  font-family: 'avo bold italic';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/AvoBold_Italic.ttf");
+}
+
+/*-----------------------------*/
+@font-face {
+  font-family: 'myriad pro black';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BLACK.OTF");
+}
+
+@font-face {
+  font-family: 'myriad pro black it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BLACKIT.OTF");
+}
+
+@font-face {
+  font-family: 'myriad pro bold it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-BOLDIT.OTF");
+}
+
+@font-face {
+  font-family: 'myriad pro semibold it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-SEMIBOLDIT.OTF");
+}
+
+@font-face {
+  font-family: 'myriad pro it';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/MYRIADPRO-IT.OTF");
+}
+
+@font-face {
+  font-family: utmavo;
+  src: url(/font/utm_avo.ttf);
+}
+
+body{
+  font-family: utmavo;
+}
+
+@media only screen and (min-width: 1080px) and (max-width: 2560px) {
+  .confirm-success {
+    height: 67vw;
+    position: relative;
+    background: url(../img/lunar2023.png) center no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    font-size: 2vw;
+  }
+
+  .text-wrap {
+    padding: 5%;
+  }
+
+  .confirm-success .text-wrap {
+    width: 100%;
+    position: absolute;
+    color: #ffffff;
+    text-align: center;
+    top: 16vw;
+  }
+
+  .confirm-success .text-wrap .title {
+    padding: 1.8vw 0;
+    margin: 0 0;
+  }
+
+  .confirm-success .text-wrap .title span {
+    text-transform: uppercase;
+  }
+
+  .confirm-success .text-wrap .info {
+    padding: 1.8vw 0;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+  .confirm-success {
+    height: 200vw;
+    position: relative;
+    background: url(../img/lunar_2023_mb.png) center no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    font-size: 4vw;
+  }
+
+  .text-wrap {
+    padding: 8%;
+  }
+
+  .confirm-success .text-wrap {
+    top: 36vw;
+    left: 0;
+    right: 0;
+    width: 100%;
+    position: absolute;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .confirm-success .text-wrap .title {
+    padding: 1.8vw 0;
+    margin: 0 0;
+  }
+
+  .confirm-success .text-wrap .title span {
+    text-transform: uppercase;
+  }
+
+  .confirm-success .text-wrap .info {
+    padding: 6.8vw 0;
+    line-height: 1.3;
+  }
+}
+
+/*# sourceMappingURL=confirm-success.css.map */

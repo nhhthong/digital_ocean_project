@@ -1,0 +1,101 @@
+.block{
+    font-family: Myriad Pro;
+    font-size  : 14px;
+}
+
+html body{
+    margin     : 0px auto;
+    font-family: "Times New Roman";
+    /*font-size  : 16px;*/
+    width      : 210mm !important;
+    /*height     : 277mm !important;*/
+    padding    : 0px 2cm;
+    
+}
+
+@font-face
+{
+    font-family: "Times New Roman";
+    /*font-family: Myriad Pro;*/
+
+}
+
+@media all {
+    .page-break { display: none; }
+}
+
+@media print {
+    .page-break { display: block; page-break-before: always; }
+}
+
+@media print{.print,.no-print{display:none!important}}
+
+@media print {
+    body { font-size: 10pt }
+  }
+  
+@media screen {
+body { font-size: 13px }
+}
+
+@media screen, print {
+    body { line-height: 1.2 }
+  }
+
+p {
+  margin: 0 0 5px;
+}
+
+.top .item{
+    width: 300px;
+    font-size: 14px;
+}
+.letter_title{
+    font-weight: bold;
+}
+.sub_letter_title{
+    font-style: italic;
+}
+.company{
+    font-weight: bold;
+}
+.head .content{
+    margin: 10px 0px;
+}
+.head .content p{
+    margin: 0px;
+}
+
+.head .content p span{
+ margin-left: 5px;
+}
+.body .title{
+    font-weight: bold;
+}
+.body .dieu .content{
+    margin-left: 40px;
+}
+.body .dieu .title{
+    font-weight: bold;
+}
+
+.body .dieu_1 .content span.left{
+    width: 250px;
+    display: inline-block;
+}
+.box_chu_ky .name{
+    margin-top: 90px;
+}
+.hieu_luc{
+    margin: 5px 0px;
+}
+h2 {
+    font-size     : 20px;
+    font-weight   : 400;
+    text-transform: uppercase;
+    margin-top    : 6px;
+    margin-bottom : 6px;
+}
+
+
+

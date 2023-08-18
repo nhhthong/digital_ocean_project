@@ -1,0 +1,106 @@
+<?php
+class MenuMetronic {
+    function render($group_id, $attr) {
+        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+        $lang        = $userStorage->defaut_language;        
+        $action_name = Zend_Controller_Front::getInstance()->getRequest()->getActionName() == 'index' ? '' : '/' . Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+        $controller_action_name = '/' . Zend_Controller_Front::getInstance()->getRequest()->getControllerName() . $action_name;
+        $actual_link = $_SERVER['REQUEST_URI'];
+        $QMenu = new Application_Model_Menu();
+
+        if($controller_action_name == '/view-menu' || $controller_action_name == '/manage/list-type-inform'){
+            $active_menu = $QMenu->getTitleByUrl($actual_link, $lang);
+        } else {
+            $active_menu = $QMenu->getTitleByUrl($controller_action_name, $lang);
+            if($active_menu[0]['is_hidden'] == '1') {
+                $parent_ca_name = $active_menu[0]['url_father'];
+                $active_menu = $QMenu->getTitleByUrl($parent_ca_name, $lang);
+            }
+        }
+        
+        if($active_menu) {
+            if($_SESSION["old_menu"]) {
+                unset($_SESSION['old_menu']);
+            }
+            $_SESSION["old_menu"] = $active_menu[0];
+        }
+        $url_parent = $_SESSION["old_menu"]['url_parent'];
+        $url_father = $_SESSION["old_menu"]['url_father'];
+        $url_son = $_SESSION["old_menu"]['url_son'];
+        $id_parent = $_SESSION["old_menu"]['id_parent'];
+
+        if (isset($userStorage->menu) && $userStorage->menu) {
+            $menu = $userStorage->menu;
+        } else {
+            $QMenu = new Application_Model_Menu();
+            $where = $QMenu->getAdapter()->quoteInto('group_id = ? and hidden is null', $group_id);
+            $menu = $QMenu->fetchAll($where, array('parent_id', 'position'));
+        }
+        include_once APPLICATION_PATH . '/../public/Menu/config.php';
+        include_once APPLICATION_PATH . '/../public/Menu/includes/tree_metronic_new2020.php';
+        $tree = new Tree;
+        $lang = $userStorage->defaut_language;
+        $arr_parent_temp = array();
+        foreach ($menu as $row)  {
+            if($row['parent_id'] == $id_parent) {
+                array_push($arr_parent_temp, $row['id']);
+            }
+        }
+        foreach ($menu as $row) {
+            $row = $row->toArray();
+            if($row['parent_id'] == 0){   
+
+            }
+            else if(in_array($row['id'], $arr_parent_temp)){
+                $active = '';
+                $li_attr = '';
+                $row_class = 'fas fa-folder-open';
+                
+                if($row['class']){
+                    $row_class = $row['class'];
+                }
+
+                if($row['url'] == $url_parent || $row['url'] == $url_father || $row['url'] == $url_son) {
+                    $active = "active";
+                    $li_attr = ' menu-item-open';
+                }
+                $label = '<a class="menu-link menu-toggle '.$active.'" href="'.($row['url'] ? $row['url'] : '#').'">';
+                $label .= '<i class="menu-bullet icon-2x '. $row_class . '" style="margin-right: 10px"><span></span></i><span class="menu-text">';
+                if($lang == 1){
+                    $label .= $row['title_vie'];
+                }
+                elseif($lang == 2){
+                    $label .= $row['title'];
+                }
+                $label .= '</span>';
+                $label .= '</a>';
+                $tree->add_row($row['id'], 0, $li_attr, $label);
+            } else {
+                $active = '';
+                $li_attr = '';
+                if($row['url'] == $url_parent || $row['url'] == $url_father || $row['url'] == $url_son) {
+                    $active = "active";
+                    $li_attr = ' menu-item-open';
+                }
+                $label = '<a class="menu-link menu-toggle '.$active.'" href="'.($row['url'] ? $row['url'] : '#').'">';
+                $label .= '<i class="menu-bullet menu-bullet-dot"><span></span></i><span class="menu-text">';
+                
+                if($lang == 1){
+                    $label .= $row['title_vie'];
+                }
+                elseif($lang == 2){
+                    $label .= $row['title'];
+                }
+
+                $label .= '</span>';
+                $label .= '</a>';
+                $tree->add_row($row['id'], $row['parent_id'], $li_attr, $label);
+            }
+        }
+        $menu = $tree->generate_list($attr);
+   
+        return $menu;
+    }
+}
+$menu = new MenuMetronic();
+echo $menu->render(1, '');

@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap');
+@font-face {
+    font-family: utmavo;
+    src: url(/font/utm_avo.ttf);
+}
+
+body {
+    font-family: utmavo;
+    margin: 0;
+}
+
+* {
+    margin: 0;
+}
+
+.content_layout {
+    min-height: initial !important;
+    overflow: hidden;
+}
+
+.group-gift {
+    position: absolute;
+}
+
+:root {
+    --c-background: #dd9b0cde;
+}
+
+.group-gift .title-confirm {
+    text-align: center;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    font-weight: bold;
+    color: #e2e8e5;
+    /* text-shadow: 0.025em 0.025em 0 #a8770cde, 0.0375em 0.0375em 0; */
+}
+
+.question-confirm {
+    text-align: center;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    font-weight: bold;
+    color: #e2e8e5;
+}
+
+.label-confirm {
+    line-height: 1.25;
+    margin: 0 0 10px;
+    font-weight: bold;
+    color: #e2e8e5;
+}
+
+.content-gift {
+    margin-top: 5%;
+    padding: 0 6%;
+}
+
+.textarea-confirm {
+    width: 100%;
+    margin-top: 0.2vw;
+    border: none;
+    outline: none;
+    border-radius: 0.2vw;
+}
+
+.bt-submit-confirm {
+    margin-top: 10%;
+}
+.float-left, .float-right{
+    width: 45%;
+}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}
+.clear-both{
+    clear: both;
+}
+
+.bt-submit-confirm button {
+    padding: 2% 0;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+    border: none;
+    cursor: pointer;
+}
+
+#confirm-received {
+    background-image: linear-gradient(to right, #17595b 0%, #00CDAC 51%, #02AAB0 100%);
+}
+
+#confirm-received:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+#confirm-not-receive {
+    background-image: linear-gradient(to right, #c9cb2d 0%, #ef473a 51%, #cb2d3e 100%);
+}
+
+#confirm-not-receive:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.text-success {
+    text-align: center;
+}
+
+#canvas {
+    position: absolute;
+    width: 100%;
+    min-height: 1000px;
+    cursor: pointer;
+}
+
+#center {
+    text-align: center;
+    position: absolute;
+}
+
+.txt-scc {
+    letter-spacing: 0.1em;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: white;
+    text-shadow: 5px 5px #E1341E;
+    font-weight: bold;
+    text-align: center;
+}
+
+.txt-scc-2 {
+    text-align: center;
+    color: #ffffff;
+}
+
+/*#background-gift{
+        /* The image used background_gift*/
+@media only screen and (min-width: 1080px) and (max-width: 40000px) {
+    body{
+        font-size: 1.2vw !important;
+    }
+    #background-gift {
+        height: 62vw;
+        position: relative;
+        background: url(../img/lunar2023.png) center no-repeat;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100%;
+    }
+
+    .group-gift{
+        margin: 22vw 0vw 0vw 30vw;
+        width: 40vw;
+    }
+
+    .question-confirm{
+        margin-top: 2vw;
+    }
+
+    #center{
+        width: 89vw;
+        margin: 22vw 0vw 0vw 5vw
+    }
+    .title-confirm{
+        font-size: 2vw;
+    }
+    .textarea-confirm{
+        font-size: 1.5vw;
+    }
+    #confirm-received, #confirm-not-receive{
+        font-size: 1.5vw;
+    }
+    .txt-scc{
+        font-size: 5vw;
+        margin-bottom: 3vw;
+    }
+    .txt-scc-2{
+        font-size: 3vw;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 1080px) {
+    body{
+        font-size: 5vw;
+    }
+    #background-gift {
+        height: 200vw;
+        position: relative;
+        background: url(../img/lunar_2023_mb.png) center no-repeat;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-size: 100% 100%;
+    }
+    .group-gift{
+        width: 85vw;
+        margin: 50vw 0vw 0vw 7.5vw;
+    }
+
+    .group-gift .title-confirm{
+        font-size: 6vw;
+    }
+    .question-confirm{
+        margin-top: 6vw;
+        font-size: 5vw;
+    }
+    #center{
+        width: 85vw;
+        margin: 60vw 0vw 0vw 7.5vw;
+    }
+
+    .txt-scc {
+        font-size: 7vw;
+        text-shadow: 3px 3px #853227;
+        -webkit-text-stroke-width: 1px;
+        margin-bottom: 8vw;
+    }
+    #confirm-received, #confirm-not-receive{
+        font-size: 4vw;
+        padding: 4vw;
+    }
+}

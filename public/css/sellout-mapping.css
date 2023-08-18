@@ -1,0 +1,123 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 5, 2017, 3:26:59 PM
+    Author     : Admin
+*/
+
+ .labels {
+        color: white;
+        background-color: red;
+        font-family: "Lucida Grande", "Arial", sans-serif;
+        font-size: 10px;
+        text-align: center;
+        width: 30px;
+        white-space: nowrap;
+    }
+
+
+    .gm-style-iw {
+        width: 600px !important;
+        top: 15px !important;
+        left: 0 !important;
+        background-color: #fff;
+        box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+        border: 1px solid rgba(72, 181, 233, 0.6);
+        border-radius: 2px 2px 10px 10px;
+    }
+
+    #iw-container {
+        margin-bottom: 10px;
+    }
+    #iw-container .iw-title {
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        padding: 10px;
+        background-color: #00ba8b;
+        color: white;
+        margin: 0;
+        border-radius: 2px 2px 0 0;
+        width: 600px !important;
+    }
+    #iw-container .iw-content {
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 400;
+        margin-right: 1px;
+        padding: 15px 5px 20px 15px;
+        max-height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .iw-content img {
+        float: left;
+        margin: 0 5px 5px 10px;	
+        height: 120px;
+        width: 90px;
+    }
+    .iw-content .sale_image{
+        float: left;
+        margin: 0 5px 5px 10px;	
+        height: 120px;
+        width: 90px;
+    }
+    .content-sale {
+        float: left;
+    }
+    .content-sale .name{
+        font-size: 18px;
+        font-weight: 700;
+        padding: 5px;
+        display: block;
+        text-transform: uppercase;
+    }
+    .content-sale .sellout, .content-sale .sale-phone{
+        font-size: 18px;
+        font-weight: 700;
+        padding: 5px;
+        display: block;
+        text-transform: uppercase;
+       
+    }
+    .content-sale .sellout_num{
+        font-weight: bolder;
+        text-transform: uppercase; 
+        color: #00ba8b;
+         font-size: 24px;
+
+    }
+    .content-sale .sale-phone a{
+        font-weight: bolder;
+        text-transform: uppercase; 
+        color: #00ba8b;
+        font-size: 24px;
+        text-decoration: none;
+
+    }
+
+    .iw-subTitle {
+        font-size: 16px;
+        font-weight: 700;
+        padding: 5px 0;
+        display: block;
+        text-transform: uppercase;
+        color: #00ba8b;
+    }
+    .iw-bottom-gradient {
+        position: absolute;
+        width: 326px;
+        height: 25px;
+        bottom: 10px;
+        right: 18px;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    }
+    .clear-both{
+        clear: both;
+    }
