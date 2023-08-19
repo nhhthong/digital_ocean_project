@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
 // require_once(__DIR__ . '/../library/PhpConsole/__autoload.php');
+echo __DIR__ . '/../library/PhpConsole/__autoload.php';exit;
 require_once(realpath(dirname(__FILE__) . '/../library/PhpConsole/__autoload.php'));
 PhpConsole\Helper::register();
 $handler = PhpConsole\Handler::getInstance();
