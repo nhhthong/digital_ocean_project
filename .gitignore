@@ -1,6 +1,8 @@
 # Composer files
 composer.phar
-vendor/
+
+application/configs/application.ini
+application/configs/custom.conf.php
 
 # Local configs
 config/autoload/*.local.php
@@ -10,7 +12,7 @@ config/autoload/*.local.php
 
 # Data
 data/logs/
-data/cache/
+
 data/sessions/
 data/tmp/
 temp/
