@@ -1,0 +1,17 @@
+{
+    "name": "tech/digital_ocean_project",
+    "description": "none",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Tech\\DigitalOceanProject\\": "public/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nguyenhunghuythong"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
