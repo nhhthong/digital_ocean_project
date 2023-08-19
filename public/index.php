@@ -3,10 +3,15 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1); 
 error_reporting(E_ALL);
-// require_once(__DIR__ . '/../library/PhpConsole/__autoload.php');
-// PhpConsole\Helper::register();
-// $handler = PhpConsole\Handler::getInstance();
-// $handler->start();
+
+defined('APPLICATION_AUTOLOAD')
+    || define('APPLICATION_AUTOLOAD', realpath(dirname(__FILE__) . '/../library'));
+
+require_once(APPLICATION_AUTOLOAD . '/PhpConsole/__autoload.php');
+PhpConsole\Helper::register();
+$handler = PhpConsole\Handler::getInstance();
+$handler->start();
+
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
