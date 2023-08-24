@@ -3,13 +3,8 @@
 Create Staff
 </h1>    
 </div>
-<?php
-if (isset($this->messages) and $this->messages)
-    foreach ($this->messages as $message):
-        echo '<div class="alert alert-error">'.$message.'</div>';
-    endforeach;
-?>
-<form role="form" id="form" autocomplete="nope" action="staff/save" class="form-horizontal" method="post" enctype="multipart/form-data">
+<iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
+<form id="myForm" class="form-horizontal" autocomplete="nope" action="<?php echo HOST; ?>staff/save" method="post" enctype="multipart/form-data" target="frame">
     <div class="row-fluid">
         <div class="span12">
             <p class="pull-right">

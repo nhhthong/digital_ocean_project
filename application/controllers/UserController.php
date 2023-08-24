@@ -23,7 +23,10 @@ class UserController extends My_Controller_Action {
     }
 
     public function logoutAction() {
-        
+        $auth = Zend_Auth::getInstance();
+        $auth->clearIdentity();
+        session_destroy();
+        $this->_redirect('/user/login');
     }
 
     public function authAction() {

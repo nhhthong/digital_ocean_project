@@ -5,7 +5,6 @@ $params = [];
 $limit  = LIMITATION;
 $total  = 0;
 $result = $QStaff->fetchPagination($page, $limit, $total, $params);
-
 $QTeam  = new Application_Model_Team();
 $recursiveDeparmentTeamTitle = $QTeam->get_recursive_cache();
 $this->view->recursiveDeparmentTeamTitle = $recursiveDeparmentTeamTitle;
