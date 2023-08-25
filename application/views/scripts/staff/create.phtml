@@ -11,7 +11,7 @@ Create Staff
                 <input type="hidden" name="id" id="id" value="<?php isset($this->staff) and $this->staff and printf($this->staff->id);?>">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <input type="hidden" name="back_url" id="back_url" value="<?php if ( isset($this->back_url) and $this->back_url) echo $this->back_url;?>">
-                <button type="button" class="btn btn-danger go-back">Go back</button>
+                <a role="button" href="/staff" class="btn btn-danger">Go back</a>
             </p>
         </div>
     </div>
