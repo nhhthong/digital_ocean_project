@@ -20,15 +20,30 @@
         <div class="control-group">
             <label for="code" class="control-label">Staff code</label>
             <div class="controls">
-                <input type="text" id="code" placeholder="Enter Code" name="code" required="required" value="<?php isset($this->staff) and $this->staff and printf($this->staff->code);?>">
+                <input type="text" id="code" placeholder="Enter Code" name="code" disabled required="required" value="<?php isset($this->staff) and $this->staff and printf($this->staff->code);?>">
             </div>
         </div>
         <?php } ?>
 
         <div class="control-group">
+            <label for="full_name" class="control-label">Username</label>
+            <div class="controls">
+                <input autocomplete="nope" required pattern="/^[a-zA-Z0-9]+$/" type="text" id="phone_number" placeholder="Enter Staff Username" name="phone_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>"
+                title="Vui lòng không sử dụng kí tự đặc biệt">
+            </div>
+        </div>
+
+        <div class="control-group">
             <label for="full_name" class="control-label">Full name</label>
             <div class="controls">
-                <input type="text" id="full_name" required placeholder="Enter Full name" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">
+                <input autocomplete="nope" type="text" id="full_name" required placeholder="Enter Full name" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="full_name" class="control-label">Phone number</label>
+            <div class="controls">
+                <input autocomplete="nope" type="text" id="phone_number" required placeholder="Enter Staff Phone Number" name="phone_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->phone_number);?>">
             </div>
         </div>
 
@@ -131,11 +146,8 @@
             <div class="controls">
                 <?php if ($this->staff && $this->staff['offdate_file']):?>
                     <?php 
-                        $download_link  = "";
-                        $link_s3        = HOST.'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];
-                        $link_center    = HOST .'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];  
-                        $image_checking = getimagesize($link_s3);    
-                        $link_image     = !$image_checking ? $link_center : $link_s3;
+                        $download_link = "";
+                        $link_image    = HOST .'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];
                     ?>
                     <a target="_blank" href="<?php echo $link_image;?>">Download file</a>
                 <?php endif;?>
@@ -153,6 +165,14 @@
                 </select>
             </div>
         </div>
+
+        <div class="control-group">
+            <label for="status" class="control-label">Note</label>
+            <div class="controls">
+                <textarea name="note" id="note"><?php echo isset($this->staff) ? $this->staff->note : '' ;?></textarea>
+            </div>
+        </div>
+
 
     </div>
     
