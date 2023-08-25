@@ -136,4 +136,28 @@ class UserController extends My_Controller_Action {
             $this->redirect(HOST . 'user/login');
         }
     }
+
+    public function notificationAction() {
+        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+        $title   = $this->getRequest()->getParam('title');
+        $content = $this->getRequest()->getParam('content');
+        $page    = $this->getRequest()->getParam('page', 1);
+        $limit   = LIMITATION;
+        $total   = 0;
+
+        $params = array(
+            'staff_id' => $userStorage->id,
+            'title'    => $title,
+            'content'  => $content,
+        );
+        $QNotificationAccess = new Application_Model_NotificationAccess();
+        $all_notifi          = $QNotificationAccess->fetchPaginationAccess($page, $limit, $total, $params);
+
+        $this->view->all_notifi = $all_notifi;
+        $this->view->params     = $params;
+        $this->view->limit      = $limit;
+        $this->view->total      = $total;
+        $this->view->url        = HOST . 'user/notification' . ( $params ? '?' . http_build_query($params) . '&' : '?' );
+        $this->view->offset     = $limit * ($page - 1);
+    }
 }

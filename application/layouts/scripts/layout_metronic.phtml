@@ -78,6 +78,11 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
                         </div>
                     </div>
                     <div class="hidden-menu">  
+                        <?php if($this->current_lang == 'vi'): ?>
+                        <a class="language_select" lang-value="2"><img style="width: auto;" src="<?php echo HOST;?>new/img/united-states.png"> ENG</a>
+                        <?php else:?>
+                        <a class="language_select" lang-value="1"><img style="width: auto;" src="<?php echo HOST;?>new/img/vietnam.png"> VIE</a>
+                        <?php endif;?>
                         <?php if(isset($_SESSION["light_template"]) and $_SESSION["light_template"] == 1) :?>
                             <a href="<?php echo HOST . "?btn-change-mode=2" ?>" class="navi-link">
                                 Change Dark Mode
@@ -165,6 +170,26 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
                                                 <span class="navi-text">Change Password</span>
                                             </a>
                                         </li>
+
+                                        <?php if($this->current_lang == 'vi'): ?>
+                                            <li class="navi-item" style="cursor: pointer;">
+                                                <a class="navi-link language_select" lang-value="2">
+                                                    <span class="symbol symbol-20 mr-3">
+                                                        <img src="<?php echo HOST;?>new/img/united-states.png" alt=""/>
+                                                    </span>
+                                                    <span class="navi-text">ENG</span>
+                                                </a>
+                                            </li>
+                                        <?php else:?>
+                                            <li class="navi-item" style="cursor: pointer;">
+                                                <a class="navi-link language_select" lang-value="1">
+                                                    <span class="symbol symbol-20 mr-3">
+                                                        <img src="<?php echo HOST;?>new/img/vietnam.png" alt=""/>
+                                                    </span>
+                                                    <span class="navi-text">VIE</span>
+                                                </a>
+                                            </li>
+                                        <?php endif;?>
                                         
                                         <?php if(isset($_SESSION["light_template"]) and $_SESSION["light_template"] == 1) :?>
                                         <li class="navi-item">
@@ -270,9 +295,24 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
         return "";
     }
 
+    function initCountNotification(){
+        $.ajax({
+            type: 'get',
+            url: '/ajax/count-noti',
+            error: function(error){
+                console.log(eval(error));
+            },
+            success: function(data){
+                if(data  > 0){
+                    $('.menu-badge').append('<span class ="message-num">'+data+'</span>');
+                }
+            }
+        });
+    }
+
     $(document).ready(function () {
         initTranslate();
-
+        initCountNotification();
         var browser = get_browser(); 
 
         var isMobile = false;

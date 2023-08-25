@@ -63,4 +63,47 @@ class AjaxController extends My_Controller_Action {
         }
         exit;
     }
+
+    public function changeLangDefaultAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $lang     = $this->getRequest()->getParam('lang');
+        $response = array('status' => 0);
+        if (in_array($lang, array(1, 2, 3))) {
+            $auth        = Zend_Auth::getInstance();
+            $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+            $QStaff      = new Application_Model_Staff();
+            $data_update = array('defaut_language' => $lang);
+            $where       = $QStaff->getAdapter()->quoteInto('id = ?', $userStorage->id);
+            $result      = $QStaff->update($data_update, $where);
+            if ($result) {
+                $userStorage->defaut_language = $lang;
+                $response                     = array('status' => 1, 'message' => 'Thành công');
+                $auth->getStorage()->write($userStorage);
+                setcookie('defaut_lang', $lang, time() + (1440), "/", COOKIE_LAYOUT);
+            }
+        }
+        echo json_encode($response);
+        exit();
+    }
+
+    public function countNotiAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+        if ($userStorage && isset($userStorage->id) && intval($userStorage->id)) {
+            $db   = Zend_Registry::get('db');
+            $select_count_noti = $db->select()->from(array('p' => 'notification_access'), array('p.*'));
+            $select_count_noti->join('notification', 'p.notification_id = notification.id');
+            $select_count_noti->where('p.user_id = ?', $userStorage->id);
+            $select_count_noti->where('p.notification_status = ?', 0);
+            $select_count_noti->where('notification.status <> 0');
+            $select_count_noti->group('p.id');
+            $select_count_noti->order('p.notification_status');
+            $select_count_noti->order('p.id DESC');
+            $result = $db->fetchAll($select_count_noti);
+            echo json_encode(count($result));
+            exit();
+        }
+    }
 }
