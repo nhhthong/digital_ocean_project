@@ -1,0 +1,154 @@
+<form class="form-search form-horizontal" method="get" action="/staff/list-photo">
+    <div class="row">
+        <div class="span5">
+            <div class="control-group">
+                <label for="name" class="span2">Name</label>
+                <input id="name" name="name" type="text" class="input-large search-query form-control" value="<?php isset($this->params['name']) and printf($this->params['name']);?>">
+            </div>
+
+            <div class="control-group">
+                <label for="code" class="span2">Staff code</label>
+                <input id="code" name="code" type="text" class="input-large search-query form-control" value="<?php isset($this->params['code']) and printf($this->params['code']);?>">
+            </div>
+
+            <div class="control-group">
+                <label for="off" class="span2">Working status</label>
+                <select name="off" id="off" class="span3">
+                    <option value="-1">Choose</option>
+                    <option value="1" <?php if (isset($this->params['off']) and $this->params['off']==1):?>selected<?php endif;?>>On work</option>
+                    <option value="2" <?php if (isset($this->params['off']) and $this->params['off']==2):?>selected<?php endif;?>>Off</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="joined_at_from" class="span2">Joined At From</label>
+                <input id="joined_at_from" name="joined_at_from" type="text" class="input-large date search-query form-control" value="<?php isset($this->params['joined_at_from']) and printf($this->params['joined_at_from']);?>">
+            </div>
+
+            <div class="control-group">
+                <label for="joined_at_to" class="span2">Joined At To</label>
+                <input id="joined_at_to" name="joined_at_to" type="text" class="input-large date search-query form-control" value="<?php isset($this->params['joined_at_to']) and printf($this->params['joined_at_to']);?>">
+            </div>
+
+            <div class="control-group">
+                <label for="off_date_from" class="span2">Off Date From</label>
+                <input id="off_date_from" name="off_date_from" type="text" class="input-large date search-query form-control" value="<?php isset($this->params['off_date_from']) and printf($this->params['off_date_from']);?>">
+            </div>
+
+            <div class="control-group">
+                <label for="off_date_to" class="span2">Off Date To</label>
+                <input id="off_date_to" name="off_date_to" type="text" class="input-large date search-query form-control" value="<?php isset($this->params['off_date_to']) and printf($this->params['off_date_to']);?>">
+            </div>
+        </div>
+
+        <div class="span5">
+        <div class="control-group">
+            <label for="department" class="control-label">Department</label>
+                <div class="controls">
+                    <select name="department" id="department">
+                        <option value>Choose</option>
+                        <?php if (isset($this->recursiveDeparmentTeamTitle)): ?>
+                            <?php foreach ($this->recursiveDeparmentTeamTitle as $item_id => $item):?>
+                                <option value="<?php echo $item_id;?>" <?php if (isset($this->params) and $this->params and $item_id==$this->params['department']):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                            <?php endforeach;?>
+                        <?php endif ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="team" class="control-label">Team</label>
+                <div class="controls">
+                    <select name="team" id="team">
+                        <option value>Choose</option>
+                        <?php if ( isset($this->params) AND isset($this->recursiveDeparmentTeamTitle[$this->staff->department]['children'])): ?>
+                            <?php foreach ($this->recursiveDeparmentTeamTitle[$this->params['department']]['children'] as $item_id => $item):?>
+                                <option value="<?php echo $item_id;?>" <?php if (isset($this->params) and $this->params and $item_id==$this->params['team']):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                            <?php endforeach;?>
+                        <?php endif ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="title" class="control-label">Job Title</label>
+                <div class="controls">
+                    <select name="title" id="title">
+                        <option value>Choose</option>
+                        <?php if ( isset($this->params) AND isset($this->recursiveDeparmentTeamTitle[$this->params['department']]['children'][$this->params['team']]['children']) ): ?>
+                            <?php foreach ($this->recursiveDeparmentTeamTitle[$this->params['department']]['children'][$this->params['team']]['children'] as $item_id => $item):?>
+                                <option value="<?php echo $item_id;?>" <?php if (isset($this->params) and $this->params and $item_id==$this->params['title']):?>selected<?php endif;?>><?php echo $item['name'];?></option>
+                            <?php endforeach;?>
+                        <?php endif ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="title" class="control-label">Gender</label>
+                <div class="controls">
+                    <select name="gender">
+                        <option value="">None selected</option>
+                        <option value="1" <?php echo isset($this->params) && $this->params['gender'] && $this->params['gender'] == 1 ? "selected" : null; ?>>Male</option>
+                        <option value="2" <?php echo isset($this->params) && $this->params['gender'] && $this->params['gender'] == 2 ? "selected" : null; ?>>Female</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="span12" style="margin: 10px 40px;">
+            <button type="submit" class="btn btn-danger">Search</button>
+            <button type="submit" name="export" value="1" class="btn btn-success">Export</button>
+        </div>
+    </div>    
+</form>
+<script type="text/javascript" src="/js/jquery-ui-1.8.12.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.8.12.custom.css" />
+<script>
+    $(document).ready(function () {
+        $( '.date' ).datepicker({ dateFormat: "dd/mm/yy" });
+        $('#department,.department').change(function(){		
+            $('.loading').remove();
+            $(this).after('<span class="loading"></span>');
+            var _self = $(this);
+            var department_id = $(this).val();
+            $('form').bind('submit',function(e){e.preventDefault();});
+            $('button, .btn, input, select').prop('disabled', true);
+            $.get("/ajax/load-team",
+            {department_id: [department_id]}
+            ,function(data,status){
+                var obj = $.parseJSON( data );
+                $('#team,.team').find('option:not(:first)').remove();
+                for (var i = 0; i < obj.length; i++) {
+                    $('#team,.team').append('<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>');
+                }
+                $('button, .btn, input, select').prop('disabled', false);
+                $('form').unbind('submit');
+                $('.loading').remove();
+            });
+        });
+
+        $('#team,.team').change(function(){
+            $('.loading').remove();
+            $(this).after('<span class="loading"></span>');
+            var _self = $(this);
+            var team_id = $(this).val();
+            $('form').bind('submit',function(e){e.preventDefault();});
+            $('button, .btn, input, select').prop('disabled', true);
+            $.get("/ajax/load-title",
+            {team_id: [team_id]}
+            ,function(data,status){
+                var obj = $.parseJSON( data );
+                $('#title,.title').find('option:not(:first)').remove();
+                for (var i = 0; i < obj.length; i++) {
+                    $('#title,.title').append('<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>');
+                }
+
+                $('button, .btn, input, select').prop('disabled', false);
+                $('form').unbind('submit');
+                $('.loading').remove();
+            });
+        });
+
+    });
+</script>

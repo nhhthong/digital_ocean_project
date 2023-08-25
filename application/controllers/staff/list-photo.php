@@ -1,4 +1,9 @@
 <?php
+$flashMessenger = $this->_helper->flashMessenger;
+$messages = $flashMessenger->setNamespace('success')->getMessages();
+$messages_error = $flashMessenger->setNamespace('error')->getMessages();
+$this->view->messages_success = $messages;
+$this->view->messages_error = $messages_error;
 
 $QStaff = new Application_Model_Staff();
 $page   = $this->getRequest()->getParam("page", 1);

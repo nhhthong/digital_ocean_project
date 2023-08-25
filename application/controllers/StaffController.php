@@ -21,6 +21,10 @@ class StaffController extends My_Controller_Action {
         require_once 'staff' . DIRECTORY_SEPARATOR . 'list-photo.php';
     }
 
+    public function deletePhotoAction() {
+        require_once 'staff' . DIRECTORY_SEPARATOR . 'delete-photo.php';
+    }
+
     private function _formatDate($date) {
         if (!$date)
             return null;

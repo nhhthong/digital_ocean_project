@@ -23,9 +23,21 @@
         </div>
         <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
             <div class="accordion-inner">
-      
+                <?php echo $this->render('staff/partials/search-list-photo.phtml') ?>
             </div>
         </div>
     </div>
 </div>
+
+<?php
+if (isset($this->messages_success) and $this->messages_success)
+    foreach ($this->messages_success as $message):
+        echo '<div class="alert alert-light-success fade show">' . $message . '</div>';
+    endforeach;
+if (isset($this->messages_error) and $this->messages_error)
+    foreach ($this->messages_error as $message):
+        echo '<div class="alert alert-light-danger fade show">' . $message . '</div>';
+    endforeach;
+?>
+
 <?php echo $this->render( 'staff/partials/list-photo.phtml' ) ?>

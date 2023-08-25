@@ -120,8 +120,8 @@
                 </div>
                 <input type="file" />
                 <div class="button-group">
-                    <button type="button" <?php echo $css_btn; ?> class="btn btn-warning" onclick="">Delete Photo</button>
-                    <a class="btn btn-success btn-download-photo" <?php echo $css_btn; ?>>Download Photo</a>
+                    <a role="button" <?php echo $css_btn; ?> href="/staff/delete-photo?id=<?php echo $staff['id']; ?>" class="btn btn-warning sweetConfirm">Delete Photo</a>
+                    <a class="btn btn-success btn-download-photo" <?php echo $css_btn; ?> href="<?php echo $img_url; ?>">Download Photo</a>
                     <button type="button" class="btn btn-primary btn-update" style="display: none" onclick="">Update Photo</button>
                 </div>
         </div>
@@ -133,4 +133,25 @@
     function download_all_photo() { 
 
     }
+
+    $(document).ready(function () {
+        download_all_photo();
+    });
+
+    $(".sweetConfirm").click(function(e) {
+        e.preventDefault();
+        var targetUrl = $(this).attr("href");        
+        Swal.fire({
+            title: "Xóa ảnh nhân viên này ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "rgb(221, 51, 51)",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Đóng"
+        }).then(function (re) {
+            if (re.isConfirmed) {
+                window.location.href = targetUrl;
+            } 
+        });
+    });
 </script>
