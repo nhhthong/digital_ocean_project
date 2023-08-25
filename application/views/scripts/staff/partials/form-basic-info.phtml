@@ -43,6 +43,14 @@
        
 
         <div class="control-group">
+            <label for="full_name" class="control-label">Username</label>
+            <div class="controls">
+                <input autocomplete="nope" required pattern="/^[a-zA-Z0-9]+$/" type="text" id="phone_number" placeholder="Enter Staff Username" name="phone_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>"
+                title="Vui lòng không sử dụng kí tự đặc biệt">
+            </div>
+        </div>
+
+        <div class="control-group">
             <label for="full_name" class="control-label">Full name</label>
             <div class="controls">
                 <input autocomplete="nope" type="text" id="full_name" required placeholder="Enter Full name" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">

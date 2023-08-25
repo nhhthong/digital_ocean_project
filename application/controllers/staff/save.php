@@ -145,7 +145,6 @@ try {
             $upload->addValidator('ExcludeExtension', false, 'php,sh');
             $files = $upload->getFileInfo();
             $hasPhoto = false;
-
             foreach ($arrPhoto as $key => $val) {
                 $del = 'del_' . $key;
                 if (isset($files[$key]['name'])) {
