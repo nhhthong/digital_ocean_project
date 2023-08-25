@@ -78,13 +78,25 @@ try {
         $where = $QNotification->getAdapter()->quoteInto('id = ?', $id);
         $QNotification->update($data, $where);
 
-   
+        $where = null;
+        $where = $QNotificationAccess->getAdapter()->quoteInto("notification_id = ?", $id);
+        $QNotificationAccess->delete($where);
     } else {
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = $userStorage->id;
-        $id = $QNotification->insert($data);      
-
+        $id = $QNotification->insert($data);     
     }
+    My_Controller_Action::insertAllrowDB($list_staff, 'notification_access', $db); 
+    $where = null;
+    $where = $QNotificationAccess->getAdapter()->quoteInto("notification_id IS NULL", 1);
+    $QNotificationAccess->update(
+        [
+            'created_date' => date('Y-m-d H:i:s'),
+            'notification_id' => $id,
+            'notification_from' => $from,
+            'notification_to' => $to 
+        ], $where
+    );
 
     $db->commit();
     echo '<script>window.parent.document.getElementById("iframe").style.display = \'block\';</script>';
