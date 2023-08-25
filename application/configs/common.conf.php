@@ -6,3 +6,4 @@ define('ADMINISTRATOR_ID', 1);
 define('DIRECTORY_SEPARATOR', "/");
 define('auth_token', "auth-token");
 define('ID_PROVINCE_CITIZEN_IDENTITY_CARD', array(64,65));
+define('EMAIL_SUFFIX', '@tdtu.vn');
