@@ -1,0 +1,108 @@
+<div class="page-header">
+    <form action="/" method="get">
+        <div class="row">
+            <div class="col-12 p-0">
+                <h1 class="pull-left">List Notification</h1>
+                <div class="pull-right mt-0">
+                    <a href="<?php echo HOST ?>manage/notification-create" class="btn btn-success"><i class="icon-plus"></i> Create</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Search
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
+            <div class="accordion-inner">
+                <form class="form-search form-horizontal" method="get" action="/manage/notification">
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                <label for="title" class="">Title: </label>
+                                <input id="title" name="title" type="text" class="input-medium search-query form-control span3" value="<?php if (isset($this->params['title'])) echo $this->params['title']; ?>">
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                <label for="content" class="">Content: </label>
+                                <input id="content" name="content" type="text" class="input-medium search-query form-control span3" value="<?php if (isset($this->params['content'])) echo $this->params['content']; ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+        if (isset($this->notifications) and $this->notifications)
+            foreach ($this->notifications as $k=>$notification): ?>
+            <tr>
+                <td><?php
+                    $inc = $this->offset + $k + 1;
+                    echo $inc;
+                    ?>
+                </td>
+                <td>
+                    <?php if (!isset( $notification['status'] ) || !$notification['status'] ) echo "<del>" ?>
+                        <a href="<?php echo HOST ?>manage/notification-create?id=<?php echo $notification['id'];?>"
+                                title="<?php echo $notification['title'] ?>"><?php echo My_String::excerpt($notification['title'], 100) ;?></a>
+                    <?php if (!isset( $notification['status'] ) || !$notification['status'] ) echo "</del>" ?>
+                </td>
+                <td><?php echo My_String::excerpt($notification['content'], 100) ?></td>
+                <td><?php if(isset($notification['created_at']) && $notification['created_at']) echo date('d/m/Y H:i:s', strtotime($notification['created_at']));?></td>
+                <td class="">
+                    <?php if (isset($notification['status']) && $notification['status']): ?>
+                        <a title="Disable" class="confirmLink btn btn-mini btn-inverse" href="/manage/notification-del?id=<?php echo $notification['id'];?>"> <i class="icon-ban-circle"></i></a> 
+                    <?php endif ?>
+                </td>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+    <div class="paging">
+        <?php echo $this->paging($this->total, $this->limit, $this->offset, $this->url);?>
+    </div>
+</div>
+<script type="text/javascript" src="/js/jquery-ui-1.8.12.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.8.12.custom.css"/>
+
+<script>  
+
+    $(".confirmLink").click(function(e) {
+        e.preventDefault();
+        var targetUrl = $(this).attr("href");        
+        Swal.fire({
+            title: "Xóa thông báo này ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "rgb(221, 51, 51)",
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Đóng"
+        }).then(function (re) {
+            if (re.isConfirmed) {
+                window.location.href = targetUrl;
+            } 
+        });
+    });
+</script>
