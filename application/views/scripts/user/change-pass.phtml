@@ -1,0 +1,52 @@
+<div class="page-header">
+    <h1>Change password</h1>
+</div>
+
+<?php
+if (isset($this->messages) and $this->messages)
+    foreach ($this->messages as $message):
+        echo '<div class="alert alert-error">'.$message.'</div>';
+    endforeach;
+?>
+
+<?php
+if (isset($this->success_messages) and $this->success_messages)
+    foreach ($this->success_messages as $message):
+        echo '<div class="alert alert-success">'.$message.'</div>';
+    endforeach;
+?>
+
+
+<form role="form" action="<?php echo HOST.'/user/change-pass';?>" method="post">
+    <div class="form-group">
+        <label for="exampleInputName"><b>Mật khẩu mới bao gồm: tối thiểu 8 kí tự, chữ thường, in hoa,số,kí tự đặc biệt.<br>
+                Ví dụ: Anh2@ghz, baNbe!!!,... </b>
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="input03">Old Password</label>
+        <input type="password" name="password" class="form-control input-xlarge" required="required" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+        <label for="input04" >New Password</label>
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Mật khẩu phải có độ dài ít nhất 8 ký tự và phải bao gồm ít nhất một chữ in hoa, một số và một ký tự đặc biệt.">
+          <input type="password"data-toggle="tooltip" data-placement="right"title="" id="input04" name="new-password" class="form-control input-xlarge" required="required" autocomplete="off"   pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=.*[!@#$%^&*_=+-])(?=\S*[\d])\S*$" >
+        </span>      
+    </div>
+
+    <div class="form-group">
+        <label for="input05">Confirm Password</label>
+        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Mật khẩu phải có độ dài ít nhất 8 ký tự và phải bao gồm ít nhất một chữ in hoa, một số và một ký tự đặc biệt.">
+              <input type="password" id="input05" name="confirm-password" class="form-control input-xlarge" required="required" autocomplete="off" data-toggle="tooltip" data-placement="right" pattern="^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=.*[!@#$%^&*_=+-])(?=\S*[\d])\S*$" >
+        </span>            
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<script>
+    
+$(document).ready(function () { 
+    $('[data-toggle="tooltip"]').tooltip();  
+});
+</script>

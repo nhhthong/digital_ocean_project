@@ -22,6 +22,45 @@ class UserController extends My_Controller_Action {
         
     }
 
+    public function changePassAction() {
+        $flashMessenger = $this->_helper->flashMessenger;
+        if ($this->getRequest()->getMethod() == 'POST') {
+            $userStorage      = Zend_Auth::getInstance()->getStorage()->read();
+            $QStaff           = new Application_Model_Staff();
+            $old              = $this->getRequest()->getParam('password');
+            $confirm_password = $this->getRequest()->getParam('confirm-password');
+            $new              = $this->getRequest()->getParam('new-password');        
+            
+            $where = null;
+            $where = $QStaff->getAdapter()->quoteInto('id = ?', $userStorage->id);
+            $user  = $QStaff->fetchRow($where);
+
+            try {
+                if($new <> $confirm_password){
+                    throw new Exception('Password không trùng khớp vui lòng thử lại!!');
+                }
+
+                if(md5($old) <> $user->password) {
+                    throw new Exception('Mật khẩu hiện tại sai');
+                }
+
+                if(!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=.*[!@#$%^&*_=+-])(?=\S*[\d])\S*$/', $new)){
+                    throw new Exception('Mật khẩu phải đúng định dạng đề xuất');
+                }
+
+                $new  = md5($new);
+                $data = array('password' => $new);
+                $QStaff->update($data, $where);
+                $flashMessenger->setNamespace('success')->addMessage('Done!');                
+            } catch (Exception $e) {
+                $flashMessenger->setNamespace('error')->addMessage($e->getMessage());
+            }
+            $this->_redirect(HOST . 'user/change-pass');
+        }        
+        $this->view->messages         = $flashMessenger->setNamespace('error')->getMessages();
+        $this->view->success_messages = $flashMessenger->setNamespace('success')->getMessages();
+    }
+
     public function logoutAction() {
         $auth = Zend_Auth::getInstance();
         $auth->clearIdentity();
