@@ -159,5 +159,55 @@ class UserController extends My_Controller_Action {
         $this->view->total      = $total;
         $this->view->url        = HOST . 'user/notification' . ( $params ? '?' . http_build_query($params) . '&' : '?' );
         $this->view->offset     = $limit * ($page - 1);
+
+        $flashMessenger               = $this->_helper->flashMessenger;
+        $this->view->messages         = $flashMessenger->setNamespace('error')->getMessages();
+    }
+
+    private function updateNotiAction($user_id, $notification_id) {
+        $QNotificationAccess = new Application_Model_NotificationAccess();
+        $data = array(
+            'view_date'           => date('Y-m-d H:i:s'),
+            'notification_status' => 1,
+        );
+        $where   = array();
+        $where[] = $QNotificationAccess->getAdapter()->quoteInto('user_id = ?', $user_id);
+        $where[] = $QNotificationAccess->getAdapter()->quoteInto('notification_id = ?', $notification_id);
+        $QNotificationAccess->update($data, $where);
+    }
+
+    public function notificationViewAction() {
+        $id = $this->getRequest()->getParam('id');
+        $flashMessenger = $this->_helper->flashMessenger;
+        try {
+            if (!$id) throw new Exception("Invalid ID");
+            $userStorage         = Zend_Auth::getInstance()->getStorage()->read();
+            $QNotification       = new Application_Model_Notification();
+            $QNotificationRead   = new Application_Model_NotificationRead();
+            $QNotificationAccess = new Application_Model_NotificationAccess();
+
+            $notification  = $QNotification->find($id);
+            $notification  = $notification->current();
+            if (!$notification) throw new Exception("Invalid ID");            
+            
+            $where        = array();
+            $where[]      = $QNotificationAccess->getAdapter()->quoteInto('user_id = ?', $userStorage->id);
+            $where[]      = $QNotificationAccess->getAdapter()->quoteInto('notification_id = ?', $id);
+            $check_access = $QNotificationAccess->fetchRow($where);
+
+            if (empty($check_access)) $this->redirect(HOST . 'user/noauth');
+
+            $this->updateNotiAction($userStorage->id, $id);
+            $data = array(
+                'notification_id' => $id,
+                'staff_id'        => $userStorage->id,
+            );
+            $QNotificationRead->insert($data);
+            $this->view->userStorage  = $userStorage;
+            $this->view->notification = $notification;
+        } catch (Exception $e) {
+            $flashMessenger->setNamespace('error')->addMessage($e->getMessage());
+            $this->_redirect(HOST . 'user/notification');
+        }
     }
 }

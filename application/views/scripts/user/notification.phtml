@@ -12,6 +12,15 @@
     <h1>Notification <small>List</small></h1>
 </div>
 
+<?php if (isset($this->messages) && $this->messages): ?>
+    <?php foreach ($this->messages as $key => $value): ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo $value ?>
+        </div>
+    <?php endforeach ?>
+<?php endif ?>
+
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
