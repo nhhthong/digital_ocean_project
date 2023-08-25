@@ -87,18 +87,18 @@ class My_Controller_Action extends Zend_Controller_Action {
             if($change_color == "1") {
                 if($_COOKIE['layout_mode']){
                     unset($_COOKIE['layout_mode']);
-                    setcookie($cookie_name, null, -1, '/', '.tdtu.vn'); 
+                    setcookie($cookie_name, null, -1, '/', COOKIE_LAYOUT); 
                 }
                 $cookie_value = "1";
-                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/", ".tdtu.vn"); // 86400 = 1 day
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/", COOKIE_LAYOUT); // 86400 = 1 day
                 $this->redirect(HOST);
             } else if($change_color == "2") {
                 if($_COOKIE['layout_mode']){
                     unset($_COOKIE['layout_mode']);
-                    setcookie($cookie_name, null, -1, '/', '.tdtu.vn'); 
+                    setcookie($cookie_name, null, -1, '/', COOKIE_LAYOUT); 
                 }
                 $cookie_value = "2";
-                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/", ".tdtu.vn"); // 86400 = 1 day
+                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/", COOKIE_LAYOUT); // 86400 = 1 day
                 $this->redirect(HOST);
             }
     

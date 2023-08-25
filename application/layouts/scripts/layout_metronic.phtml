@@ -34,9 +34,11 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
             <link href="/css/custom_aside.css" rel="stylesheet" type="text/css"/>
             <link href="/css/custom_brand.css" rel="stylesheet" type="text/css"/>
             
-            <link href="/css/layout_metronic2020/css/brand-light.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/layout_metronic2020/css/aside-light.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/style_metronic_light.css" rel="stylesheet" type="text/css"/>
+            <?php if(isset($_SESSION["light_template"]) and $_SESSION["light_template"] == 1) :?>
+                <link href="/css/layout_metronic2020/css/brand-light.css" rel="stylesheet" type="text/css"/>
+                <link href="/css/layout_metronic2020/css/aside-light.css" rel="stylesheet" type="text/css"/>
+                <link href="/css/style_metronic_light.css" rel="stylesheet" type="text/css"/>
+            <?php endif;?>
             
             <link rel="stylesheet" type="text/css" href="<?php echo HOST ?>css/bi_nhat.css">
             <link rel="stylesheet" type="text/css" href="<?php echo HOST ?>css/animate.css">
@@ -75,12 +77,16 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
                             <span class="icon1 icon1-menu"></span>
                         </div>
                     </div>
-                    <div class="hidden-menu">                        
-                        <?php if($this->current_lang == 'vi'): ?>
-                        <a class="language_select" lang-value="2"><img style="width: auto;" src="<?php echo HOST;?>new/img/united-states.png"> ENG</a>
-                        <?php else:?>
-                        <a class="language_select" lang-value="1"><img style="width: auto;" src="<?php echo HOST;?>new/img/vietnam.png"> VIE</a>
-                        <?php endif;?>
+                    <div class="hidden-menu">  
+                        <?php if(isset($_SESSION["light_template"]) and $_SESSION["light_template"] == 1) :?>
+                            <a href="<?php echo HOST . "?btn-change-mode=2" ?>" class="navi-link">
+                                Change Dark Mode
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo HOST . "?btn-change-mode=1" ?>" class="navi-link">
+                                Change Light Mode
+                            </a>
+                        <?php endif; ?>
                         
                         <a href="/user/logout">
                             Log Out
@@ -159,25 +165,20 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
                                                 <span class="navi-text">Change Password</span>
                                             </a>
                                         </li>
-                                        <?php if($this->current_lang == 'vi'): ?>
-                                            <li class="navi-item" style="cursor: pointer;">
-                                                <a class="navi-link language_select" lang-value="2">
-                                                    <span class="symbol symbol-20 mr-3">
-                                                        <img src="<?php echo HOST;?>new/img/united-states.png" alt=""/>
-                                                    </span>
-                                                    <span class="navi-text">ENG</span>
-                                                </a>
-                                            </li>
-                                        <?php else:?>
-                                            <li class="navi-item" style="cursor: pointer;">
-                                                <a class="navi-link language_select" lang-value="1">
-                                                    <span class="symbol symbol-20 mr-3">
-                                                        <img src="<?php echo HOST;?>new/img/vietnam.png" alt=""/>
-                                                    </span>
-                                                    <span class="navi-text">VIE</span>
-                                                </a>
-                                            </li>
-                                        <?php endif;?>
+                                        
+                                        <?php if(isset($_SESSION["light_template"]) and $_SESSION["light_template"] == 1) :?>
+                                        <li class="navi-item">
+                                            <a href="<?php echo HOST . "?btn-change-mode=2" ?>" class="navi-link">
+                                                Change Dark Mode
+                                            </a>
+                                        </li>
+                                        <?php else: ?>
+                                        <li class="navi-item">
+                                            <a href="<?php echo HOST . "?btn-change-mode=1" ?>" class="navi-link">
+                                                Change Light Mode
+                                            </a>
+                                        </li>
+                                        <?php endif; ?>
                                        
                                         <li class="navi-item">
                                             <div class="btn-back-layout text-center">
