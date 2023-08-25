@@ -83,11 +83,6 @@
         <span id="alert-content"></span>
     </div>
     <div class="row">
-        <div class="span2">
-            <button type="button" class="btn btn-success btn-download-all" onclick="download_all_photo()">Download photo in page</button>
-        </div>
-    </div>
-    <div class="row">
     <?php
     if (isset($this->list) and $this->list)
         foreach ($this->list as $k => $staff): ?>
@@ -118,7 +113,7 @@
                         <span>TITLE: <span><?php echo $staff['title'];?></span></span>             
                     </div>
                 </div>
-                <input type="file" />
+                <input type="file" style=" visibility: hidden;" />
                 <div class="button-group">
                     <a role="button" <?php echo $css_btn; ?> href="/staff/delete-photo?id=<?php echo $staff['id']; ?>" class="btn btn-warning sweetConfirm">Delete Photo</a>
                     <a class="btn btn-success btn-download-photo" <?php echo $css_btn; ?> href="<?php echo $img_url; ?>">Download Photo</a>
@@ -129,14 +124,7 @@
     </div>
 </form>
 
-<script>
-    function download_all_photo() { 
-
-    }
-
-    $(document).ready(function () {
-        download_all_photo();
-    });
+<script>  
 
     $(".sweetConfirm").click(function(e) {
         e.preventDefault();
