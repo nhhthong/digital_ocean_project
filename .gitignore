@@ -1,8 +1,26 @@
 # Composer files
-composer.phar
-
 application/configs/application.ini
 application/configs/custom.conf.php
+
+*.log
+/bin/log/
+logs
+
+public/*
+!/public/js
+!/public/css
+!/public/Menu
+!/public/font
+!/public/img
+!/public/new
+!/public/.htaccess
+data/cache/
+data/tmp/
+temp/
+### ZendFramework ###
+# Composer files
+composer.phar
+vendor/
 
 # Local configs
 config/autoload/*.local.php
@@ -12,7 +30,7 @@ config/autoload/*.local.php
 
 # Data
 data/logs/
-
+data/cache/
 data/sessions/
 data/tmp/
 temp/
