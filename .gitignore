@@ -14,9 +14,7 @@ public/*
 !/public/img
 !/public/new
 !/public/.htaccess
-data/cache/
-data/tmp/
-temp/
+
 ### ZendFramework ###
 # Composer files
 composer.phar
