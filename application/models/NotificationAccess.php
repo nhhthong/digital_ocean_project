@@ -38,4 +38,33 @@ class Application_Model_NotificationAccess extends Zend_Db_Table_Abstract
     	$total = $db->fetchOne("select FOUND_ROWS()");
     	return $result;
     }
+
+	
+
+    function fetchPaginationAccessPopUp($params) {    	 
+    	$db = Zend_Registry::get('db');
+		$arrCols = [
+			'n.id', 'n.created_at', 'n.content', 'n.title'
+		];
+
+    	$select = $db->select();
+    	$select->from(array('p' => $this->_name), $arrCols);    	
+        $select->joinLeft(array('s' => 'staff'), 's.id = p.user_id', array());            
+        $select->join(array('n' => 'notification'), 'n.id=p.notification_id', array());    
+		$select->joinLeft(array('nr' => 'notification_read'), 'n.id=nr.notification_id', array());    		
+		$select->where('p.notification_status = 0');
+        $select->where('n.pop_up = ?', 1);
+        $select->where('p.passby_popup = 0');	
+        $select->where('n.status <> 0');	    
+        $select->where('nr.notification_id IS NULL', 1);
+    	
+    	if (isset($params['staff_id']) && $params['staff_id'])
+    		$select->where('p.user_id = ?', $params['staff_id']);
+    
+		$select->order('p.notification_status');
+        $select->order('p.id DESC');
+    	$result = $db->fetchAll($select);
+    	return $result;
+    }
+
 }

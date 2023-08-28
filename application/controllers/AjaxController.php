@@ -106,4 +106,41 @@ class AjaxController extends My_Controller_Action {
             exit();
         }
     }
+
+    public function loadNotiAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+        if ($userStorage && isset($userStorage->id) && intval($userStorage->id)) {
+            $db   = Zend_Registry::get('db');
+            $select_list_noti = $db->select()->from(array('p' => 'notification_access'), array('p.id', 'notification.title', 'p.notification_status'));
+            $select_list_noti->join('notification', 'p.notification_id = notification.id', array('p.notification_id'));
+            $select_list_noti->where('p.user_id = ?', $userStorage->id);
+            $select_list_noti->where('notification.status <> 0');
+            $select_list_noti->group('p.id');
+            $select_list_noti->order('p.notification_status');
+            $select_list_noti->order('p.id DESC');
+            $result = $db->fetchAll($select_list_noti);
+            echo json_encode($result);
+            exit();
+        }
+    }
+
+    public function passByNotiAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $userStorage         = Zend_Auth::getInstance()->getStorage()->read();
+        $QNotificationAccess = new Application_Model_NotificationAccess();
+        if ($userStorage && isset($userStorage->id) && intval($userStorage->id)) {
+            $where   = array();
+            $where[] = $QNotificationAccess->getAdapter()->quoteInto('user_id = ?', $userStorage->id);
+            $data    = array(
+                'passby_popup' => 1
+            );
+            $QNotificationAccess->update($data, $where);                
+        }
+        $response = array('status' => 1, 'message' => 'Thành công');
+        echo json_encode($response);
+        exit();
+    }
 }

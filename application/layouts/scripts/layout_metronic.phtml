@@ -263,6 +263,7 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
     </div>
 </div>
 </body>
+<?php echo $this->render('notification.phtml') ?>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="application/javascript" src="/js/mobile-handler.js"></script>
 <script type="application/javascript" src="/js/mobile-library.js"></script>
@@ -310,9 +311,52 @@ $userStorage = Zend_Auth::getInstance()->getStorage()->read();
         });
     }
 
+    function initNotification(){
+        $.ajax({
+            type: 'get',
+            url: '/ajax/load-noti',
+            error: function(error){
+                console.log(eval(error));
+            },
+            success: function(data){
+                if(data) {
+                    if (!$.isEmptyObject($.parseJSON(data))) {
+                        var list_notification = '';
+                        var count_noti = 0;
+                        $.each($.parseJSON(data), function (i, object) {
+                            count_noti++;
+                            if (object.title.length > 50) {
+                                object.title = object.title.slice(0, 50) + "...";
+                            }
+                            if (object.notification_status == 0) {
+                                list_notification = list_notification +
+                                    '<li><a class="notiupdate" style="color: red" data_noti="' + object.notification_id + '" href="/user/notification-view?id=' + object.notification_id + '"><i>' + object.title + '</i></a></li>';
+                            } else {
+                                list_notification = list_notification +
+                                    '<li><a class="notiupdate" data_noti="' + object.notification_id + '" href="/user/notification-view?id=' + object.notification_id + '"><i>' + object.title + '</i></a></li>';
+                            }
+                            if (count_noti == 5) {
+                                return false;
+                            }
+                        });
+                        $('.menu-notification').empty();
+                        $('.menu-notification').append('<li><a href="/user/notification" class="see-all">See All ...</a></li>' + list_notification);
+                    } else {
+
+                    }
+                }
+                if(count_noti > 19) {
+                    $('.menu-notification').addClass('height-500');
+                }
+            }
+        });
+
+    }
+
     $(document).ready(function () {
         initTranslate();
         initCountNotification();
+        initNotification();
         var browser = get_browser(); 
 
         var isMobile = false;

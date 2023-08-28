@@ -81,14 +81,17 @@ try {
         $where = null;
         $where = $QNotificationAccess->getAdapter()->quoteInto("notification_id = ?", $id);
         $QNotificationAccess->delete($where);
+
+        $where = null;
+        $where = $QNotificationObject->getAdapter()->quoteInto("notification_id = ?", $id);
+        $QNotificationObject->delete($where);
     } else {
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = $userStorage->id;
         $id = $QNotification->insert($data);     
     }
 
-    $excepted_filter = array();
-    if (!empty($title_objects)) {
+    if ($title_objects) {
         foreach ($title_objects as $key => $value) {
             $data_object [] = [
                 'notification_id' => $id,
@@ -96,53 +99,26 @@ try {
                 'object_id'       => $value,
             ];
         }
-        $where   = [];
-        $where[] = $QTeam->getAdapter()->quoteInto ('is_hidden = 0', 1);
-        $where[] = $QTeam->getAdapter()->quoteInto ('del = 0', 1);
-        $where[] = $QTeam->getAdapter()->quoteInto ('id IN (?)', $title_objects);
-        $titles  = $QTeam->fetchAll($where)->toArray();
-        $titles  = array_column($titles, 'parent_id');
-        $excepted_filter = array_unique($titles);        
     }
 
-    if (!empty($team_objects)) {
-        $array_ids = [];
+    if ($team_objects) {
         foreach ($team_objects as $key => $value) {
-            if(!empty($excepted_filter) && in_array($value, $excepted_filter)) continue;
             $data_object [] = [
                 'notification_id' => $id,
                 'type'            => My_Notification::TEAM,
                 'object_id'       => $value,
             ];
-            $array_ids[] = $value;
         }
-        $array_ids = array_merge($array_ids, $excepted_filter);
-        
-        if ($array_ids) {
-            $excepted_filter = [];
-            $where   = [];
-            $where[] = $QTeam->getAdapter()->quoteInto ('is_hidden = 0', 1);
-            $where[] = $QTeam->getAdapter()->quoteInto ('del = 0', 1);
-            $where[] = $QTeam->getAdapter()->quoteInto ('id IN (?)', $array_ids);
-            $team    = $QTeam->fetchAll($where)->toArray();
-            $team    = array_column($team, 'parent_id');
-            $excepted_filter = array_unique($team);   
-        } 
-    } else {
-        throw new Exception ("Tiến trình bị lỗi...(Team)");
     }
 
-    if (!empty($department_objects)) {
+    if ($department_objects) {
         foreach ($department_objects as $key => $value) {
-            if(!empty($excepted_filter) && in_array($value, $excepted_filter)) continue;
             $data_object [] = [
                 'notification_id' => $id,
                 'type'            => My_Notification::DEPARTMENT,
                 'object_id'       => $value,
             ];
         }
-    } else {
-        throw new Exception ("Tiến trình bị lỗi...(Department)");
     }
 
     if ($all_staff) {

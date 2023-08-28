@@ -1,0 +1,48 @@
+<?php $userStorage = Zend_Auth::getInstance()->getStorage()->read(); ?>
+<?php if (isset($this->to_display_notifications) && count($this->to_display_notifications) > 0 AND $this->controller_name != 'user' AND $this->action_name != 'notification-view'): ?>
+    <div id="modal_auto" class="modal hide fade notification_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close mb-5" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Notification <b style="color:red">Để không còn hiển thị thông báo, vui lòng vào xem thông báo!</b></h3>
+		</div>
+		<div class="modal-body">
+			<ul class="notification_modal_list">
+				<?php foreach ($this->to_display_notifications as $key => $value): ?>
+				   <li>
+                    <a href="<?php echo HOST ?>user/notification-view?id=<?php echo $value['id'] ?>" title="<?php echo strip_tags($value['title']) ?>">
+                        <b class="mb-5"><?php echo My_String::excerpt($value['title'], 85) ?></b>
+                        <p class="mt-5 text-dark-65 font-size-sm"><?php echo My_String::excerpt($value['content'], 85) ?> <small class="pull-right">- <?php if(isset($value['created_at']) && $value['created_at']) echo date('d/m/Y H:i:s', strtotime($value['created_at']));?></small></p>
+                    </a>
+                </li>
+				<?php endforeach ?>
+			</ul>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" data-dismiss="modal" id="passby_popup" aria-hidden="true">Bỏ qua hiển thị thông báo</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+
+<script>
+    $(document).ready(function(){
+        $modal_auto = $('#modal_auto');
+        $modal_auto.modal({backdrop: 'static'});                    
+        $('#passby_popup').click(function(){
+                $.ajax({
+                type: 'post',
+                url: '/ajax/pass-by-noti',
+                data:
+                {
+                    passby: 1
+                },
+                typeType: 'text',
+                cache: false,
+                success: function (data)
+                {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+<?php endif ?>

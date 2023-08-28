@@ -1,0 +1,18 @@
+<div class="page-header">
+    <h1>Notification .<small><a  class="text-danger" href="<?php echo HOST ?>user/notification">Back</a></small></h1>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <legend class="title"><?php echo $this->notification['title'] ?></legend>
+        <p class="">
+            <small class="post_time pull-right">Created at: <?php if(isset($this->notification['created_at']) && $this->notification['created_at']) echo date('d/m/Y H:i:s', strtotime($this->notification['created_at']));?></small>
+            <span class="category badge">Thông báo</span>
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <span><?php echo $this->notification['content']; ?></span>
+    </div>
+</div>

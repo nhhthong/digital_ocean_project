@@ -107,6 +107,14 @@ class My_Controller_Action extends Zend_Controller_Action {
             } else if(isset($_COOKIE['layout_mode']) && $_COOKIE['layout_mode'] == "2"){
                 unset($_SESSION['light_template']);
             }
+
+            $QNotificationAccess = new Application_Model_NotificationAccess();
+            $params = array(
+                'staff_id' => $userStorage->id,
+            );
+            $to_display_notifications = $QNotificationAccess->fetchPaginationAccessPopUp($params);
+            $this->view->to_display_notifications = $to_display_notifications;
+
             $is_layout = $this->_helper->layout->getLayout();
             if ($is_layout == 'layout') {
                 $this->_helper->layout->setLayout('layout_metronic');
