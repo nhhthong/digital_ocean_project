@@ -157,7 +157,7 @@ class My_Controller_Action extends Zend_Controller_Action {
         return $x;
     }
 
-    public static function insertAllrowDB($params, $db, $db_log, $schema = 'hr') {
+    public static function insertAllrowDB($params, $db, $db_log, $schema = 'defaultdb') {
         try {
             $temp = $params[0];
             $str_insert = '';

@@ -11,4 +11,9 @@ class ManageController extends My_Controller_Action {
     {
         require_once 'manage'.DIRECTORY_SEPARATOR.'notification-create.php';
     }
+
+    public function notificationSaveAction()
+    {
+        require_once 'manage'.DIRECTORY_SEPARATOR.'notification-save.php';
+    }
 }

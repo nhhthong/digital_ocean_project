@@ -24,7 +24,7 @@ class UserController extends My_Controller_Action {
 
     public function changePassAction() {
         $flashMessenger = $this->_helper->flashMessenger;
-        if ($this->getRequest()->getMethod() == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userStorage      = Zend_Auth::getInstance()->getStorage()->read();
             $QStaff           = new Application_Model_Staff();
             $old              = $this->getRequest()->getParam('password');
@@ -72,7 +72,7 @@ class UserController extends My_Controller_Action {
         try { 
             $db      = Zend_Registry::get('db');
             $auth    = Zend_Auth::getInstance();
-            $ip      = $this->getRequest()->getServer('REMOTE_ADDR');
+            $ip      = $_SERVER['REMOTE_ADDR'];
             $uname   = $this->getRequest()->getParam('email');
             $paswd   = $this->getRequest()->getParam('password');
             
@@ -82,7 +82,7 @@ class UserController extends My_Controller_Action {
                         ->setCredentialColumn('password');
 
             if (!preg_match('/@/', $uname)) {
-                $uname .= '@tdtu.vn';
+                $uname .= EMAIL_SUFFIX;
             }
             $md5_pass = md5($paswd);
             $authAdapter->setIdentity($uname);
@@ -108,7 +108,7 @@ class UserController extends My_Controller_Action {
             $auth->getStorage()->write($data);
 
             $QLog = new Application_Model_Log();
-            $ip   = $this->getRequest()->getServer('REMOTE_ADDR');
+            $ip   = $_SERVER['REMOTE_ADDR'];
             $info = "USER - Login (" . $data->id . ")";
             $QLog->insert(array(
                 'info'       => $info,
@@ -124,7 +124,7 @@ class UserController extends My_Controller_Action {
             $flashMessenger->setNamespace('error')->addMessage($e->getMessage());
 
             $QLog = new Application_Model_Log();
-            $ip   = $this->getRequest()->getServer('REMOTE_ADDR');
+            $ip   = $_SERVER['REMOTE_ADDR'];
             $info = "USER - Login Failed (" . $uname . ") - " . $e->getMessage();
             $QLog->insert(array(
                 'info'       => $info,
