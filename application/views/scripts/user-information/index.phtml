@@ -1,18 +1,31 @@
-<?php $staff = isset($this->staff) && $this->staff ? $this->staff : null; ?>
-<form id="myForm" class="form-horizontal" action="<?php echo HOST . $action; ?>" method="post" enctype="multipart/form-data" target="frame">
+<?php $staff = isset($this->staff) && $this->staff ? $this->staff : null; 
+$edited_staff = isset($this->edited_staff) && $this->edited_staff ? 1 : 0;
+?>
+<form id="myForm" class="form-horizontal" action="/user-information/save" method="post" enctype="multipart/form-data" target="frame">
 <div class="card card-custom mt-3 shadow">
     <div class="card-header">
         <div class="card-title text-center">            
             <h5 style="color:green">User Information</h5>
         </div>
         <div class="card-toolbar">
-            <button type="submit" class="btn btn-success">Cập nhật</button>
+            <?php if ($edited_staff) { ?>
+                <a role="button" class="btn btn-defaul" disabled>Cập nhật</a>
+            <?php } else { ?>
+                <button id="submit_btn" type="submit" class="btn btn-success">Cập nhật</button>
+            <?php } ?>
         </div>
     </div>
     <div class="card-body"> 
         <div class="form-group mb-8">
             <iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
         </div>                
+        <?php if ($edited_staff) { ?>
+            <div class="row">
+                <div class="control-group">
+                    <span style="color: red;">Bạn đang có thông tin chờ duyệt. Hiện tại không thể cập nhật.</span>
+                </div>
+            </div>
+        <?php } ?>
         <div class="row">
             <div class="col-xl-6">
                 <h5 class="text-center">Personal information</h5>
@@ -173,4 +186,60 @@
 </form>
 <script>
     var avatar1 = new KTImageInput('user_photo_image');
+    function initWaiting() {
+        $.blockUI({
+            fadeIn: 700,
+            fadeOut: 700,
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+    }
+
+    $("#submit_btn").click(function(e) {
+        e.preventDefault();
+        $(this).attr("disabled", true);
+        $("#myForm").submit();       
+        initWaiting();
+    });
+
+    function unblockUI() {
+        $.unblockUI();
+        $('.loading').remove();
+    }
+
+    function readURL(input, id) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                if(document.getElementById("staff"+id) === null)
+                {
+                    if(id == 'idphoto') {
+                        $("#id_photo").before('<img id="staffidphoto" class="staff_img" height="150" width="150" style=" cursor: pointer;" src="">')
+                    }
+                    if(id == 'idphotoback')
+                    {
+                        $("#id_photo_back").before('<img id="staffidphotoback" class="staff_img" height="150" width="150" style=" cursor: pointer;" src="">')
+                    }
+                }
+                $('#staff' + id).attr('src', e.target.result);
+                $('#staff' + id).show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#id_photo").change(function(){
+        readURL(this, "idphoto");
+    });
+
+    $("#id_photo_back").change(function(){
+        readURL(this, "idphotoback");
+    });
 </script>

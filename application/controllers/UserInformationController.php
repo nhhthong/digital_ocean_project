@@ -8,8 +8,8 @@ class UserInformationController extends My_Controller_Action
         require_once 'user-information' . DIRECTORY_SEPARATOR . 'index.php';
     }
 
-    public function saveChangeInforAction()
+    public function saveAction()
     {
-        require_once 'user-information' . DIRECTORY_SEPARATOR . 'save-change-infor.php';
+        require_once 'user-information' . DIRECTORY_SEPARATOR . 'save.php';
     }
 }
