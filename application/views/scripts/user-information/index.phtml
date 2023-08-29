@@ -1,0 +1,156 @@
+<form id="myForm" class="form-horizontal" action="<?php echo HOST . $action; ?>" method="post" enctype="multipart/form-data" target="frame">
+<div class="card card-custom mt-3 shadow">
+    <div class="card-header">
+        <div class="card-title text-center">            
+            <h5 style="color:green">User Information</h5>
+        </div>
+        <div class="card-toolbar">
+            <button type="submit" class="btn btn-success">Cập nhật</button>
+        </div>
+    </div>
+    <div class="card-body"> 
+        <div class="form-group mb-8">
+            <iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
+        </div>                
+        <div class="row">
+            <div class="col-xl-6">
+                <h5 class="text-center">Personal information</h5>
+                <hr>                    
+                <div class="control-group">
+                    <label for="name" class="span2">Hình thẻ</label>
+                    <div class="image-input image-input-outline" id="user_photo_image" style="background-image: url(<?php echo HOST; ?>img/default_img.jpg)">
+                        <div class="image-input-wrapper" style="background-image: url(<?php echo HOST; ?>photo/staff/<?php echo $staff['id'] ?>/<?php echo $staff['photo'] ?>)"></div>
+                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                            <i class="fa fa-pen icon-sm text-muted"></i>
+                            <input type="file" name="file" accept=".png, .jpg, .jpeg"/>
+                        </label>
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Code</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Họ và tên</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Chức danh</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Số điện thoại</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Email</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <h5 class="text-center">Identity card/Citizen identification</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="control-group">
+                        <label class=""><strong>
+                        Hình CMND mặt trước 
+                        </strong></label>                           
+                        <?php if (!empty($staff['id_photo'])) {
+                            $img_url_id_photo = HOST.'photo/staff/' . $staff['id'] . '/ID_Front/' . $staff['id_photo'];
+                        } else {
+                            $img_url_id_photo = '';
+                        }
+                        ?>
+                        <?php
+                        if ($img_url_id_photo != '') { ?>
+                            <img id="staffidphoto" class="staff_img" height="140" width="140"
+                                style=" cursor: pointer;"
+                                src="<?php echo $img_url_id_photo; ?>" />
+                        <?php } else { ?>
+                            <img id="staffidphoto" class="staff_img" height="140" width="140"
+                                style=" cursor: pointer;"
+                                src="<?php echo HOST . 'img/default_img.jpg'; ?>" />
+                        <?php } ?>  
+                            <input id="id_photo" type="file" name="id_photo" style="display: none;" />
+                            <span class="btn btn-primary btn-small" style="margin-left: 30px;margin-top:10px"
+                                onclick="document.getElementById('id_photo').click(); return false;">
+                                <a href="#" style="color:white;font-size:85%">Upload ảnh</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="control-group">
+                            <label class=""><strong>
+                            Hình CMND mặt sau  
+                            </strong></label>
+                            <?php
+                                if (!empty($staff['id_photo_back'])) {
+                                    $img_url_id_photo_back = HOST.'photo/staff/' . $staff['id'] . '/ID_Back/' . $staff['id_photo_back'];
+                                }
+                                else{
+                                    $img_url_id_photo_back = '';
+                                }
+                            ?>
+                            <?php if ($img_url_id_photo_back != '') { ?>
+                            <img id="staffidphotoback" class="staff_img" height="140" width="140"
+                                style=" cursor: pointer;"
+                                src="<?php echo $img_url_id_photo_back; ?>" />
+                            <?php } else { ?>
+                            <img id="staffidphoto" class="staff_img" height="140" width="140"
+                                style=" cursor: pointer;"
+                                src="<?php echo HOST . 'img/default_img.jpg'; ?>" />
+                            <?php } ?>
+                            <input id="id_photo_back" type="file" name="id_photo_back" style="display: none;" />
+                            <span class="btn btn-primary btn-small" style="margin-left: 30px; margin-top:10px"
+                                onclick="document.getElementById('id_photo_back').click(); return false;">
+                                <a href="#" style="color:white;font-size:85%">Upload ảnh</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="name" class="span2">Số CMND/CCCD</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Nơi cấp</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Ngày cấp</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Dân tộc</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Tôn giáo</label>
+                    <input type="text" name="" autocomplete="nope" value="" />                    
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+</form>
+<script>
+    var avatar1 = new KTImageInput('user_photo_image');
+</script>
