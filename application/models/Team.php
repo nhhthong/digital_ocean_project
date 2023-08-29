@@ -21,23 +21,34 @@ class Application_Model_Team extends Zend_Db_Table_Abstract
     }
 
     function get_cache(){
-        $data = $this->fetchAll(null, 'name');
-        $result = array();
-        if ($data){
-            foreach ($data as $item){
-                $result[$item->id] = $item->name;
+        $cache      = Zend_Registry::get('cache');
+        $result     = $cache->load($this->_name.'_cache');
+        if ($result === false) {
+            $data = $this->fetchAll(null, 'name');
+            $result = array();
+            if ($data){
+                foreach ($data as $item){
+                    $result[$item->id] = $item->name;
+                }
             }
-        }          
+            $cache->save($result, $this->_name.'_cache', array(), null);
+        }
         return $result;
-    }    
+    }  
 
-    function get_recursive_cache(){    
-        $where = $this->getAdapter()->quoteInto('del = ? ', 0);
-        $data  = $this->fetchAll($where, 'name');
-        $result = array();
-        if ($data->count()){
-            $data   = $data->toArray();
-            $result = $this->formatTree($data, 0);
+    function get_recursive_cache(){
+        $cache      = Zend_Registry::get('cache');
+        $result     = $cache->load($this->_name.'_recursive_cache');
+        if ($result === false) {
+            $where = $this->getAdapter()->quoteInto('del = ? ', 0);
+            $data  = $this->fetchAll($where, 'name');
+
+            $result = array();
+            if ($data->count()){
+                $data = $data->toArray();
+                $result = $this->formatTree($data, 0);
+            }
+            $cache->save($result, $this->_name.'_recursive_cache', array(), null);
         }
         return $result;
     }

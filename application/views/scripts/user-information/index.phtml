@@ -1,3 +1,4 @@
+<?php $staff = isset($this->staff) && $this->staff ? $this->staff : null; ?>
 <form id="myForm" class="form-horizontal" action="<?php echo HOST . $action; ?>" method="post" enctype="multipart/form-data" target="frame">
 <div class="card card-custom mt-3 shadow">
     <div class="card-header">
@@ -35,31 +36,31 @@
 
                 <div class="control-group">
                     <label for="name" class="span2">Code</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
-                </div>
-
-                <div class="control-group">
-                    <label for="name" class="span2">Họ và tên</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
-                </div>
-
-                <div class="control-group">
-                    <label for="name" class="span2">Chức danh</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
-                </div>
-
-                <div class="control-group">
-                    <label for="name" class="span2">Số điện thoại</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <input type="text" name="" autocomplete="nope" class="form-control" disabled value="<?php echo $staff['code']; ?>" />                    
                 </div>
 
                 <div class="control-group">
                     <label for="name" class="span2">Email</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <input type="text" name="" autocomplete="nope" class="form-control" disabled value="<?php echo $staff['email']; ?>" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Họ và tên</label>
+                    <input type="text" name="" autocomplete="nope" class="form-control" disabled value="<?php echo $staff['firstname'] . " " . $staff['lastname']; ?>" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Chức danh</label>
+                    <input type="text" name="" autocomplete="nope" class="form-control" disabled value="<?php echo isset($this->title) && $this->title ? $this->title : ""; ?>" />                    
+                </div>
+
+                <div class="control-group">
+                    <label for="name" class="span2">Số điện thoại</label>
+                    <input type="text" name="phone_number" autocomplete="nope" class="form-control" value="<?php echo $staff['phone_number']; ?>" />                    
                 </div>
             </div>
 
-            <div class="col-xl-4">
+            <div class="col-xl-6">
                 <h5 class="text-center">Identity card/Citizen identification</h5>
                 <hr>
                 <div class="row">
@@ -124,27 +125,46 @@
                 
                 <div class="control-group">
                     <label for="name" class="span2">Số CMND/CCCD</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <input class="form-control" type="text" name="ID_number" autocomplete="nope" value="<?php echo $staff['ID_number']; ?>" />                    
                 </div>
 
                 <div class="control-group">
                     <label for="name" class="span2">Nơi cấp</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <select class="form-control" name="id_place_province">
+                        <option value>choose</option>
+                        <?php foreach ($this->provinces as $key => $value): ?>
+                        <option value="<?php echo $key; ?>" <?php if ($staff['id_place_province'] == $key or
+                            $staff['id_citizen_province'] == $key) echo 'selected'; ?>><?php echo $value; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <div class="control-group">
                     <label for="name" class="span2">Ngày cấp</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <input class="form-control" type="date" id="ID_date" name="ID_date" value="<?php echo $staff['ID_date']; ?>">
                 </div>
 
                 <div class="control-group">
                     <label for="name" class="span2">Dân tộc</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <select class="form-control" name="nationality">
+                        <option value>choose</option>
+                        <?php foreach ($this->nationalities as $key => $value): ?>
+                        <option value="<?php echo $key; ?>" <?php if ($staff['nationality'] == $key) echo 'selected'; ?>><?php echo $value; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <div class="control-group">
                     <label for="name" class="span2">Tôn giáo</label>
-                    <input type="text" name="" autocomplete="nope" value="" />                    
+                    <select class="form-control" name="religion">
+                        <option value>choose</option>
+                        <?php foreach ($this->religions as $key => $value): ?>
+                        <option value="<?php echo $key; ?>" <?php if ($staff['religion'] == $key) echo 'selected'; ?>><?php echo $value; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </div>
         </div>        
