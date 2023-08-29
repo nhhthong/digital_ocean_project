@@ -73,19 +73,16 @@ if (isset($this->message_success) and $this->message_success)
             <ul class="dropdown-menu">
                 <li><a id="add_job_title" href="#addJobTitle" data-toggle="modal">Add Job Title</a></li>
                 <li><a id="edit_job_tile" href="#editJobTitle" data-toggle="modal">Edit Job Title</a></li>
-                <li><a id="edit_group_access" target="_blank">Edit Group Access</a></li>
                 <li><a id="delete_job_title" href="#deleteJobTitle" data-toggle="modal">Delete Job Title </a></li>
             </ul>
             <select name="job_title" id="job_title" class="span2">
                 <option value=""></option>
             </select>
         </div>
-    </div>
-    
+    </div>    
 </div>
 
 <script>
-
     $(document).ready(function () {
         getTeam();
         getJobTitle();
