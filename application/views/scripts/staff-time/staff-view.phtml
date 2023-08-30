@@ -1,0 +1,86 @@
+<div class="page-header span9">
+    <h1>My Check In</h1>
+    <div class="pull-right" style="margin-top: -25px">
+        <a href="/leave/list-my-leave" class="btn btn-success pull-right" style="margin-right: 0.2em !important" title="My Leave">My Leave</a>
+    </div>
+</div>
+
+<?php
+    if (isset($this->messages) and $this->messages)
+        foreach ($this->messages as $message) :
+            echo '<div class="alert alert-success">' . $message . '</div>';
+        endforeach;
+
+    if (isset($this->messages_error) and $this->messages_error)
+        foreach ($this->messages_error as $message) :
+            echo '<div class="alert alert-danger">' . $message . '</div>';
+        endforeach;
+?>
+
+<div class="staff_info span12">
+    <h3>
+    15060017 - ĐỖ MINH TÂM - TECHNOLOGY MANAGER
+    </h3>
+</div>
+<?php $list_date = json_decode($this->data['list'], true); ?>
+
+<div class="span12" style="margin-left: 0px">
+    <form class="form-group">
+        <select class="mr-2" name="month" id="month" style="padding: 6px;">
+            <?php for ($i = 1; $i <= 12; $i ++) { ?>
+            <option value="<?php echo $i; ?>" <?php echo ($this->params['month'] == $i) ? ' selected ' : '' ?>>Tháng <?php echo $i; ?></option>
+            <?php } ?>
+        </select> 
+        <input class="mr-2" type="number" id="year" name="year" value="<?php echo $this->params['year'] ?>">
+        <button class="btn btn-primary">Tìm kiếm</button>
+    </form>
+</div>
+
+<div  class="span9" style="margin-left: 0px">
+    <table class="table table-responsive">
+        <thead>
+            <th>Ngày đi làm</th>
+            <th>Phép năm tính lương</th>
+            <th>Ngày off</th>
+            <th><span>Số lần quên chấm công</span></th>
+            <th><span>Tổng thời gian đi trễ</span></th>
+            <th><span>Số ngày phạt</span></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+            <th>Ngày</th>
+            <th>Giờ vào</th>
+            <th>Giờ ra</th>
+            <th>Ngày công</th>
+            <th>Lý do</th>
+            <th>Ghi chú</th>
+            <th>Bổ sung công </th>
+            </tr>
+        </thead>
+        <tbody>
+           <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+           </tr>
+        </tbody>
+    </table>
+</div>
+

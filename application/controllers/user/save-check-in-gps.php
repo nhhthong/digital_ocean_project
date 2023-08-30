@@ -46,7 +46,7 @@ try {
         'latitude'         => $latitude,
         'longitude'        => $longitude,
     );
-    $QTimeGpsNew->insert($data_insert);
+    $QTimeGps->insert($data_insert);
     $flashMessenger->setNamespace('success')->addMessage('Chấm công thành công!');    
     $db->commit();
 } catch (Exception $e) { 
