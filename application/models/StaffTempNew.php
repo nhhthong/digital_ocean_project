@@ -10,7 +10,7 @@ class Application_Model_StaffTempNew extends Zend_Db_Table_Abstract
         $select = $db->select()
             ->from(['s' => 'staff_temp_new'], ['s.*'])
             ->where('s.staff_id = ?', $staff_id)
-            ->where("(s.is_deleted = 0 AND is_rejected = 0 AND is_approved = 0)", 1);
+            ->where('s.is_deleted = 0', 1);
         $result = $db->fetchRow($select);
         return $result ? $result : false;
     }
@@ -56,14 +56,14 @@ class Application_Model_StaffTempNew extends Zend_Db_Table_Abstract
     {
         $db = Zend_Registry::get("db");
         $select = $db->select()
-            ->from(['stn' => 'staff_temp_new'], [
+            ->from(['stn' => $this->_name], [
                 'stn.*',
-                'staff_name' => "CONCAT(s.firstname,' ', s.lastname)",
-                'staff_code' => 's.code',
+                'staff_name'      => "CONCAT(s.firstname,' ', s.lastname)",
+                'staff_code'      => 's.code',
                 'approve_by_name' => "CONCAT(st.firstname,' ', st.lastname)",
                 'approve_by_code' => 'st.code',
-                'reject_by_name' => "CONCAT(r.firstname,' ', r.lastname)",
-                'reject_by_code' => 'r.code'
+                'reject_by_name'  => "CONCAT(r.firstname,' ', r.lastname)",
+                'reject_by_code'  => 'r.code'
             ])
             ->joinLeft(['st' => 'staff'], 'stn.approve_by = st.id', [])
             ->joinLeft(['r' => 'staff'], 'stn.reject_by = r.id', [])

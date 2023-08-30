@@ -67,7 +67,7 @@ try {
         }
 
         if (move_uploaded_file($imageInfor["tmp_name"], $targetFile)) {
-            // done
+            $arrPhoto [$imageType] = $newName;
         } else {
             throw new Exception("Lỗi lưu ảnh");
         }
@@ -85,6 +85,7 @@ try {
     $newInformation = [
         'ID_number'     => $ID_number,
         'ID_date'       => $ID_date ? date('Y-m-d', strtotime($ID_date)) : Null,
+        'photo'         => $arrPhoto['photo'] ? $arrPhoto['photo'] : $currentStaff ['photo'],
         'id_photo'      => $arrPhoto['id_photo'] ? $arrPhoto['id_photo'] : $currentStaff ['id_photo'],
         'id_photo_back' => $arrPhoto['id_photo_back'] ? $arrPhoto['id_photo_back'] : $currentStaff ['id_photo_back'],
         'nationality'   => $nationality,

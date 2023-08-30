@@ -19,7 +19,22 @@ class UserController extends My_Controller_Action {
 
 
     public function checkInGpsAction() {
-        
+        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
+        $QStaff = new Application_Model_Staff();
+        $rowset = $QStaff->find($userStorage->id);
+        $staff  = $rowset->current();
+        $this->view->staff = $staff;
+
+        $flashMessenger = $this->_helper->flashMessenger;
+        $messages = $flashMessenger->setNamespace('error')->getMessages();
+        $this->view->messages = $messages;
+    
+        $messages_success = $flashMessenger->setNamespace('success')->getMessages();
+        $this->view->messages_success = $messages_success;
+    }
+
+    public function saveCheckInGpsAction() {
+        require_once 'user' . DIRECTORY_SEPARATOR . 'save-check-in-gps.php';
     }
 
     public function changePassAction() {

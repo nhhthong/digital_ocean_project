@@ -45,7 +45,7 @@ try {
         'phone_number'      => $edited_staff['phone_number'],
         'ID_number'         => $edited_staff['ID_number'],
         'id_place_province' => $edited_staff['id_place_province'],
-        'ID_date'           => $edited_staff['ID_date'] ? date('Y-m-d', strtotime($edited_staff['ID_date'])) : Null,
+        'ID_date'           => $edited_staff['ID_date'] ? date('Y-m-d', strtotime($edited_staff['ID_date'])) : null,
         'id_photo'          => $edited_staff['id_photo'],
         'id_photo_back'     => $edited_staff['id_photo_back'],
         'nationality'       => $edited_staff ['nationality'],
@@ -55,10 +55,11 @@ try {
     if ($approve) {      
         $data = [
             'ID_number'           => $edited_staff['ID_number'] ? $edited_staff['ID_number'] : null,
-            'ID_date'             => $edited_staff['ID_date'] ? date('Y-m-d', strtotime($edited_staff['ID_date'])) : Null,
-            'phone_number'        => $edited_staff['phone_number'] ? $edited_staff['phone_number'] : Null,
-            'id_photo'            => $edited_staff['id_photo'] ? $edited_staff['id_photo'] : Null,
-            'id_photo_back'       => $edited_staff['id_photo_back'] ? $edited_staff['id_photo_back'] : Null,
+            'ID_date'             => $edited_staff['ID_date'] ? date('Y-m-d', strtotime($edited_staff['ID_date'])) : null,
+            'phone_number'        => $edited_staff['phone_number'] ? $edited_staff['phone_number'] : null,
+            'photo'               => $edited_staff['photo'] ? $edited_staff['photo'] : null,
+            'id_photo'            => $edited_staff['id_photo'] ? $edited_staff['id_photo'] : null,
+            'id_photo_back'       => $edited_staff['id_photo_back'] ? $edited_staff['id_photo_back'] : null,
             'nationality'         => $edited_staff['nationality'] ? $edited_staff['nationality'] : null,
             'religion'            => $edited_staff['religion'] ? $edited_staff['religion'] : null,
         ];
@@ -71,9 +72,8 @@ try {
         }
 
         $QStaff->update(
-            $data, [
-                'id = ?' => $staff_id
-            ]
+            $data, 
+            ['id = ?' => $staff_id]
         );
 
         $QStaffTempNew->update([
@@ -97,6 +97,7 @@ try {
         $QStaffTempNew->update([
             'note'        => $note,
             'is_rejected' => 1,
+            'is_deleted'  => 1,
             'reject_by'   => $userStorage->id,
             'reject_at'   => date("Y-m-d H:i:s"),
         ], [
