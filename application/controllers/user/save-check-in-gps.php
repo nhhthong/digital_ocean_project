@@ -14,7 +14,7 @@ try {
 
     if(empty($latitude) || empty($longitude)) {
         $flashMessenger->setNamespace('error')->addMessage('Vui lòng bật gps!');
-        $this->_redirect(HOST . 'user/create-check-in-gps'); exit;
+        $this->_redirect(HOST . 'user/check-in-gps'); exit;
     }
 
     // tọa độ Tôn Đức Thắng     
@@ -22,9 +22,9 @@ try {
     $office_longitude = "106.6997696";
     $distance_office  = My_DistanceGps::getDistanceOffice($latitude, $longitude, $office_latitude, $office_longitude);
 
-    if($distance_office > 2 || !$dev){
+    if($distance_office > 2 && !$dev){
         $flashMessenger->setNamespace('error')->addMessage('Bạn chấm công cách văn phòng vượt quá quy định. Vui lòng sử dụng 3g/4g để tăng độ chính xác!');
-        $this->_redirect(HOST . 'user/create-check-in-gps'); exit;
+        $this->_redirect(HOST . 'user/check-in-gps'); exit;
     }
 
     $staff_id   = $userStorage->id;
@@ -53,4 +53,4 @@ try {
     $flashMessenger->setNamespace('error')->addMessage($e->getMessage());
     $db->rollBack();
 }
-$this->_redirect(HOST . 'user/create-check-in-gps'); 
+$this->_redirect(HOST . 'user/check-in-gps'); 
