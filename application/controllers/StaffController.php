@@ -33,6 +33,10 @@ class StaffController extends My_Controller_Action {
         require_once 'staff' . DIRECTORY_SEPARATOR . 'list-update-detail.php';
     }
 
+    public function listUpdateApproveAction() {
+        require_once 'staff' . DIRECTORY_SEPARATOR . 'list-update-approve.php';
+    }
+
     private function _formatDate($date) {
         if (!$date)
             return null;

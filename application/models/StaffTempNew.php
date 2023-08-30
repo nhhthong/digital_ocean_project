@@ -10,7 +10,7 @@ class Application_Model_StaffTempNew extends Zend_Db_Table_Abstract
         $select = $db->select()
             ->from(['s' => 'staff_temp_new'], ['s.*'])
             ->where('s.staff_id = ?', $staff_id)
-            ->where('s.is_deleted = ?', 0);
+            ->where("(s.is_deleted = 0 AND is_rejected = 0 AND is_approved = 0)", 1);
         $result = $db->fetchRow($select);
         return $result ? $result : false;
     }
