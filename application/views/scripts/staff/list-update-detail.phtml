@@ -1,0 +1,191 @@
+<style>
+    .danger {
+        background-color: #f7dcdc;
+    }
+</style>
+<h2 style="text-align: center">Thông tin chi tiết</h2>
+<form action="/staff/list-update-approve" method="POST" role="form" enctype="multipart/form-data">
+	<legend><?php echo $this->edited_staff['staff_name']; ?>, Code: <?php echo $this->edited_staff['staff_code']; ?></legend>
+
+    <?php if ($this->edited_staff['is_approved'] == 0 && $this->edited_staff['reject_by_name']) : ?>
+        <i>Rejected by: <?php echo $this->edited_staff['reject_by_name']; ?>, Code: <?php echo $this->edited_staff['reject_by_code']; ?></i>
+    <?php endif; ?>
+
+    <?php if ($this->edited_staff['is_approved'] == 1 && $this->edited_staff['approve_by_name']) : ?>
+        <i>Approved by: <?php echo $this->edited_staff['approve_by_name']; ?>, Code: <?php echo $this->edited_staff['approve_by_code']; ?></i>
+    <?php endif; ?>
+
+    
+    <?php
+    if (isset($this->messages) and $this->messages)
+        foreach ($this->messages as $message):
+            echo '<div class="alert alert-success">'.$message.'</div>';
+        endforeach;
+
+    if (isset($this->messages_error) and $this->messages_error)
+        foreach ($this->messages_error as $message):
+          echo '<div class="alert alert-danger">'.$message.'</div>';
+        endforeach;
+    ?> 
+    <div>
+        <a type="button" href="/staff/list-update-infor" class="btn btn-primary"> &lt;&lt; Back</a>
+    </div>
+
+	<div class="text-right">
+		<input type="submit" name="approve" value="Approve" class="btn btn-success">
+        <input type="submit" name="reject" value="Reject" class="btn btn-warning">
+        <input type="submit" name="delete" value="Remove" class="btn btn-danger">
+    </div><br>
+
+    <table class="table table-bordered table-hover">
+   	<thead>
+   		<tr>
+   			<th style="text-align:center">Thông tin cũ</th>
+   			<th style="text-align:center">Thông tin mới</th>
+   		</tr>
+   	</thead>
+   	<tbody>
+   		<tr class="<?php echo ($this->original_staff['id_photo'] !== $this->edited_staff['id_photo']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">CMND mặt trước:</label>
+   				<a href="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Front/<?php echo $this->original_staff['id_photo']?>" target="_blank">
+   					<img src="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Front/<?php echo $this->original_staff['id_photo']?>"  width="250" height="250" class="">
+   				</a>
+   			</td>
+   			<td>
+   				<label class="col-sm-3">CMND mặt trước:</label>
+   				<a href="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Front/<?php echo $this->edited_staff['id_photo']?>" target="_blank">
+   					<img id="img_id_photo" src="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Front/<?php echo $this->edited_staff['id_photo']?>"  width="250" height="250" class="">`
+   				</a>
+   			</td>
+   		</tr>
+
+   		<tr class="<?php echo ($this->original_staff['id_photo_back'] !== $this->edited_staff['id_photo_back']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">CMND mặt sau:</label>
+   				<a href="<?php echo HOST; ?>photo/staff/<?php echo $this->staff_id?>/ID_Back/<?php echo $this->original_staff['id_photo_back']?>" target="_blank">
+   					<img src="<?php echo HOST; ?>photo/staff/<?php echo $this->staff_id?>/ID_Back/<?php echo $this->original_staff['id_photo_back']?>"  width="250" height="250" class="">
+   				</a>
+   			</td>
+
+   			<td>
+   				<label class="col-sm-3">CMND mặt sau:</label>
+   				<a href="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Back/<?php echo $this->edited_staff['id_photo_back']?>" target="_blank">
+   					<img id="img_id_photo_back" src="<?php echo HOST;?>photo/staff/<?php echo $this->staff_id?>/ID_Back/<?php echo $this->edited_staff['id_photo_back']?>"  width="250" height="250" class="">
+   				</a>
+   			</td>
+   		</tr>
+
+   		<tr class="<?php echo ($this->original_staff['ID_number'] !== $this->edited_staff['ID_number']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">Số CMND:</label>
+                <span><?php echo $this->original_staff['ID_number']?></span>
+   			</td>
+   			<td><label class="col-sm-3">Số CMND:</label>
+   				<input type="text" value="<?php echo $this->edited_staff['ID_number']; ?>" name="ID_number" >
+   			</td>
+   		</tr>    
+
+   		<tr class="<?php echo ($this->original_staff['id_place_province'] !== $this->edited_staff['id_place_province'] && $this->original_staff['id_citizen_province'] !== $this->edited_staff['id_place_province']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">Nơi câp:</label>
+                <span><?php echo $this->ID_card_infor['place_issued'] ?></span>
+            </td>
+   			<td>
+   				<label class="col-sm-3">Nơi cấp:</label>
+   				<div class="controls">
+   					<select name="id_place_province">
+   						<option value>choose</option>
+   						<?php foreach($this->provinces as $key => $value): ?>
+   							<option value="<?php echo $key;?>" <?php if(isset($this->edited_staff['id_place_province']) AND $this->edited_staff['id_place_province'] == $key) echo 'selected';?>> <?php echo $value;?>
+   						</option>
+   					   <?php endforeach; ?>
+   				   </select>
+   		     	</div>
+   	     	</td>
+   		</tr>
+
+   		<tr class="<?php echo ($this->original_staff['ID_date'] !== $this->edited_staff['ID_date']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">Ngày cấp:</label>
+                <span> <?php echo $this->original_staff['ID_date'] ? date('d/m/Y', strtotime($this->original_staff['ID_date'])) : ''; ?></span>
+   			</td>
+   			<td>
+   				<label class="col-sm-3">Ngày cấp:</label>
+   				<input type="text"  value="<?php echo $this->edited_staff['ID_date'] ? date( 'd/m/Y',strtotime($this->edited_staff['ID_date'])) : ''; ?>" name="ID_date">
+   			</td>
+   		</tr>
+       
+   		<tr class="<?php echo ($this->original_staff['phone_number'] !== $this->edited_staff['phone_number']) ? 'danger' : '' ?>" >
+   			<td>
+   				<label class="col-sm-3">Số điện thoại:</label>
+                <span><?php echo $this->original_staff['phone_number']?></span>
+   			</td>
+   			<td>
+   				<label class="col-sm-3">Số điện thoại:</label>
+   				<input type="text" value="<?php echo $this->edited_staff['phone_number']; ?>" name="phone_number">
+   			</td>
+   		</tr>
+
+		<tr class="<?php echo ($this->original_staff['nationality']  != $this->edited_staff['nationality']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">Dân tộc:</label>
+                <span>
+					<?php if ($this->nationalities) :
+                        foreach ($this->nationalities as $key => $value):?>
+                            <?php if (isset($this->original_staff['nationality']) and $this->original_staff['nationality'] and $key == $this->original_staff['nationality']) echo $value; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+				</span>
+   			</td>
+   			
+            <td>
+   				<label class="col-sm-3">Dân tộc:</label>
+				   <select id="card_nationality" name="card_nationality" class="nationality">
+					<option value>Choose</option>
+					<?php if ($this->nationalities) :
+						foreach ($this->nationalities as $key => $value):?>
+							<option value="<?php echo $key; ?>"
+								<?php if (isset($this->edited_staff['nationality']) and $this->edited_staff['nationality'] and $key == $this->edited_staff['nationality']):?>selected<?php endif;?>><?php echo $value; ?>
+							</option>
+						<?php endforeach;
+					endif; ?>
+				</select>
+   			</td>
+   		</tr>
+
+		<tr class="<?php echo ($this->original_staff['religion']  != $this->edited_staff['religion']) ? 'danger' : '' ?>">
+   			<td>
+   				<label class="col-sm-3">Tôn giáo:</label>
+                <span>
+					<?php if ($this->religions):
+							foreach ($this->religions as $key => $value):?>
+								<?php if (isset($this->original_staff['religion']) and $this->original_staff['religion'] and $key == $this->original_staff['religion']) echo $value; ?>
+                    <?php endforeach; endif; ?> 
+				</span>
+   			</td>
+   			
+            <td>
+   				<label class="col-sm-3">Tôn giáo:</label>
+   				<select id="card_religion" name="card_religion" class="religion">
+					<option value>Choose</option>
+					<?php if ($this->religions):
+						foreach ($this->religions as $key => $value): ?>
+							<option value="<?php echo $key; ?>"
+								<?php if (isset($this->edited_staff['religion']) and $this->edited_staff['religion'] and $key == $this->edited_staff['religion']):?>selected<?php endif;?>><?php echo $value; ?>
+							</option>
+                    <?php endforeach; endif; ?>
+				</select>
+   			</td>
+   		</tr>
+
+        <tr >
+            <td></td>
+            <td>
+                <label class="col-sm-3">Note:</label>
+                <textarea rows=4 name="note"></textarea>
+            </td>
+        </tr>
+   	</tbody>
+</table>
+</form>

@@ -1,0 +1,82 @@
+<div class="page-header">
+    <h1>List Update Information</h1>
+</div>
+
+<?php
+if (isset($this->messages) and $this->messages)
+    foreach ($this->messages as $message):
+        echo '<div class="alert alert-success">'.$message.'</div>';
+    endforeach;
+
+if (isset($this->messages_error) and $this->messages_error)
+    foreach ($this->messages_error as $message):
+        echo '<div class="alert alert-danger">'.$message.'</div>';
+    endforeach;
+?>
+
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Search
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
+            <div class="accordion-inner">
+                <form class="form-search form-horizontal" method="get">
+                    <div class="row">
+                        <div class="span5">                          
+                            <div class="control-group">
+                                <label for="code" class="span2">Staff code</label>
+                                <input id="code" name="code" type="text" class="search-query form-control" value="<?php echo $this->params['code'] ? $this->params['code'] : ''?>">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+		<thead>
+			<tr>
+                <th>#</th>
+				<th>CODE</th>
+				<th>NAME</th>
+				<th>EMAIL</th>
+				<th>DEPARTMENT</th>
+				<th>TEAM</th>
+				<th>TITLE</th>
+				<th>CREATED DATE</th>
+				<th>PHONE NUMBER</th>
+				<th>STATUS</th>
+				<th>ACTION</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+            $intStt = $this->offset;
+            foreach ($this->list as $value) :?>
+			<tr>
+                <td><?=++$intStt?></td>
+				<td><?php echo $value['code']; ?></td>
+				<td><?php echo $value['fullname'];?></td>
+				<td><?php echo $value['email']; ?></td>
+				<td><?php echo $value['department'];?> </td>
+				<td><?php echo $value['team'];?></td>
+				<td><?php echo $value['title'];?></td>
+				<td><?php echo $value['created_at'] ? date('d/m/Y', strtotime($value['created_at'])) : '';?></td>
+				<td><?php echo $value['phone_number'];?> </td>
+				<td><?php echo $value['is_rejected'] == 0 ? 'Pending' : 'Rejected';?></td>
+				<td><a href="/staff/list-update-detail?id=<?php echo $value['id'];?>&staff_id=<?php echo $value['staff_id'];?>"><i class="icon-edit-sign"></i></a></td>
+			</tr>
+		<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
+<div class="paging">
+    <?php echo $this->paging($this->total, $this->limit, $this->offset, $this->url);?>
+</div>

@@ -75,55 +75,21 @@ class Application_Model_StaffTempNew extends Zend_Db_Table_Abstract
         return $result;
     }
 
-    function fetchPagination($page, $limit, &$total, $params,$list_staff_permission)
+    function fetchPagination($page, $limit, &$total, $params)
     {
-        $userStorage = Zend_Auth::getInstance()->getStorage()->read();
         $db = Zend_Registry::get('db');
-
         $select = $db->select();
-        $select->from(array('s' => 'staff_temp_new'),
-                array(new Zend_Db_Expr('SQL_CALC_FOUND_ROWS DISTINCT s.id'), 's.*'));
+        $select->from(array('s' => $this->_name), array(new Zend_Db_Expr('SQL_CALC_FOUND_ROWS DISTINCT s.id'), 's.*'));
         $select->joinLeft(array('p' => 'staff'), 's.staff_id = p.id', array(
             'p.email',
             'p.code',
             'p.joined_at',
             'fullname' => "CONCAT(p.firstname, ' ', p.lastname)",
-            'area_name' => 'a.name'
         ))
-            ->joinLeft(array('d' => 'team'), 'p.department = d.id', array('department' => 'd.name'))
-            ->joinLeft(array('t' => 'team'), 'p.team = t.id', array('team' => 't.name'))
-            ->joinLeft(array('c' => 'team'), 'p.title = c.id', array('title' => 'c.name'))
-            ->joinLeft(array('r' => 'regional_market'), 'p.regional_market = r.id', array())
-            ->joinLeft(array('a' => 'area'), 'r.area_id = a.id', array());
-
-        $select->where('s.is_approved IN (?)', $params['approve_type']);
+        ->joinLeft(array('d' => 'team'), 'p.department = d.id', array('department' => 'd.name'))
+        ->joinLeft(array('t' => 'team'), 'p.team = t.id', array('team' => 't.name'))
+        ->joinLeft(array('c' => 'team'), 'p.title = c.id', array('title' => 'c.name'));
         $select->where('s.is_deleted = 0 OR s.is_deleted IS NULL');
-
-        if ($params['area_list']) {
-            $select->where('r.area_id IN (?)', $params['area_list']);
-        }
-        
-        if (isset($params['name']) and $params['name']) {
-            $select->where('CONCAT(p.firstname, " ",p.lastname) LIKE ?', '%' . $params['name'] . '%');
-            $select->orwhere('p.email LIKE ?', '%' . $params['name'] . '%');
-
-        }
-
-        if ($params['area_id']) {
-            $select->where('r.area_id = ?', $params['area_id']);
-        }
-
-        if (isset($params['company_id']) and $params['company_id']) {
-            $select->where('p.company_id = ?', $params['company_id']);
-        }
-
-        if (isset($params['team']) and $params['team']) {
-            if (is_array($params['team']) && count($params['team']) > 0) {
-                $select->where('p.team IN (?)', $params['team']);
-            } else {
-                $select->where('1=0', 1);
-            }
-        }
 
 
         if (isset($params['code']) and $params['code'])
@@ -131,14 +97,13 @@ class Application_Model_StaffTempNew extends Zend_Db_Table_Abstract
 
         if ($limit)
             $select->limitPage($page, $limit);
-        $select->order('s.is_rejected DESC');
 
+        $select->order('s.created_at DESC');
         $result = $db->fetchAll($select);
         
         if ($limit)
             $total = $db->fetchOne("select FOUND_ROWS()");
         return $result;
-
     }
 
     public function onlyPhoneNummberHasChanged($oldInfo, $newInfo)
