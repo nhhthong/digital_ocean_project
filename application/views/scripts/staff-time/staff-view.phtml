@@ -19,10 +19,9 @@
 
 <div class="staff_info span12">
     <h3>
-    15060017 - ĐỖ MINH TÂM - TECHNOLOGY MANAGER
+    <?php echo $this->staff_info['code'] . " - " . $this->staff_info['firstname'] . " " . $this->staff_info['lastname']; ?>
     </h3>
 </div>
-<?php $list_date = json_decode($this->data['list'], true); ?>
 
 <div class="span12" style="margin-left: 0px">
     <form class="form-group">
@@ -48,12 +47,12 @@
         </thead>
         <tbody>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
             </tr>
         </tbody>
     </table>
@@ -71,15 +70,55 @@
             </tr>
         </thead>
         <tbody>
-           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-           </tr>
+            <?php 
+            if( isset($this->list) and $this->list ) {
+                foreach ($this->list as $key => $value) {             
+                    $day_to_vi = array(
+                        1 => 'Chủ nhật',
+                        2 => 'Thứ hai',
+                        3 => 'Thứ ba',
+                        4 => 'Thứ tư',
+                        5 => 'Thứ năm',
+                        6 => 'Thứ sáu',
+                        7 => 'Thứ bảy'
+                    );                    
+            ?>            
+            <tr>
+                <td>
+                    <?php echo $day_to_vi[$value['day_of_week']]." ,<br/>ngày ".date_format(date_create($value['date']), "d/m/Y"); ?>
+                </td>
+                <td><?php echo $value['check_in_at'] ? date_format(date_create($value['check_in_at']), "d/m/Y H:i:s") : ""; ?></td>
+                <td><?php echo $value['check_out_at'] ? date_format(date_create($value['check_out_at']), "d/m/Y H:i:s") : ""; ?></td>
+                <td>
+                    <?php
+                        if ($value['time_number'] > 6) {
+                            echo "1 ngày công";
+                        } elseif ($value['time_number'] < 6 && $value['time_number'] > 2) {
+                            echo "0.5 ngày công";
+                        } 
+                    ?>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Bổ
+                        sung <span class=""></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if ($value['time_number'] < 6) { ?>
+                            <li><a class="" href="#"><i class="icon-file"></i> Bổ sung công </a></li>
+                            <li><a class="" href="#"><i class="icon-list-alt"></i> Bổ sung phép </a></li>
+                        <?php } ?>                        
+                        <?php if ($value['late'] == 1 || $value['soon'] == 1) { ?>
+                        <li><a class="" href="#"><i class="icon-edit"></i> Xác nhận đi trễ / về sớm </a></li>
+                        <?php } ?>
+                    </ul>
+                </td>
+            </tr>    
+            <?php  } 
+                }
+            ?>
         </tbody>
     </table>
 </div>
