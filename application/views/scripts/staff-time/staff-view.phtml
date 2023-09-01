@@ -5,6 +5,10 @@
     </div>
 </div>
 
+<style>
+    .red-text { color: red; }
+</style>
+
 <?php
     if (isset($this->messages) and $this->messages)
         foreach ($this->messages as $message) :
@@ -36,7 +40,7 @@
 </div>
 
 <div  class="span9" style="margin-left: 0px">
-    <table class="table table-responsive">
+    <!-- <table class="table table-responsive">
         <thead>
             <th>Ngày đi làm</th>
             <th>Phép năm tính lương</th>
@@ -55,7 +59,7 @@
                 <td>0</td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 
     <table class="table table-bordered table-responsive">
         <thead>
@@ -83,12 +87,12 @@
                         7 => 'Thứ bảy'
                     );                    
             ?>            
-            <tr>
+            <tr <?php if($value['is_sunday']) { ?>style="background-color: #ffffcf"<?php }?>>
                 <td>
                     <?php echo $day_to_vi[$value['day_of_week']]." ,<br/>ngày ".date_format(date_create($value['date']), "d/m/Y"); ?>
                 </td>
-                <td><?php echo $value['check_in_at'] ? date_format(date_create($value['check_in_at']), "d/m/Y H:i:s") : ""; ?></td>
-                <td><?php echo $value['check_out_at'] ? date_format(date_create($value['check_out_at']), "d/m/Y H:i:s") : ""; ?></td>
+                <td><?php echo $value['check_in_at'] ? date_format(date_create($value['check_in_at']), "H:i:s") : ""; ?></td>
+                <td><?php echo $value['check_out_at'] ? date_format(date_create($value['check_out_at']), "H:i:s") : ""; ?></td>
                 <td>
                     <?php
                         if ($value['time_number'] > 6) {
@@ -99,17 +103,24 @@
                     ?>
                 </td>
                 <td></td>
-                <td></td>
+                <td>
+                    <?php echo $value['status_late'] . "<br/>" . $value['status_soon']; ?>
+                </td>
                 <td>
                 <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Bổ
                         sung <span class=""></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <?php if ($value['time_number'] < 6) { ?>
-                            <li><a class="" href="#"><i class="icon-file"></i> Bổ sung công </a></li>
-                            <li><a class="" href="#"><i class="icon-list-alt"></i> Bổ sung phép </a></li>
+                        <?php if ($value['time_number'] < 6 && $value['date'] < date('Y-m-d')) { ?>
+                            <li><a class="btn-create-temp" href="#"
+                                    v-date="<?php echo $value['date'] ?>"
+                                    v-date-label="<?php echo date('d/m/Y', strtotime($value['date'])); ?>"
+                                    class="note_label" title="Quick Edit">
+                                    <i class="icon-file"></i> Bổ sung công
+                            </a></li>                            
                         <?php } ?>                        
+                        <li><a href="/leave/create"><i class="icon-list-alt"></i> Bổ sung phép </a></li>
                         <?php if ($value['late'] == 1 || $value['soon'] == 1) { ?>
                         <li><a class="" href="#"><i class="icon-edit"></i> Xác nhận đi trễ / về sớm </a></li>
                         <?php } ?>
@@ -123,3 +134,91 @@
     </table>
 </div>
 
+<div id="update_time_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Yêu cầu bổ sung công</h2>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" autocomplete="nope" action="<?php echo HOST; ?>staff-time/save-temp-time" method="post" enctype="multipart/form-data" target="frame">
+                    <div class="container">
+                        <iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
+                        <div class="span4">
+                            <div class="form-group">
+                                <label>Ngày yêu cầu:</label> <label id="label-date-update"></label>
+                                <input type="hidden" name="date" value="" id="date-update">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="width: 100%">Yêu cầu điều chỉnh:</label>
+                                <select id="office_time" name="office_time">
+                                    <option value="1">Một ngày</option>
+                                    <option value="0.5">Nửa ngày</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="width: 100%">Chọn lý do bổ sung: <b class="red-text">(*)</b></label>
+                                <select class="select-responsive" id="add_reason" name="add_reason" required>
+                                    <option value="">please select</option>
+                                <?php foreach ($this->reason_temp_time as $key => $value) { ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['name'] ?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="width: 100%">Lý do chi tiết: <b class="red-text">(*)</b></label>
+                                <textarea class="input-responsive" placeholder="" required="required" name="reason_gps" rows="" cols="" id="reason"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Gửi yêu cầu</button>
+                        </div>
+                        <div class="span3">
+                            <h2>Mô tả chi tiết</h2>
+                            <table class="table">
+                                <tbody><tr>
+                                    <tr>
+                                        <td><b>Thông tin</b>
+                                        <p id="summary1"></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.btn-create-temp').click(function () {
+        $('#date-update').val($(this).attr('v-date'));
+        $('#label-date-update').text($(this).attr('v-date-label'));
+        $("#update_time_modal").modal();
+    });
+
+    $("#add_reason").change(function () {
+        var reason_id = $(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/staff-time/get-reason-tmp-time',
+            data: {
+                reason_id: reason_id
+            },
+            typeType: 'json',
+            cache: false,
+            success: function (data)
+            {
+                var obj = JSON.parse(data);
+                $("#reason").empty();
+                $("#reason").attr("placeholder", obj.reason_detail);
+                $("#summary1").empty();
+                $("#summary1").append(obj.decription);
+            }
+        });
+    });
+</script>
