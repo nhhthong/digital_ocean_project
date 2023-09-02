@@ -1,0 +1,327 @@
+<style>
+    .full-width {
+        width: 100%;
+    }
+
+    #summary {
+        white-space: pre-line;
+    }
+
+    .span6 {
+        padding-left: 20px;
+    }
+    
+    @media only screen and (max-width: 500px)
+    {
+        .span6 {
+            width: 85vw;
+            padding-left: 0px;
+        }
+
+        .width-reponsive {
+            width: 110%;
+        }
+
+        .select-responsive {
+            width: 85vw;
+        }
+
+        .input-responsive {
+            width: 82vw;
+        }
+    }
+</style>
+<div class="page-header">
+    <h1>Đăng ký phép </h1>
+</div>
+<iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
+<form id="myForm" class="form-horizontal" autocomplete="nope" action="/leave/save" method="post" enctype="multipart/form-data" target="frame">
+    <div class="span4">
+        <div class="control-group" >
+            <label for="date-leave-half" class="control-label">Loại nghỉ</label>
+            <div class="controls">
+                <select name="is-leave-half" id="is-leave-half" class="select-responsive">
+                    <option value="1">Nghỉ phép</option>
+                    <option value="0.5">Nghỉ nửa ngày</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group leave-from-to">
+            <label for="from" class="control-label">Từ</label>
+            <div class="controls">
+                <input type="text" id="from" onkeydown="return false;" 
+                class="date input-responsive" name="from" value="" required placeholder="Từ..." required autocomplete="off">
+            </div>
+        </div>
+        <div class="control-group leave-from-to">
+            <label for="to" class="control-label">Đến</label>
+            <div class="controls">
+                <input type="text" id="to" onkeydown="return false;" 
+                class="date input-responsive" name="to" value="" required placeholder="Đến..." required autocomplete="off">
+            </div>
+        </div>
+        
+        <div class="control-group leave-half" style="display: none;">
+            <label for="date-leave-half" class="control-label">Ngày nghỉ</label>
+            <div class="controls">
+                <input type="text" class="date input-responsive"  
+                onkeydown="return false;" name="date-leave-half" id="date-leave-half" placeholder="Ngày nghỉ..." >
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="parent" class="control-label">Nhóm loại phép</label>
+            <div class="controls">
+                <select name="parent" id="parent" class="select-responsive">
+                    <option value="">none choose</option>
+                <?php foreach($this->parent_type as $key => $value) { ?>
+                    <option value="<?php echo $value['id']; ?>" <?php echo ($this->data['parent']==$value['id'])?" selected ":""; ?> ><?php echo $value['note'] ?></option>
+                <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="leave-type" class="control-label">Loại phép</label>
+            <div class="controls">
+                <select name="leave-type" id="leave-type" class="select-responsive" required>
+                    <option value="">none choose</option>                    
+                </select>
+            </div>
+            <span id='message'></span>
+        </div>
+
+        <div class="control-group">
+            <label for="reason" class="control-label">Lý do</label>
+            <div class="controls">
+                <textarea class="input-responsive" rows="3" name="reason" id="reason" required></textarea>
+            </div>
+        </div>
+
+        <div class="control-group" id="leave_due_date" style="display: none;">
+            <label class="control-label">Ngày dự sinh:</label>
+            <div class="controls">
+            <input  name="due_date" value="" id="due_date" onkeydown="return false;">  
+            </div>    
+        </div>
+                
+        <div id="div_leave_image" style="display: none;" class="control-group">
+            <label for="reason" class="control-label">Ảnh</label>
+            <div class="controls">
+                <input type="file" multiple name="image">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button type="submit" id="submit_btn" class="btn btn-success pull-right">Đăng ký</button>
+        </div>
+    </div>
+        
+    <div class="span6">
+        <h2>Mô tả chi tiết	</h2>
+        <table class="table">
+            <tr>
+                <td><b>Số ngày nghỉ tối đa một lần</b>
+                    <p id="max_day_per_time"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Số ngày nghỉ tối đa một năm</b>
+                    <p id="max_day_per_year"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Thông tin phép</b>
+                    <p id="summary"></p>
+                </td>
+            </tr>               
+        </table>
+    </div>
+
+    <div class="span4">
+        
+    </div>
+</form>
+<script type="text/javascript" src="/js/jquery-ui-1.8.12.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.8.12.custom.css"/>
+<script>
+    $('#from').datepicker({ dateFormat: "dd/mm/yy" });
+    $('#to').datepicker({ dateFormat: "dd/mm/yy" });
+    $('#date-leave-half').datepicker({ dateFormat: "dd/mm/yy"});
+    $('#due_date').datepicker({ dateFormat: "dd/mm/yy" });    
+    $("#is-leave-half").change(function ()
+    {
+        if($(this).val() == '0.5')
+        {
+            $(".leave-from-to").hide();
+            $(".leave-half").show();
+            $("#from").prop("required", false);
+            $("#to").prop("required", false);
+            $("#date-leave-half").prop("required", true);
+        } else {
+            $(".leave-from-to").show();
+            $(".leave-half").hide();
+            $("#from").prop("required", true);
+            $("#to").prop("required", true);
+            $("#date-leave-half").prop("required", false);
+        }
+    });
+
+    $('#leave-type').change(function () {
+        var leave_type_select = $("#leave-type option:selected").val();
+        $.ajax({
+            type: 'post',
+            url: '/leave/ajax-load-detail-leave',
+            data: {
+                id: leave_type_select
+            },
+            typeType: 'json',
+            cache: false,
+            success: function (data)
+            {
+                var obj = JSON.parse(data);
+                if(obj.max_day_per_time > 0) {   
+                    $('#max_day_per_time').text(obj.max_day_per_time);
+                    $('#max_day_per_year').text(obj.max_day_per_year);
+                } else {
+                    $('#max_day_per_time').text('Không giới hạn');
+                    $('#max_day_per_year').text('Không giới hạn');
+                }
+
+                if(obj.summary != null) {
+                    $('#summary').html(obj.summary);
+                } else {
+                    $('#summary').html('');
+                }
+
+                if(obj.need_images > 0) {
+                    $('#div_leave_image').show();
+                    $('#need_images').text('Phải up hình');
+                } else {
+                    $('#div_leave_image').hide();
+                    $('#need_images').text('Không bắt buộc up hình');
+                }
+
+				if(obj.id == 17){
+                    $("#due_date").attr("required","required");
+                	$('#leave_due_date').show();
+                } else{
+                    $("#due_date").removeAttr("required");
+                	$('#leave_due_date').hide();
+                }
+            }
+        });
+
+    });
+
+    $("#parent").change(function () {
+        var parent_vl = $(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/leave/ajax-load-child-leave-type',
+            data:
+            {
+                id: parent_vl
+            },
+            typeType: 'json',
+            cache: false,
+            success: function (data)
+            {
+                var obj = JSON.parse(data);
+                $("#leave-type").empty();
+                $.each(obj, function (index, value) 
+                {
+                    var html_option = '<option value="' + value.id + '"';
+                    html_option += '<option data-max-day-per-time="' + value.max_day_per_time + '"';
+                    html_option += '<option data-max-day-per-year="' + value.max_day_per_year + '"';
+                    html_option += '>';
+                    html_option += value.note;
+                    html_option += '</option>';
+                    $("#leave-type").append(html_option);
+                });
+                $('#leave-type').change();
+            }
+        });
+    });
+
+    $("form :input").change(function() {
+        var is_leave_half = $("#is-leave-half").val();
+        var from          = $("#from").val();
+        var to            = $("#to").val();
+        var parent        = $("#parent").val();
+        var leave_type    = $("#leave-type").val();
+        if(is_leave_half&&from&&to&&parent&&leave_type){
+            from = from.split("/");
+            from = new Date(from[2], from[1] - 1, from[0]);
+            to   = to.split("/");
+            to   = new Date(to[2], to[1] - 1, to[0]);
+            var diff = new Date(to - from);
+            var days = diff/1000/60/60/24 +1;
+            var day_off = days - countSunday(from, to);
+            if((parent==3||leave_type==2)&&(isSunday(from,to)==true)) {
+                 $('#message').html('Số ngày phép: '+day_off+' ngày (Ngày chủ nhật không được tính phép trong thời gian đăng ký)').css('color', 'red');
+            } else{
+               $('#message').html('');
+            }
+        }
+        else{
+            $('#message').html('');
+        }
+    })
+
+    function isSunday(date1, date2) {
+        var d1 = new Date(date1);
+        var d2 = new Date(date2);
+        while (d1 <= d2) {
+            var day = d1.getDay();
+            if (day==0) { return true; }
+            d1.setDate(d1.getDate() + 1);
+        }
+        return false;
+    }
+
+    function countSunday(date1, date2) {
+        var d1 = new Date(date1);
+        var d2 = new Date(date2);
+        var count =0;
+        while (d1 <= d2) {
+            var day = d1.getDay();
+            if (day==0) { count++; }
+            d1.setDate(d1.getDate() + 1);
+        }
+        return count;
+    }
+
+    $("#submit_btn").click(function(e) {
+        e.preventDefault();
+        $(this).attr("disabled", true);
+        $("#myForm").submit();       
+        initWaiting();
+    });
+
+    function initWaiting() {
+        $.blockUI({
+            fadeIn: 700,
+            fadeOut: 700,
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+    }
+
+    function unblockUI() {
+        $.unblockUI();
+        $('.loading').remove();
+    }
+
+    function redirectPage() {
+        window.setTimeout(function() {
+            window.location.href = '<?php echo HOST . 'leave/create'; ?>';
+        }, 500);        
+    }
+</script>
