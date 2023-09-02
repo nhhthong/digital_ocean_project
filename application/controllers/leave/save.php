@@ -14,8 +14,9 @@ try {
     $leave_type = $this->getRequest()->getParam("leave-type");
     $reason = $this->getRequest()->getParam("reason");
     $due_date = $this->converDate($this->getRequest ()->getParam ( 'due_date' ));
+    $staff_id = $userStorage->id;
 
-    if($from < $userStorage->joined_at){
+    if($is_leave_half === 1 && $from < $userStorage->joined_at){
         throw new Exception('Ngày phép trước ngày bắt đầu làm việc.');
     }
         
@@ -24,22 +25,6 @@ try {
             throw new Exception ("Vui lòng nhập ngày dự sinh");
         }        
     }
-
-    $sql_check_leave_time = "SELECT
-        COUNT(ld.id) AS `check_leave_time`
-        FROM `leave_detail` AS `ld`
-        WHERE (
-            (            
-                ld.from_date <= '$from') AND (ld.to_date >= '$from')
-                OR (ld.from_date <= '$to' AND ld.to_date >= '$to')
-                OR (ld.from_date >= '$from' AND ld.to_date <= '$to')
-            )
-            AND (ld.staff_id = $staff_id)
-            AND  (ld.hr_approved <> 2 AND ld.status <> 2)";
-    $stmt = $db->prepare ( $sql_check_leav_time );
-    $stmt->execute ();
-    $result = $stmt->fetchAll ();
-    if ($result) throw new Exception ("Đã có phép đăng ký trong khoản thời gian này");
 
     define('MAX_SIZE_UPLOAD', 3145728);            
     $name1 = "";
@@ -66,9 +51,26 @@ try {
         if(strtotime($from) > strtotime($to)){
             throw new Exception("Ngày bắt đầu nghỉ phép không được lơn hơn ngày kết thúc");
         }else{
+            $sql_check_leave_time = "SELECT
+                COUNT(ld.id) AS `check_leave_time`, ld.staff_id
+                FROM `leave_detail` AS `ld`
+                WHERE (
+                    (            
+                        ld.from_date <= '$from') AND (ld.to_date >= '$from')
+                        OR (ld.from_date <= '$to' AND ld.to_date >= '$to')
+                        OR (ld.from_date >= '$from' AND ld.to_date <= '$to')
+                    )
+                    AND (ld.staff_id = $staff_id)
+                    AND  (ld.hr_approved <> 2 AND ld.status <> 2) HAVING staff_id is not null";
+
+            $stmt = $db->prepare ($sql_check_leave_time);
+            $stmt->execute ();
+            $result = $stmt->fetchAll ();
+            if ($result) throw new Exception ("Đã có phép đăng ký trong khoản thời gian này");
+
             $data = array(
-                'from'       => $from,
-                'to'         => $to,
+                'from_date'  => $from,
+                'to_date'    => $to,
                 'leave_type' => $leave_type,
                 'staff_id'   => $staff_id,
                 'reason'     => $reason,
@@ -88,9 +90,19 @@ try {
             $QLeaveDetail->insert($data);
         }
     }else{
+        $select = $db->select()->from(array('ld' => 'leave_detail'), array('check_leav_time' => 'COUNT(ld.id)', 'ld.staff_id'))
+                    ->where('ld.from_date <= ?', $date)
+                    ->where('ld.to_date >= ?', $date)
+                    ->where('ld.hr_approved <> 2')
+                    ->where('ld.status <> 2')
+                    ->where('ld.staff_id = ?', $staff_id)
+                    ->having('staff_id is not null');
+        $result = $db->fetchAll($select);
+        if ($result) throw new Exception ("Đã có phép đăng ký trong khoản thời gian này");
+
         $data = array(
-            'from'       => $date,
-            'to'         => $date,
+            'from_date'  => $date,
+            'to_date'    => $date,
             'leave_type' => $leave_type,
             'staff_id'   => $staff_id,
             'reason'     => $reason,
