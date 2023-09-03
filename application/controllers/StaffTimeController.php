@@ -15,5 +15,13 @@ class StaffTimeController extends My_Controller_Action {
     
     public function lateListAction () {
         require_once 'staff-time' . DIRECTORY_SEPARATOR . 'late-list.php';
-    } 
+    }
+    
+    public function listStaffApproveAction () {
+        require_once 'staff-time' . DIRECTORY_SEPARATOR . 'list-staff-approve.php';
+    }
+
+    public function getViewDetailApproveAction () {
+        require_once 'staff-time' . DIRECTORY_SEPARATOR . 'get-view-detail-approve.php';
+    }
 }

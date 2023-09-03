@@ -1,0 +1,64 @@
+<?php
+    $en_to_vi = array(
+        'Sun' => 'Chủ nhật',
+        'Mon' => 'Thứ hai',
+        'Tue' => 'Thứ ba',
+        'Wed' => 'Thứ tư',
+        'Thu' => 'Thứ năm',
+        'Fri' => 'Thứ sáu',
+        'Sat' => 'Thứ bảy',
+    );
+?>
+<div class="modal-header">
+    <h5 class="modal-title" id="office-modal-label">Detail</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i aria-hidden="true" class="ki ki-close"></i>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col text-center">
+        Code: <b class=""><?php echo $this->staff->code?></b>
+    </div>
+        <div class="col text-center">
+        Full name: <b class=""><?php echo $this->staff->firstname.' '.$this->staff->lastname?></b>
+    </div>
+</div>
+
+<div class="modal-body">
+    <form action="/staff-time/action-staff-approve" method="post" class="form-horizontal">
+    <input type='hidden' name='staff_approve' value='<?php echo $this->data[0]['staff_id']?>'>
+    <table class='table'>
+        <thead >
+            <tr>
+                <th>Date</th>
+                <th>Check in</th>
+                <th>Check out</th>
+                <th>Working day</th>
+                <th>Approval for</th>
+                <th>Reason</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->data as $value):?>
+            <tr>
+                <td><?php echo $en_to_vi[date('D', strtotime($value['date']))].', '. date('d/m/Y', strtotime($value['date']));?></td>
+                <td><?php echo !empty($value['check_in_at']) ? date('H:i', strtotime($value['check_in_at'])) : ''?></td>
+                <td><?php echo !empty($value['check_out_at']) ? date('H:i', strtotime($value['check_out_at'])) : ''?></td>
+                <td><?php echo $value['temp_office_time'] . ' ngày công'; ?></td>
+                <td><?php echo (!empty($value['time_late_id']))?'Xác nhận không đi trễ / về sớm':'Xác nhận có đi làm';?></td>
+                <td><?php echo (!empty($value['temp_reason']) ? $value['temp_reason'] : (!empty($value['time_late_reason']) ? $value['time_late_reason'] : $value['time_reason']))?></td>
+                <td>
+                    <button name='date-approve' class="pull-right btn btn-success font-weight-bold btn-pill btn-block" value='<?php echo date('Y-m-d', strtotime($value['date']))?>'>Approve</button>
+                    <button name='date-none-approve' class="pull-right btn btn-warning font-weight-bold btn-pill btn-block" value='<?php echo date('Y-m-d', strtotime($value['date']))?>'>Reject</button>
+                </td>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+</div>

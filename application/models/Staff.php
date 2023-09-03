@@ -69,4 +69,14 @@ class Application_Model_Staff extends Zend_Db_Table_Abstract
         $stmt->closeCursor();
         return $result[0];
     }
+
+    public function getStaffApprove ($department) {
+        $db = Zend_Registry::get('db');
+        $select = $db->select()->from(array('p' => 'staff'), array(
+            'p.id'
+        ));
+        $select->where('p.department = ?', $department);
+        $result = $db->fetchCol($select);
+        return $result;
+    }
 }

@@ -128,11 +128,12 @@ class UserController extends My_Controller_Action {
             $group  = $QGroup->find($title->access_group)->current();
             $menu   = $group->menu ? explode(',', $group->menu) : null;
             
-            $where   = array();            
-            if ($menu && $resultStaff['id'] <> SUPERADMIN_ID)
+            $where   = array();        
+            $where[] = $QMenu->getAdapter()->quoteInto('hidden = ?', 0);    
+            if ($menu && $data->id <> SUPERADMIN_ID)
                 $where[] = $QMenu->getAdapter()->quoteInto('id IN (?)', $menu);
             else
-                $where[] = $QMenu->getAdapter()->quoteInto('1 = ?', 0);
+                $where[] = $QMenu->getAdapter()->quoteInto('1 = ?', 1);
 
             $menus = $QMenu->fetchAll($where, array('parent_id', 'position'));
             $data->menu = $menus;
