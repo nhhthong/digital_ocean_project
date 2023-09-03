@@ -4,7 +4,7 @@ class Application_Model_LeaveDetail extends Zend_Db_Table_Abstract{
 
     protected $_name = 'leave_detail';
 
-    public function _selectAdmin($params = array())
+    public function _selectAdmin($limit = 20, $page = 1, $params = array())
     {
         $db = Zend_Registry::get('db');
         $arrCols = array(
@@ -30,10 +30,21 @@ class Application_Model_LeaveDetail extends Zend_Db_Table_Abstract{
                 $select->where("st.id in (?)", $list_staff);
             }
         }       
+
+        if(isset($params['parent_leave_type']) && !empty($params['parent_leave_type']))
+        {
+            $select->where("lt2.id = ?", $params['parent_leave_type'] );
+        }
         $select->group("ld.id");
         $select->order("ld.from_date desc");
         $select->order("st.code asc");
-        $result = $db->fetchAll($select);
-        return $result;
+
+        if ($limit){
+            $select->limitPage($page, $limit);
+        }
+
+        $data['data'] = $db->fetchAll($select);
+        $data['total'] = $db->fetchOne("SELECT FOUND_ROWS()");
+        return $data;
     }
 }

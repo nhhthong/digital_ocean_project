@@ -24,4 +24,8 @@ class StaffTimeController extends My_Controller_Action {
     public function getViewDetailApproveAction () {
         require_once 'staff-time' . DIRECTORY_SEPARATOR . 'get-view-detail-approve.php';
     }
+
+    public function listStaffCheckInAction () {
+        require_once 'staff-time' . DIRECTORY_SEPARATOR . 'list-staff-check-in.php';
+    }
 }

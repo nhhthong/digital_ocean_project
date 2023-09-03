@@ -1,0 +1,276 @@
+<div class="page-header">
+    <h1>List Leave</h1>
+</div>
+
+<?php
+if (isset($this->messages_success) and $this->messages_success)
+    foreach ($this->messages_success as $message):
+        echo '<div class="alert alert-success">'.$message.'</div>';
+    endforeach;
+
+if (isset($this->messages_error) and $this->messages_error)
+    foreach ($this->messages_error as $message):
+        echo '<div class="alert alert-error">'.$message.'</div>';
+    endforeach;
+?>
+
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css"/>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Search
+            </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
+            <div class="accordion-inner">
+                <form action="" method="GET" class="form-search form-horizontal">
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                <label class="control-label">Từ ngày</label>
+                                <div class="controls">
+                                    <input type="text" name="from_date" value="<?php echo (!empty($this->params['from_date'])?(date('Y-m-d', strtotime($this->params['from_date'])) ):'' ) ?>" id="" class="date" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Mã nhân viên</label>
+                                <div class="controls">
+                                    <input type="text" name="code" value="<?php echo $this->params['code'] ?>" id="" class="">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Quản lý cấp một</label>
+                                <div class="controls">
+                                    <select name="status" id="">
+                                        <option value="">none choose</option>
+                                        <option value="1" <?php echo ($this->params['status'] == 1)?'selected':''; ?>>Đã xác nhận</option>
+                                        <option value="0" <?php echo ($this->params['status'] == 0 && $this->params['status'] != "") ?  'selected' : ''; ?>>Chưa xác nhận</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="span4">
+                            <div class="control-group">
+                                <label class="control-label">Đến ngày</label>
+                                <div class="controls">
+                                    <input type="text" name="to_date" value="<?php echo (!empty($this->params['to_date'])?(date('Y-m-d', strtotime($this->params['to_date'])) ):'' ) ?>"  class="date" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Tên nhân viên</label>
+                                <div class="controls">
+                                    <input type="text" name="name" id="staff_name" class="" value="<?php echo $this->params['name']; ?>">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Quản lý cấp hai</label>
+                                <div class="controls">
+                                    <select id="hr_approved" name="hr_approved">
+                                        <option value="">none choose</option>
+                                        <option value="1" <?php echo ($this->params['hr_approved'] == 1)?'selected':''; ?> >Đã xác nhận</option>
+                                        <option value="0" <?php echo ($this->params['hr_approved'] == 0 && $this->params['hr_approved'] != "")?'selected':''; ?> >Chưa xác nhận</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span12">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form> 
+            </div> 
+        </div> 
+    </div>
+</div>
+
+<form method="post" action="">
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#giam" data-toggle="tab">Phép Bảo hiểm</a></li>
+    <li><a href="#dieuchinh" data-toggle="tab">Phép việc riêng hưởng lương</a></li>
+    <li><a href="#chedo" data-toggle="tab">Phép năm</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="giam">
+        <table class="table table-bordered">
+            <thead>
+                <th>Mã nhân viên</th>
+                <th>Họ tên</th>
+                <th>Chức vụ</th>
+                <th>Loại phép</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
+                <th>Số ngày nghỉ theo đơn</th>
+                <th class="reason">Lý do xin nghỉ</th>
+                <th>Quản lý trực tiếp</th>
+                <th>Nhân sự</th>
+                <th>Phản hồi</th>
+                <th>Ngày dự sinh</th>
+                <th>Ngày đăng ký</th>
+            </thead>
+            <tbody>
+            <?php foreach($this->data_insurance as $key => $value) { ?> 
+            <tr>
+                <td><?php echo $value['code'] ?></td>
+                <td><?php echo $value['staff_name'] ?></td>
+                <td><?php echo $value['title_name'] ?></td>                
+                <td><?php echo $value['leave_type_note']; ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['from_date'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['to_date'])); ?></td>
+                <td><?php echo $value['total']; ?> ngày</td>
+                <td><?php echo $value['reason']; ?></td>
+                <td>
+                <td>
+                    <?php
+                        if($value['status'] == 0) {
+                            echo "Đang chờ xử lý";
+                        } elseif($value['status'] == 1) {
+                            echo 'Đồng ý';
+                        } elseif($value['status'] == 2) {
+                            echo 'Không đồng ý';
+                        }
+                    ?>
+                    <?php if(!empty($value['image'])) {                     
+                        $img_url = '';
+                        $img_url = HOST . 'photo/leave/' . $value['image'];
+                    ?>
+                        <img class="img_toggle" v-width="crop" src="<?php echo $img_url ; ?>" style="width: 20px;">
+                    <?php } ?>   
+                </td>
+                <td><?php if($value['hr_approved'] == 0) {?>
+                    <button class="label label-xs label-success" value="<?php echo $value['id']; ?>" name="hr_approved1">Đồng ý</button><br/>
+                    <button class="label label-xs label-danger"  value="<?php echo $value['id']; ?>" name="nothr_approved">Không đồng ý</button><br/>
+                    <?php } elseif($value['hr_approved'] == 1) {
+                        echo 'Đồng ý';
+                    } elseif ($value['hr_approved'] == 2) {
+                        echo 'Hr từ chối';
+                    } ?>
+                    <button type="button" class="label label-xs label-danger btn-delete" value="<?php echo $value['id']; ?>" name="">Xóa</button>
+                </td>
+                <td><?php if(!empty($value['due_date']) && $value['due_date'] != '0000-00-00') echo  date("d/m/Y", strtotime($value['due_date'])) ;?></td>
+                <td><?php if(!empty($value['created_at'])) echo date("d/m/Y", strtotime($value['created_at'])); ?></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane" id="chedo" >
+        <table class="table table-bordered">
+            <thead>
+                <th>Khu vực</th>
+                <th>Mã nhân viên</th>
+                <th>Họ tên</th>
+                <th>Chức vụ</th>
+                <th>Loại phép</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
+                <th>Số ngày nghỉ theo đơn</th>
+                <th class="reason">Lý do xin nghỉ</th>
+                <th>Quản lý trực tiếp</th>
+                <th>Nhân sự</th>
+                <th>Phản hồi</th>
+            </thead>
+            <tbody>
+            <?php foreach($this->data_nam as $key => $value) { ?> 
+            <tr>
+                <td><?php echo $value['code'] ?></td>
+                <td><?php echo $value['staff_name'] ?></td>
+                <td><?php echo $value['title_name'] ?></td>                
+                <td><?php echo $value['leave_type_note']; ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['from_date'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['to_date'])); ?></td>
+                <td><?php echo $value['total']; ?> ngày</td>
+                <td><?php echo $value['reason']; ?></td>
+                <td>
+                <td>
+                    <?php
+                        if($value['status'] == 0) {
+                            echo "Đang chờ xử lý";
+                        } elseif($value['status'] == 1) {
+                            echo 'Đồng ý';
+                        } elseif($value['status'] == 2) {
+                            echo 'Không đồng ý';
+                        }
+                    ?>
+                </td>
+                <td><?php if($value['hr_approved'] == 0) {?>
+                    <button class="label label-xs label-success" value="<?php echo $value['id']; ?>" name="hr_approved1">Đồng ý</button><br/>
+                    <button class="label label-xs label-danger"  value="<?php echo $value['id']; ?>" name="nothr_approved">Không đồng ý</button><br/>
+                    <?php } elseif($value['hr_approved'] == 1) {
+                        echo 'Đồng ý';
+                    } elseif ($value['hr_approved'] == 2) {
+                        echo 'Hr từ chối';
+                    } ?>
+                    <button type="button" class="label label-xs label-danger btn-delete" value="<?php echo $value['id']; ?>" name="">Xóa</button>
+                </td>
+                <td></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane" id="dieuchinh">
+        <table class="table table-bordered">
+            <thead>
+                <th>Khu vực</th>
+                <th>Mã nhân viên</th>
+                <th>Họ tên</th>
+                <th>Chức vụ</th>
+                <th>Loại phép</th>
+                <th>Từ ngày</th>
+                <th>Đến ngày</th>
+                <th>Số ngày nghỉ theo đơn</th>
+                <th class="reason">Lý do xin nghỉ</th>
+                <th>Quản lý trực tiếp</th>
+                <th>Nhân sự</th>
+                <th>Phản hồi</th>
+            </thead>
+            <tbody>
+            <?php foreach($this->data_viec_rieng as $key => $value) { ?> 
+            <tr>
+                <td><?php echo $value['code'] ?></td>
+                <td><?php echo $value['staff_name'] ?></td>
+                <td><?php echo $value['title_name'] ?></td>                
+                <td><?php echo $value['leave_type_note']; ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['from_date'])); ?></td>
+                <td><?php echo date("d/m/Y", strtotime($value['to_date'])); ?></td>
+                <td><?php echo $value['total']; ?> ngày</td>
+                <td><?php echo $value['reason']; ?></td>
+                <td>
+                <td>
+                    <?php
+                        if($value['status'] == 0) {
+                            echo "Đang chờ xử lý";
+                        } elseif($value['status'] == 1) {
+                            echo 'Đồng ý';
+                        } elseif($value['status'] == 2) {
+                            echo 'Không đồng ý';
+                        }
+                    ?>
+                </td>
+                <td><?php if($value['hr_approved'] == 0) {?>
+                    <button class="label label-xs label-success" value="<?php echo $value['id']; ?>" name="hr_approved1">Đồng ý</button><br/>
+                    <button class="label label-xs label-danger"  value="<?php echo $value['id']; ?>" name="nothr_approved">Không đồng ý</button><br/>
+                    <?php } elseif($value['hr_approved'] == 1) {
+                        echo 'Đồng ý';
+                    } elseif ($value['hr_approved'] == 2) {
+                        echo 'Hr từ chối';
+                    } ?>
+                    <button type="button" class="label label-xs label-danger btn-delete" value="<?php echo $value['id']; ?>" name="">Xóa</button>
+                </td>
+                <td></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</form>

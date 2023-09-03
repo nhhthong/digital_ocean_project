@@ -18,6 +18,10 @@ class LeaveController extends My_Controller_Action {
         require_once 'leave' . DIRECTORY_SEPARATOR . 'ajax-load-child-leave-type.php';
     }
 
+    public function listLeaveDetailAction() {
+        require_once 'leave' . DIRECTORY_SEPARATOR . 'list-leave-detail.php';
+    }
+
     private function converDate($date = '')
     {
         $array_date = explode("/", $date);

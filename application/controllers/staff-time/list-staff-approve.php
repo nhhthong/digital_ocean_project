@@ -20,7 +20,7 @@ $params = [
     'year'  => $year
 ];
 $params['list_staff'] = $get_list_staff;
-$data_leave = $QLeaveDetail->_selectAdmin($params);
+$data_leave = $QLeaveDetail->_selectAdmin(null, null, $params);
 
 $list_of_subordinates = implode(",", $get_list_staff);
 $db = Zend_Registry::get('db');
@@ -33,5 +33,5 @@ $stmt->execute();
 $list_staff_view = $stmt->fetchAll();
 $stmt->closeCursor();
 $this->view->list_staff_view = $list_staff_view;
-$this->view->data_leave      = $data_leave;
+$this->view->data_leave      = $data_leave['data'];
 $this->view->params          = $params;

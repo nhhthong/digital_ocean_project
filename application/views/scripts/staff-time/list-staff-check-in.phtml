@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Chuyên cần</h1>
+    <h1>List Staff Check In</h1>
 </div>
 
 <?php
@@ -17,11 +17,11 @@
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                Search
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2">
+                Report Excel
             </a>
         </div>
-        <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
+        <div  class="accordion-body" style="height: 0px;">
             <div class="accordion-inner">
             <form class="form-search form-horizontal" method="get" action="/staff">
             <div class="row">
@@ -96,30 +96,11 @@
                 </div>
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-success mr-2">Search</button>
+                <button type="submit" name="export" value="1" class="btn btn-warning mr-2">Export</button>
+                <button type="submit" name="export_detail" value="1" class="btn btn-success">Export Detail</button>
             </div>
             </form>
             </div>
         </div>
     </div>
 </div>
-
-<br>
-<table class="table table-bordered" id="table">
-    <thead>
-        <th>#</th>
-        <th>Mã nhân viên</th>
-        <th>Tên nhân viên</th>
-        <th>Phòng ban</th>
-        <th>Team</th>
-        <th>Title</th>
-        <th>1h đến 3h</th>
-        <th>Trên 3h</th>
-        <th>Quên check in</th>
-        <th>Số ngày phạt</th>
-        <th>Hành động</th>
-    </thead>
-    <tbody>
-        
-    </tbody>
-</table>
