@@ -9,10 +9,15 @@ class ViewMenuController extends My_Controller_Action
         $id          = $this->getRequest()->getParam('id');
 
         //lay menu 
-        $QMenu     = new Application_Model_Menu();
-        $where     = null;
-        $where     = $QMenu->getAdapter()->quoteInto('group_id = ? and hidden is null', 1);
-        $groupMenu = $QMenu->fetchAll($where, array('parent_id', 'position'));
+        if (isset($userStorage->menu) && $userStorage->menu) {
+            $groupMenu = $userStorage->menu;
+        } else {
+            $QMenu     = new Application_Model_Menu();
+            $where     = null;
+            $where     = $QMenu->getAdapter()->quoteInto('group_id = ? and hidden is null', 1);
+            $groupMenu = $QMenu->fetchAll($where, array('parent_id', 'position'));
+        }
+       
 
         $db = Zend_Registry::get('db');
         $select = $db->select()->from(array('m' => 'menu'), array(

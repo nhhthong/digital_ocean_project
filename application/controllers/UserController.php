@@ -120,6 +120,22 @@ class UserController extends My_Controller_Action {
                 $auth->clearIdentity();
                 throw new Exception("This account was disabled!");
             }
+
+            $QGroup = new Application_Model_Group();
+            $QMenu  = new Application_Model_Menu();
+            $QTeam  = new Application_Model_Team();
+            $title  = $QTeam->find($data->title)->current();
+            $group  = $QGroup->find($title->access_group)->current();
+            $menu   = $group->menu ? explode(',', $group->menu) : null;
+            
+            $where   = array();            
+            if ($menu && $resultStaff['id'] <> SUPERADMIN_ID)
+                $where[] = $QMenu->getAdapter()->quoteInto('id IN (?)', $menu);
+            else
+                $where[] = $QMenu->getAdapter()->quoteInto('1 = ?', 0);
+
+            $menus = $QMenu->fetchAll($where, array('parent_id', 'position'));
+            $data->menu = $menus;
             $auth->getStorage()->write($data);
 
             $QLog = new Application_Model_Log();

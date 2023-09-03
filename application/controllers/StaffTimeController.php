@@ -11,5 +11,9 @@ class StaffTimeController extends My_Controller_Action {
 
     public function getReasonTmpTimeAction () {
         require_once 'staff-time' . DIRECTORY_SEPARATOR . 'get-reason-tmp-time.php';
-    }    
+    } 
+    
+    public function lateListAction () {
+        require_once 'staff-time' . DIRECTORY_SEPARATOR . 'late-list.php';
+    } 
 }

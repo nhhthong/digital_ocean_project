@@ -18,30 +18,6 @@ class My_Controller_Action extends Zend_Controller_Action {
             }
             $lang = $userStorage->defaut_language;
             $this->view->lang = $lang;
-            $QTeam            = new Application_Model_Team();
-            $staff_title_info = $userStorage->title;                    
-            $team_info        = $QTeam->fetchRow(
-                [
-                    $QTeam->getAdapter()->quoteInto ('id = ?', $staff_title_info)
-                ]
-            );
-            $group_id         = $team_info->access_group;
-           
-            if (isset($userStorage->menu) && $userStorage->menu) {
-                $menu = $userStorage->menu;
-            } else {
-                $QMenu = new Application_Model_Menu();
-                $where = $QMenu->getAdapter()->quoteInto('group_id = ?', $group_id);
-                $menu  = $QMenu->fetchAll($where, array('parent_id', 'position'));
-            }
-            
-            $array_menu_parent = array();
-            foreach ($menu as $row) {
-                if($row['parent_id'] == 0){
-                    array_push($array_menu_parent, $row);
-                }
-            }
-            $this->view->total_number_menu = count($array_menu_parent);
     
             $QMenu                  = new Application_Model_Menu();
             $action_name            = Zend_Controller_Front::getInstance()->getRequest()->getActionName() == 'index' ? '' : '/' . Zend_Controller_Front::getInstance()->getRequest()->getActionName();
@@ -141,7 +117,7 @@ class My_Controller_Action extends Zend_Controller_Action {
 
     
 
-    public function rule_penalti($time) {
+    public static function rule_penalti($time) {
         if ($time <= 120) {
             $x = 0;
         } elseif ($time > 120 && $time <= 180) {
