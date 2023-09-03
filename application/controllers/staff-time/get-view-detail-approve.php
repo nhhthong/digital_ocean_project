@@ -18,5 +18,10 @@ $stmt->execute();
 $data = $stmt->fetchAll();
 $stmt->closeCursor();
 $stmt = $db = null;
+
+$where_staff =[] ;
+$where_staff[] = $Qstaff->getAdapter()->quoteInto('id = ?',$staff_id);
+$staff = $Qstaff->fetchRow($where_staff);
+
 $this->view->data = $data;
 $this->view->staff = $staff;
