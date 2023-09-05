@@ -2,7 +2,8 @@
 $userStorage = Zend_Auth::getInstance()->getStorage()->read();
 $month               = $this->getRequest()->getParam('month', date('m'));
 $year                = $this->getRequest()->getParam('year', date('Y'));
-$number_day_of_month = cal_days_in_month(CAL_GREGORIAN, intval($month), $year);
+$number_day_of_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+// $number_day_of_month = cal_days_in_month(CAL_GREGORIAN, intval($month), $year);
 $from_date           = $year . '-' . $month . '-01';
 $to_date             = $year . '-' . $month . '-' . $number_day_of_month;
 

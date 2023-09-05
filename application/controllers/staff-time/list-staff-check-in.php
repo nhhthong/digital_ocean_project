@@ -14,7 +14,8 @@ $this->view->search   = $search;
 
 $limit = 20;
 
-$number_day_of_month = cal_days_in_month(CAL_GREGORIAN, intval($month), $year);
+$number_day_of_month = date('t', mktime(0, 0, 0, $month, 1, $year));
+// $number_day_of_month = cal_days_in_month(CAL_GREGORIAN, intval($month), $year);
 $month_tmp =  ($month < 10) ? '0'. $month : $month;
 $from_date = $year . '-' . $month_tmp. '-01';
 $to_date   = $year . '-' . $month_tmp . '-' . $number_day_of_month;
