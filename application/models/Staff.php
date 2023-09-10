@@ -29,7 +29,7 @@ class Application_Model_Staff extends Zend_Db_Table_Abstract
             if (is_array($params['department']) && count($params['department']) > 0) {
                 $select->where('p.department IN (?)', $params['department']);
             } else {
-                $select->where('1=0', 1);
+                $select->where('p.department = ?', $params['department']);
             }
         }
 
@@ -37,7 +37,7 @@ class Application_Model_Staff extends Zend_Db_Table_Abstract
             if (is_array($params['team']) && count($params['team']) > 0) {
                 $select->where('p.team IN (?)', $params['team']);
             } else {
-                $select->where('1=0', 1);
+                $select->where('p.team = ?', $params['team']);
             }
         }
 
@@ -45,7 +45,7 @@ class Application_Model_Staff extends Zend_Db_Table_Abstract
             if (is_array($params['title']) && count($params['title']) > 0) {
                 $select->where('p.title IN (?)', $params['title']);
             } else {
-                $select->where('1=0', 1);
+                $select->where('p.title = ?', $params['title']);
             }
         }
 
