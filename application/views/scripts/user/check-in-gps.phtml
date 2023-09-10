@@ -32,7 +32,7 @@ if (isset($this->messages_success) and $this->messages_success)
                 <h5><?php isset($this->staff) and $this->staff and printf($this->staff->code);?></h5>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label for="location">Vị trí GPS nhân viên: </label>
                 <input id="latitude" name="latitude" value="" readonly/> 
                 <input id="longitude" name="longitude" value="" readonly/>
@@ -59,7 +59,65 @@ if (isset($this->messages_success) and $this->messages_success)
         </div>
     </div>
 </form>
+<style>
+    #map{
+        height: 300px;
+        width: 300px;
+    }
+</style>
+<div id="map"></div>
+<script>
+    $(document).ready(function(){
+        initMap();
+    });
+    function initMap() {
+        var myLatLng = {lat: 40.59726025535419, lng: 80.02503488467874};
 
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: myLatLng
+        });
+    
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Your Location!'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: {lat: 10.7326689, lng: 106.6997696},
+            map: map,
+            title: 'Your Office!'
+        });
+    
+        var infoWindow = new google.maps.InfoWindow({map: map});
+    
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Your Location.');
+            map.setCenter(pos);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+        } else {
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+  
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
 <script>
 
     $(document).ready(function(){
