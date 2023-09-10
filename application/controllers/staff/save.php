@@ -55,6 +55,7 @@ try {
 
     if($off_date) $tmp = $this->_formatDate($off_date);
     $off_date_created_at = ($tmp) ? date('Y-m-d H:i:s') : NULL;
+    $status = ($tmp) ? 0 : 1;
 
     $data = array(
         'department' => intval($department),
@@ -73,7 +74,7 @@ try {
         'religion' => intval($religion),        
         'note' => $note,  
         'dob' => $dob,        
-        'status' => 1,
+        'status' => $status,
         'id_place_province'   => intval($id_place_province),
         'id_citizen_province' => intval($id_citizen_province),
         'off_date_created_at' => $off_date_created_at,        

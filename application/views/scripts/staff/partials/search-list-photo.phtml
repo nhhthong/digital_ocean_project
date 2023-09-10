@@ -12,11 +12,11 @@
             </div>
 
             <div class="control-group">
-                <label for="off" class="span2">Working status</label>
-                <select name="off" id="off" class="span3">
-                    <option value="-1">Choose</option>
-                    <option value="1" <?php if (isset($this->params['off']) and $this->params['off']==1):?>selected<?php endif;?>>On work</option>
-                    <option value="2" <?php if (isset($this->params['off']) and $this->params['off']==2):?>selected<?php endif;?>>Off</option>
+                <label for="code" class="span2">Working status</label>
+                <select name="status" class="span3">
+                    <option value="1" <?php echo isset($this->params['status']) && $this->params['status'] == 1 ? "selected" : null; ?>>On</option>
+                    <option value="2" <?php echo isset($this->params['status']) && $this->params['status'] == 2 ? "selected" : null; ?>>Off</option>
+                    <option value="3" <?php echo isset($this->params['status']) && $this->params['status'] == 3 ? "selected" : null; ?>>All</option>
                 </select>
             </div>
 

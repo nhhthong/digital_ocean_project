@@ -19,14 +19,18 @@
                 ?>
         <tr>
             <td><?=++$intStt?></td>
-            <td><?php echo $value['code']; ?></td>
+            <td><?php echo $value['code']; ?></td>                    
             <td><?php echo $value['fullname']; ?></td>
-            <td><?php echo $value['email']; ?></td>
+            <?php if ($value['status'] == 1) { ?>
+                <td><?php echo $value['email']; ?></td>
+            <?php } else { ?>
+                <td style="background-color: coral"></td>
+            <?php } ?>   
             <td><?php echo $value['department']; ?></td>
             <td><?php echo $value['team']; ?></td>
             <td><?php echo $value['title']; ?></td>
             <td><?php echo $value['phone_number']; ?></td>
-            <td>Enabled</td>
+            <td><?php echo $value['status'] == 1 ? "Enabled" : "Disabled"; ?></td>
             <td>
                 <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
