@@ -73,7 +73,7 @@ try {
         'religion' => intval($religion),        
         'note' => $note,  
         'dob' => $dob,        
-        'status' => intval($status),
+        'status' => 1,
         'id_place_province'   => intval($id_place_province),
         'id_citizen_province' => intval($id_citizen_province),
         'off_date_created_at' => $off_date_created_at,        
