@@ -76,7 +76,7 @@ if (isset($this->messages_success) and $this->messages_success)
         var myLatLng = {lat: 40.59726025535419, lng: 80.02503488467874};
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 20,
             center: myLatLng
         });
     
@@ -120,6 +120,7 @@ if (isset($this->messages_success) and $this->messages_success)
     }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
+<!-- <script src="http://maps.googleapis.com/maps/api/js?key=#{your_app_key}&sensor=false"> -->
 <script>
 
     $(document).ready(function(){
