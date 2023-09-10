@@ -1,6 +1,7 @@
     <div class="span4">
+        <h5 class="text-center">Ảnh đại diện</h5><hr>
         <div class="control-group">
-            <label for="photo" class="control-label">Staff Photo</label>
+            <label for="photo" class="control-label">Ảnh nhân viên <span style="color: red">*</span></label>
             <div class="controls">
                 <?php if(isset($this->staff) and !empty($this->staff->photo)){?>
                     <a target="_blank" title="View" href="<?php if(isset($this->staff) and !empty($this->staff->photo)) printf(HOST.'photo/staff/'.$this->staff->id.'/'.$this->staff->photo);  ?>"><img class="staff-photo" src="<?php if(isset($this->staff) and !empty($this->staff->photo)) printf(HOST.'photo/staff/'.$this->staff->id.'/'.$this->staff->photo);  ?>" /></a>
@@ -15,50 +16,49 @@
             </div>
         </div>
     </div>
+
     <div class="span4">
+        <h5 class="text-center">Thông tin hệ thống</h5><hr>
         <?php if (isset($this->staff) and $this->staff){?>
         <div class="control-group">
-            <label for="code" class="control-label">Staff code</label>
+            <label for="code" class="control-label">Mã nhân viên</label>
             <div class="controls">
-                <input type="text" id="code" placeholder="Enter Code" name="code" disabled required="required" value="<?php isset($this->staff) and $this->staff and printf($this->staff->code);?>">
+                <input type="text" id="code" placeholder="" name="code" disabled required="required" value="<?php isset($this->staff) and $this->staff and printf($this->staff->code);?>">
             </div>
         </div>
 
         <div class="control-group">
-            <label for="full_name" class="control-label">Username</label>
+            <label for="full_name" class="control-label">Tài khoản</label>
             <div class="controls">
-                <input disabled type="text" placeholder="Enter Staff Username" name="email" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>">
+                <input disabled type="text" placeholder="" name="email" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>">
             </div>
         </div>
         <?php } else { ?>
             <div class="control-group">
-                <label for="full_name" class="control-label">Username</label>
+                <label for="full_name" class="control-label">Tài khoản <span style="color: red">*</span></label>
                 <div class="controls">
-                    <input autocomplete="nope" required pattern="/^[a-zA-Z0-9]+$/" type="text" id="email" placeholder="Enter Staff Username" name="email" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>"
+                    <input autocomplete="nope" required pattern="/^[a-zA-Z0-9]+$/" type="text" id="email" placeholder="Vui lòng nhập tài khoản nhân viên" name="email" value="<?php isset($this->staff) and $this->staff and printf($this->staff->email);?>"
                     title="Vui lòng không sử dụng kí tự đặc biệt">
                 </div>
             </div>
         <?php } ?>
 
-       
-
-
         <div class="control-group">
-            <label for="full_name" class="control-label">Full name</label>
+            <label for="full_name" class="control-label">Họ & tên nhân viên <span style="color: red">*</span></label>
             <div class="controls">
-                <input autocomplete="nope" type="text" id="full_name" required placeholder="Enter Full name" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">
+                <input autocomplete="nope" type="text" id="full_name" required placeholder="Nhập họ & tên của nhân viên" name="full_name" value="<?php isset($this->staff) and $this->staff and printf($this->staff->firstname." ".$this->staff->lastname);?>">
             </div>
         </div>
 
         <div class="control-group">
-            <label for="full_name" class="control-label">Phone number</label>
+            <label for="full_name" class="control-label">SĐT nhân viên <span style="color: red">*</span></label>
             <div class="controls">
-                <input autocomplete="nope" type="text" id="phone_number" required placeholder="Enter Staff Phone Number" name="phone_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->phone_number);?>">
+                <input autocomplete="nope" type="text" id="phone_number" required placeholder="Nhập số điện thoại nhân viên" name="phone_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->phone_number);?>">
             </div>
         </div>
 
         <div class="control-group">
-            <label for="gender_1" class="control-label">Gender</label>
+            <label for="gender_1" class="control-label">Giới tính <span style="color: red">*</span></label>
             <div class="controls">
                 <input type="radio" class="form-control" id="gender_1" name="gender" value="1" <?php if (!isset($this->staff)):?>checked <?php else: isset($this->staff) and $this->staff->gender==1 and printf('checked'); endif;?>><span>Male</span>
                 <input type="radio" class="form-control" id="gender_2" name="gender" value="0" <?php isset($this->staff) and $this->staff->gender==0 and printf('checked');?>><span>Female</span>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="control-group">
-            <label for="department" class="control-label">Department</label>
+            <label for="department" class="control-label">Phòng ban <span style="color: red">*</span></label>
             <div class="controls">
                 <select name="department" id="department" required>
                     <option value>Choose</option>
@@ -80,7 +80,7 @@
         </div>
 
         <div class="control-group">
-            <label for="team" class="control-label">Team</label>
+            <label for="team" class="control-label">Bộ phận <span style="color: red">*</span></label>
             <div class="controls">
                 <select name="team" id="team" required>
                     <option value>Choose</option>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="control-group">
-            <label for="title" class="control-label">Job Title</label>
+            <label for="title" class="control-label">Chức vụ <span style="color: red">*</span></label>
             <div class="controls">
                 <select name="title" id="title" required>
                     <option value>Choose</option>
@@ -108,21 +108,63 @@
         </div>
 
         <div class="control-group">
-            <label for="joined_at" class="control-label">Joined at</label>
+            <label for="joined_at" class="control-label">Ngày vào làm <span style="color: red">*</span></label>
             <div class="controls">
-                <input type="text" class="date" required id="joined_at" placeholder="Enter Joined at" name="joined_at" value="<?php isset($this->staff) and $this->staff->joined_at and printf(date('d/m/Y',strtotime($this->staff->joined_at)));?>">
+                <input type="text" class="date" required id="joined_at" placeholder="Nhập ngày vào làm" name="joined_at" value="<?php isset($this->staff) and $this->staff->joined_at and printf(date('d/m/Y',strtotime($this->staff->joined_at)));?>">
             </div>
         </div>
 
         <div class="control-group">
-            <label for="off_date" class="control-label">Off date</label>
+            <label for="group_access" class="control-label">Phân quyền hệ thống <span style="color: red">*</span></label>
             <div class="controls">
-                <input type="text" class="date" id="off_date" placeholder="Enter Off date" name="off_date" value="<?php isset($this->staff) and $this->staff->off_date and printf(date('d/m/Y',strtotime($this->staff->off_date)));?>">
+                <select name="group_access" required>
+                    <option value>---</option>
+                    <?php foreach ($this->group as $key => $value) { ?>
+                    <option value="<?php echo $key; ?>" <?php if (isset($this->staff['group_access']) && $this->staff['group_access'] == $key) echo "selected" ?>><?php echo $value; ?></option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="off_date" class="control-label">Off date reason</label>
+            <label for="group_access" class="control-label">Văn phòng làm việc <span style="color: red">*</span></label>
+            <div class="controls">
+                <select name="group_access" required>
+                    <option value>---</option>
+                    <option value="1">Cơ sở chính quận 7</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="shift_type" class="control-label">Chọn ca làm việc <span style="color: red">*</span></label>
+            <div class="controls">
+                <select name="shift_type" id="shift_type">
+                    <option value="">---</option>
+                    <option value="1">Ca 8h</option>
+                </select>
+            </div>          
+        </div>
+
+        <div class="control-group">
+            <label for="status" class="control-label">Ghi chú (Nếu có)</label>
+            <div class="controls">
+                <textarea name="note" id="note"><?php echo isset($this->staff) ? $this->staff->note : '' ;?></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="span3">
+        <h5 class="text-center">Thông tin nghỉ việc</h5><hr>
+        <div class="control-group">
+            <label for="off_date" class="control-label">Ngày nghỉ việc</label>
+            <div class="controls">
+                <input type="text" class="date" id="off_date" placeholder="Nhập ngày nghỉ việc" name="off_date" value="<?php isset($this->staff) and $this->staff->off_date and printf(date('d/m/Y',strtotime($this->staff->off_date)));?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="off_date" class="control-label">Lý do nghỉ việc</label>
             <div class="controls">
                 <select name="date_off_purpose_reason" id="date_off_purpose_reason">
                     <option value="">Choose</option>
@@ -134,25 +176,25 @@
         </div>
 
         <div class="control-group">
-            <label for="off_type" class="control-label">Off date reason detail</label>
+            <label for="off_type" class="control-label">Chi tiết</label>
             <div class="controls">
                 <textarea name="date_off_purpose_detail" id="date_off_purpose_detail"><?php echo isset($this->staff) ? $this->staff->date_off_purpose_detail : '' ;?></textarea>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="off_type" class="control-label">Off Type</label>
+            <label for="off_type" class="control-label">Trạng thái nghỉ việc</label>
             <div class="controls">
                 <select name="off_type" id="off_type">
                     <option value>---</option>
-                    <option value="1" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 1) echo "selected" ?>>Unfinshed File</option>
-                    <option value="2" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 2) echo "selected" ?>>Finished File</option>
+                    <option value="1" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 1) echo "selected" ?>>Chưa đủ thủ tục</option>
+                    <option value="2" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 2) echo "selected" ?>>Hoàn thành thủ tục</option>
                 </select>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="off_type" class="control-label">Off date file</label>
+            <label for="off_type" class="control-label">File nghỉ việc</label>
             <div class="controls">
                 <?php if ($this->staff && $this->staff['offdate_file']):?>
                     <?php 
@@ -164,25 +206,5 @@
                 <input type="file" id="offdate_file" name="offdate_file" class="has-preview" />
             </div>
         </div>
-
-        <div class="control-group">
-            <label for="status" class="control-label">Status</label>
-            <div class="controls">
-                <select name="status" id="status" required>
-                    <option value>---</option>
-                    <option value="1" <?php if (isset($this->staff['status']) && $this->staff['status'] == 1) echo "selected" ?>>On</option>
-                    <option value="0" <?php if (isset($this->staff['status']) && $this->staff['status'] == 0) echo "selected" ?>>Off</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label for="status" class="control-label">Note</label>
-            <div class="controls">
-                <textarea name="note" id="note"><?php echo isset($this->staff) ? $this->staff->note : '' ;?></textarea>
-            </div>
-        </div>
-
-
     </div>
     

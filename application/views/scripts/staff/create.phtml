@@ -53,6 +53,17 @@ Create Staff
         });
     });
 
+    $('#card_type').change(function(){
+        _self = $(this).val();
+        if (_self == 1) {
+            $('#div_citizen_province').hide();
+            $('#div_place_province').show('slow');
+        } else {
+            $('#div_place_province').hide();
+            $('#div_citizen_province').show('slow');
+        }
+    });		
+
     $('#team,.team').change(function(){
         $('.loading').remove();
         $(this).after('<span class="loading"></span>');

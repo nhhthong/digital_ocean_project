@@ -1,6 +1,6 @@
     <div class="span6">
         <div class="control-group">
-            <label for="photo" class="control-label">ID Card Photo - Front</label>
+            <label for="photo" class="control-label">Ảnh danh tính công dân<br/><small>(Mặt trước)</small></label>
             <div class="controls">
                 <?php 
                 if(isset($this->staff) && !empty($this->staff->id_photo)){                        
@@ -12,29 +12,40 @@
                 <input type="file" id="id_photo" name="id_photo" class="has-preview" />
                 <div class="clear"></div>
                 <div class="control-group">
-                    <label for="del_id_photo" class="pull-left mt-3 mr-2">Delete Photo</label>
+                    <label for="del_id_photo" class="pull-left mt-3 mr-2">Xóa ảnh</label>
                     <input type="checkbox" class="pull-left" name="del_id_photo" id="del_id_photo" />
                 </div>
             </div>
         </div>  
 
         <div class="control-group">
-            <label for="dob" class="control-label">Date of birth</label>
+            <label for="card_type" class="control-label">Loại thẻ <span style="color: red">*</span></label>
             <div class="controls">
-                <input type="text" class="date" required id="dob" placeholder="Enter Date of birth" name="dob" value="<?php isset($this->staff) and $this->staff->dob and printf($this->staff->dob);?>">
+                <select name="card_type" id="card_type" required>
+                    <option value>Choose</option>
+                    <option value="1">Chứng minh nhân dân</option>
+                    <option value="2">Căn cước công dân</option>
+                </select>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="ID_number" class="control-label">ID Card number</label>
+            <label for="dob" class="control-label">Ngày sinh <span style="color: red">*</span></label>
+            <div class="controls">
+                <input type="text" class="date" required id="dob" placeholder="Nhập ngày sinh" name="dob" value="<?php isset($this->staff) and $this->staff->dob and printf($this->staff->dob);?>">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="ID_number" class="control-label">Số thẻ <span style="color: red">*</span></label>
             <div class="controls">
                 <input required type="text" id="ID_number" data-id="<?php if(isset($this->staff['id']) && $this->staff['id']) echo $this->staff['id'] ?>" placeholder="Enter ID number" name="ID_number" value="<?php isset($this->staff) and $this->staff and printf($this->staff->ID_number);?>">
                 <p id="id_card_validate" class="text-warning"></p>
             </div>
         </div>
 
-        <div class="control-group">
-            <label for="ID_place" class="control-label">ID Card place Province</label>
+        <div class="control-group" style="display: none;" id="div_place_province">
+            <label for="ID_place" class="control-label">Nơi cấp thẻ CMND</label>
             <div class="controls">
                 <select name="id_place_province" id="id_place_province" style="width: 210px;">
                     <option value>choose</option>
@@ -49,8 +60,8 @@
             </div>
         </div>
        
-       <div class="control-group">
-            <label for="id_citizen_province" class="control-label">ID Citizen Identity Card Province</label>
+       <div class="control-group" style="display: none;" id="div_citizen_province">
+            <label for="id_citizen_province" class="control-label">Nơi cấp thẻ CCCD</label>
             <div class="controls">
                 <select name="id_citizen_province" id="id_citizen_province" style="width: 210px;">
                     <option value>choose</option>
@@ -66,14 +77,14 @@
         </div>
 
         <div class="control-group">
-            <label for="ID_date" class="control-label">ID Card date</label>
+            <label for="ID_date" class="control-label">Ngày cấp thẻ <span style="color: red">*</span></label>
             <div class="controls">
-                <input type="text" class="date" id="ID_date" placeholder="Enter ID date" name="ID_date" value="<?php isset($this->staff) and $this->staff->ID_date and printf(date('d/m/Y',strtotime($this->staff->ID_date)));?>">
+                <input type="text" class="date" id="ID_date" placeholder="Nhập ngày cấp thẻ" name="ID_date" value="<?php isset($this->staff) and $this->staff->ID_date and printf(date('d/m/Y',strtotime($this->staff->ID_date)));?>">
             </div>
         </div>
 
         <div class="control-group">
-            <label for="nationality" class="control-label">Nationality</label>
+            <label for="nationality" class="control-label">Quốc tịch</label>
             <div class="controls">
                 <select name="nationality" id="nationality">
                     <option value>Choose</option>
@@ -85,7 +96,7 @@
         </div>
 
         <div class="control-group">
-            <label for="religion" class="control-label">Religion</label>
+            <label for="religion" class="control-label">Dân tộc</label>
             <div class="controls">
                 <select name="religion" id="religion">
                     <option value>Choose</option>
@@ -97,9 +108,9 @@
         </div>
     </div>
 
-    <div class="span6">
+    <div class="span5">
         <div class="control-group">
-            <label for="photo" class="control-label">ID Card Photo - Back</label>
+            <label for="photo" class="control-label">Ảnh danh tính công dân<br/><small>(Mặt sau)</small></label>
             <div class="controls">
                 <?php if(isset($this->staff) && !empty($this->staff->id_photo_back) ){
                         $url_back_image = 'photo/staff/'.$this->staff->id.'/ID_Back/'.$this->staff->id_photo_back;
@@ -110,7 +121,7 @@
                 <input type="file" id="id_photo_back" name="id_photo_back" class="has-preview" />
                 <div class="clear"></div>
                 <div class="control-group">
-                    <label for="del_id_photo_back" class="pull-left">Delete Photo</label>
+                    <label for="del_id_photo_back" class="pull-left mt-3 mr-2">Xóa ảnh</label>
                     <input type="checkbox" class="pull-left" name="del_id_photo_back" id="del_id_photo_back" />
                 </div>
             </div>

@@ -123,9 +123,7 @@ class UserController extends My_Controller_Action {
 
             $QGroup = new Application_Model_Group();
             $QMenu  = new Application_Model_Menu();
-            $QTeam  = new Application_Model_Team();
-            $title  = $QTeam->find($data->title)->current();
-            $group  = $QGroup->find($title->access_group)->current();
+            $group  = $QGroup->find($data->access_group)->current();
             $menu   = $group->menu ? explode(',', $group->menu) : null;
             
             $where   = array();        
