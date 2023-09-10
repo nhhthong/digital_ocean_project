@@ -115,33 +115,33 @@
         </div>
 
         <div class="control-group">
-            <label for="group_access" class="control-label">Phân quyền hệ thống <span style="color: red">*</span></label>
+            <label for="access_group" class="control-label">Phân quyền hệ thống <span style="color: red">*</span></label>
             <div class="controls">
-                <select name="group_access" required>
+                <select name="access_group" required>
                     <option value>---</option>
                     <?php foreach ($this->group as $key => $value) { ?>
-                    <option value="<?php echo $key; ?>" <?php if (isset($this->staff['group_access']) && $this->staff['group_access'] == $key) echo "selected" ?>><?php echo $value; ?></option>
+                    <option value="<?php echo $key; ?>" <?php if (isset($this->staff->access_group) && $this->staff->access_group == $key) echo "selected" ?>><?php echo $value; ?></option>
                     <?php } ?>
                 </select>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="group_access" class="control-label">Văn phòng làm việc <span style="color: red">*</span></label>
+            <label for="office_id" class="control-label">Văn phòng làm việc <span style="color: red">*</span></label>
             <div class="controls">
-                <select name="group_access" required>
+                <select name="office_id" required>
                     <option value>---</option>
-                    <option value="1">Cơ sở chính quận 7</option>
+                    <option value="1" <?php if (isset($this->staff->office_id) && $this->staff->office_id == 1) echo "selected" ?>>Cơ sở chính quận 7</option>
                 </select>
             </div>
         </div>
 
         <div class="control-group">
-            <label for="shift_type" class="control-label">Chọn ca làm việc <span style="color: red">*</span></label>
+            <label for="shift_id" class="control-label">Chọn ca làm việc <span style="color: red">*</span></label>
             <div class="controls">
-                <select name="shift_type" id="shift_type">
+                <select required name="shift_id" id="shift_id">
                     <option value="">---</option>
-                    <option value="1">Ca 8h</option>
+                    <option value="1" <?php if (isset($this->staff->shift_id) && $this->staff->shift_id == 1) echo "selected" ?>>Ca 8h</option>
                 </select>
             </div>          
         </div>
@@ -169,7 +169,7 @@
                 <select name="date_off_purpose_reason" id="date_off_purpose_reason">
                     <option value="">Choose</option>
                     <?php foreach($this->staff_dateoff_reason as $k => $v):?>
-                        <option value="<?php echo $k;?>" <?php echo (isset($this->staff) && $this->staff['date_off_purpose_reason'] == $k) ? 'selected="selected"' : '';?>><?php echo $v;?></option>
+                        <option value="<?php echo $k;?>" <?php echo (isset($this->staff) && $this->staff->date_off_purpose_reason == $k) ? 'selected="selected"' : '';?>><?php echo $v;?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -187,8 +187,8 @@
             <div class="controls">
                 <select name="off_type" id="off_type">
                     <option value>---</option>
-                    <option value="1" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 1) echo "selected" ?>>Chưa đủ thủ tục</option>
-                    <option value="2" <?php if (isset($this->staff['off_type']) && $this->staff['off_type'] == 2) echo "selected" ?>>Hoàn thành thủ tục</option>
+                    <option value="1" <?php if (isset($this->staff->off_type) && $this->staff->off_type == 1) echo "selected" ?>>Chưa đủ thủ tục</option>
+                    <option value="2" <?php if (isset($this->staff->off_type) && $this->staff->off_type == 2) echo "selected" ?>>Hoàn thành thủ tục</option>
                 </select>
             </div>
         </div>
@@ -196,10 +196,10 @@
         <div class="control-group">
             <label for="off_type" class="control-label">File nghỉ việc</label>
             <div class="controls">
-                <?php if ($this->staff && $this->staff['offdate_file']):?>
+                <?php if ($this->staff && $this->staff->offdate_file):?>
                     <?php 
                         $download_link = "";
-                        $link_image    = HOST .'files/staff/'.$this->staff['id'].'/off_date/'.$this->staff['offdate_file'];
+                        $link_image    = HOST .'files/staff/'.$this->staff->id.'/off_date/'.$this->staff->offdate_file;
                     ?>
                     <a target="_blank" href="<?php echo $link_image;?>">Download file</a>
                 <?php endif;?>

@@ -34,6 +34,10 @@ try {
     $ID_number = $this->getRequest()->getParam('ID_number');
     $email = $this->getRequest()->getParam('email');
     $phone_number = $this->getRequest()->getParam('phone_number');
+    $shift_id = $this->getRequest()->getParam('shift_id');
+    $office_id = $this->getRequest()->getParam('office_id');
+    $access_group = $this->getRequest()->getParam('access_group');
+    $card_type = $this->getRequest()->getParam('card_type');
 
     if ($id_place_province>0 && $id_citizen_province>0){
         throw new Exception('Please choose a place !!!');
@@ -74,7 +78,11 @@ try {
         'id_citizen_province' => intval($id_citizen_province),
         'off_date_created_at' => $off_date_created_at,        
         'date_off_purpose_reason' => ($date_off_purpose_reason != '') ? $date_off_purpose_reason : null,
-        'date_off_purpose_detail' => $date_off_purpose_detail        
+        'date_off_purpose_detail' => $date_off_purpose_detail,
+        'shift_id' => intval($shift_id),
+        'office_id' => intval($office_id),
+        'access_group' => intval($access_group),
+        'card_type' => intval($card_type),        
     );    
     $temp_dob = explode("/", $dob);
     if(strlen($ID_number) <> 9 && strlen($ID_number) <> 12) throw new Exception("Định dạng CCCD/CMND không hợp lệ");   

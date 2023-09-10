@@ -87,6 +87,14 @@ Create Staff
     });
 
     $(document).ready(function () {
+        <?php if (isset($this->staff) and $this->staff){?>
+            var card_type = $('#card_type').val();
+            if (card_type == 1) {
+                $('#div_place_province').show();
+            } else {
+                $('#div_citizen_province').show();
+            }
+        <?php } ?>
         $( '.date' ).datepicker({ dateFormat: "dd/mm/yy" });
     });
 

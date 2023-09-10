@@ -23,8 +23,8 @@
             <div class="controls">
                 <select name="card_type" id="card_type" required>
                     <option value>Choose</option>
-                    <option value="1">Chứng minh nhân dân</option>
-                    <option value="2">Căn cước công dân</option>
+                    <option value="1" <?php if (isset($this->staff->card_type) && $this->staff->card_type == 1) echo "selected" ?>>Chứng minh nhân dân</option>
+                    <option value="2" <?php if (isset($this->staff->card_type) && $this->staff->card_type == 2) echo "selected" ?>>Căn cước công dân</option>
                 </select>
             </div>
         </div>
@@ -84,7 +84,7 @@
         </div>
 
         <div class="control-group">
-            <label for="nationality" class="control-label">Quốc tịch</label>
+            <label for="nationality" class="control-label">Dân tộc</label>
             <div class="controls">
                 <select name="nationality" id="nationality">
                     <option value>Choose</option>
@@ -96,7 +96,7 @@
         </div>
 
         <div class="control-group">
-            <label for="religion" class="control-label">Dân tộc</label>
+            <label for="religion" class="control-label">Tôn giáo</label>
             <div class="controls">
                 <select name="religion" id="religion">
                     <option value>Choose</option>
