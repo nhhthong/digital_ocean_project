@@ -3,6 +3,7 @@ $this->_helper->viewRenderer->setNoRender();
 $this->_helper->layout->disableLayout();
 
 try {
+    $flashMessenger = $this->_helper->flashMessenger;
     $userStorage = Zend_Auth::getInstance()->getStorage()->read();
     $db = Zend_Registry::get('db');
     $db->beginTransaction();
@@ -20,3 +21,4 @@ try {
     $flashMessenger->setNamespace('error')->addMessage($e->getMessage());
     $db->rollBack();
 }
+$this->_redirect(HOST . 'user/check-in-gps'); 

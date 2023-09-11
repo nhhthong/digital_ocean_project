@@ -33,10 +33,16 @@ if (isset($this->messages_success) and $this->messages_success)
             </div>
 
             <span class="text-danger">(*) Bạn đã Check in lúc <?php echo date('H:i:s', strtotime($this->check_in->check_in_at)); ?></span>
+
+            <?php if ($this->check_in->check_out_at) { ?>
+                <br/><span class="text-danger">(*) Bạn đã Check Out lúc <?php echo date('H:i:s', strtotime($this->check_in->check_out_at)); ?></span>
+            <?php } ?>
         </div>        
 
+        <?php if (!$this->check_in->check_out_at) { ?>
         <div class="col-12 col-md-12 p-0">
             <button type="submit" class="btn btn-success mt-5 w-auto h-auto">Check Out</button>
         </div>
+        <?php } ?>
     </div>
 </form>
