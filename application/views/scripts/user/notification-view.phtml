@@ -13,6 +13,6 @@
 </div>
 <div class="row">
     <div class="span12">
-        <span><?php echo $this->notification['content']; ?></span>
+        <span><?php echo htmlspecialchars_decode($this->notification['content']); ?></span>
     </div>
 </div>
