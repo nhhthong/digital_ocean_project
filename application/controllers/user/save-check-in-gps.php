@@ -27,26 +27,15 @@ try {
         $this->_redirect(HOST . 'user/check-in-gps'); exit;
     }
 
-    $staff_id   = $userStorage->id;
-    $staff_code = $userStorage->code;
-    $date       = date('Y-m-d');
-    $to_date    = date("Y-m-t");
-    $datetime   = date('Y-m-d H:i:s');
-    
-    $where_check   = [];
-    $where_check[] = $QTimeGps->getAdapter()->quoteInto('staff_id = ?', $staff_id);
-    $where_check[] = $QTimeGps->getAdapter()->quoteInto('check_in_day = ?', $date);
-    $check_in      = $QTimeGps->fetchRow($where_check);
+    $staff_id = $userStorage->id;
+    $stmt     = $db->prepare('CALL pr_insert_check_in_gps (:p_staff_id)');
+    $stmt->bindParam('p_staff_id', $staff_id, PDO::PARAM_INT);
+    $stmt->bindParam('p_latitude', $latitude, PDO::PARAM_STR);     
+    $stmt->bindParam('p_longitude', $longitude, PDO::PARAM_STR);     
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    $stmt->closeCursor();
 
-    $data_insert = array(
-        'staff_id'         => $staff_id,
-        'check_in_day'     => $date,
-        'check_in_at'      => $datetime,
-        'status'           => '1',
-        'latitude'         => $latitude,
-        'longitude'        => $longitude,
-    );
-    $QTimeGps->insert($data_insert);
     $flashMessenger->setNamespace('success')->addMessage('Chấm công thành công!');    
     $db->commit();
 } catch (Exception $e) { 

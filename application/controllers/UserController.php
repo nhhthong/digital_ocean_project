@@ -21,10 +21,22 @@ class UserController extends My_Controller_Action {
     public function checkInGpsAction() {
         $userStorage = Zend_Auth::getInstance()->getStorage()->read();
         $QStaff = new Application_Model_Staff();
+        $QTimeGps = new Application_Model_TimeGps();
+        $date       = date('Y-m-d');
         $rowset = $QStaff->find($userStorage->id);
         $staff  = $rowset->current();
         $this->view->staff = $staff;
 
+        $where_check   = [];
+        $where_check[] = $QTimeGps->getAdapter()->quoteInto('staff_id = ?', $userStorage->id);
+        $where_check[] = $QTimeGps->getAdapter()->quoteInto('check_in_day = ?', $date);
+        $check_in      = $QTimeGps->fetchRow($where_check);
+
+        if ($check_in) {
+            $this->view->check_in = $check_in;
+            $this->_helper->viewRenderer->setRender('check-out-gps');
+        }
+        
         $flashMessenger = $this->_helper->flashMessenger;
         $messages = $flashMessenger->setNamespace('error')->getMessages();
         $this->view->messages = $messages;
@@ -35,6 +47,10 @@ class UserController extends My_Controller_Action {
 
     public function saveCheckInGpsAction() {
         require_once 'user' . DIRECTORY_SEPARATOR . 'save-check-in-gps.php';
+    }
+
+    public function saveCheckOutGpsAction() {
+        require_once 'user' . DIRECTORY_SEPARATOR . 'save-check-out-gps.php';
     }
 
     public function changePassAction() {
