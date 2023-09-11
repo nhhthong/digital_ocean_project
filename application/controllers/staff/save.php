@@ -113,7 +113,7 @@ try {
         $data['password']   = md5($password);
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = $userStorage->id;
-        $data['email']      = $email . EMAIL_SUFFIX;
+        $data['email']      = $email;
         $id                 = $QStaff->insert($data);
         $QStaff->update(["code" => $ym . str_pad(substr($id, -4), 4, '0', STR_PAD_LEFT)], [
             $QStaff->getAdapter()->quoteInto("id = ?", $id)
