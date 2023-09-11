@@ -40,7 +40,12 @@ try {
         }
                
         $name1= "leave_".$userStorage->id."_". time().".png";
-        $file1 = APPLICATION_PATH . "/../public/photo/leave/" . $name1;
+        $uploaded_dir = APPLICATION_PATH . "/../public/photo/leave/"; 
+        
+        if(!is_dir($uploaded_dir)){
+            @mkdir($uploaded_dir, 0777, true);
+        } 
+        $file1 = $uploaded_dir . DIRECTORY_SEPARATOR .  $name1;
                 
         if (!empty($_FILES['image']['name']) ) {
             $success1 = @move_uploaded_file($_FILES['image']['tmp_name'], $file1);                   

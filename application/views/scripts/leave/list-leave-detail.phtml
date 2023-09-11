@@ -126,7 +126,6 @@ if (isset($this->messages_error) and $this->messages_error)
                 <td><?php echo $value['total']; ?> ngày</td>
                 <td><?php echo $value['reason']; ?></td>
                 <td>
-                <td>
                     <?php
                         if($value['status'] == 0) {
                             echo "Đang chờ xử lý";
@@ -255,6 +254,14 @@ if (isset($this->messages_error) and $this->messages_error)
                             echo 'Không đồng ý';
                         }
                     ?>
+                     <?php if(!empty($value['image'])) {                     
+                        $img_url = '';
+                        $img_url = HOST . 'photo/leave/' . $value['image'];
+                    ?>
+                    <a href="<?php echo $img_url ; ?>">
+                        <img class="img_toggle" v-width="crop" src="<?php echo $img_url ; ?>" style="width: 100px;">
+                    </a>
+                    <?php } ?> 
                 </td>
                 <td><?php if($value['hr_approved'] == 0) {?>
                     <button class="label label-xs label-success" value="<?php echo $value['id']; ?>" name="hr_approved1">Đồng ý</button><br/>
