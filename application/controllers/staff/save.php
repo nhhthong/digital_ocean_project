@@ -97,6 +97,9 @@ try {
         $password           = empty($password) ? '123456' : $password;
         
         if ($email) {
+            if (!preg_match('/@/', $email)) {
+                $email .= EMAIL_SUFFIX;
+            }
             $email   = trim($email);
             $where   = array();
             $where[] = $QStaff->getAdapter()->quoteInto('email IS NOT NULL AND email LIKE ?', str_replace(EMAIL_SUFFIX, '', $email) . EMAIL_SUFFIX);

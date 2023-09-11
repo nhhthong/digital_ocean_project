@@ -1,8 +1,8 @@
 <div class="page-header span9">
     <h1>My Check In</h1>
-    <div class="pull-right" style="margin-top: -25px">
+    <!-- <div class="pull-right" style="margin-top: -25px">
         <a href="/leave/list-my-leave" class="btn btn-success pull-right" style="margin-right: 0.2em !important" title="My Leave">My Leave</a>
-    </div>
+    </div> -->
 </div>
 
 <style>
@@ -102,7 +102,9 @@
                         } 
                     ?>
                 </td>
-                <td></td>
+                <td>
+                    <?php echo $value['temp_reason']; ?><?php echo $value['leave_reason']; ?>
+                </td>
                 <td>
                     <?php echo $value['status_late'] . "<br/>" . $value['status_soon']; ?>
                 </td>

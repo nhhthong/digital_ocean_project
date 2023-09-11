@@ -10,8 +10,7 @@ $QStaff = new Application_Model_Staff();
 $QTeam  = new Application_Model_Team();
 $QLeaveDetail = new Application_Model_LeaveDetail();
 
-$title  = $QTeam->find($data->title)->current();
-$group  = $title->access_group;
+$group  = $userStorage->access_group;
 if (!in_array($group, [1,2]) && $userStorage->id <> SUPERADMIN_ID) $this->_redirect (HOST . 'user/noauth');
 $get_list_staff  = $QStaff->getStaffApprove($userStorage->department);
 
