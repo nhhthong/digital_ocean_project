@@ -117,7 +117,11 @@
                 <div class="button-group">
                     <a role="button" <?php echo $css_btn; ?> href="/staff/delete-photo?id=<?php echo $staff['id']; ?>" class="btn btn-warning sweetConfirm">Delete Photo</a>
                     <a class="btn btn-success btn-download-photo" <?php echo $css_btn; ?> href="<?php echo $img_url; ?>">Download Photo</a>
-                    <button type="button" class="btn btn-primary btn-update" style="display: none" onclick="">Update Photo</button>
+                    <?php if ($staff['is_locked_photo'] == 1)  { ?>
+                        <b class="text-danger">Đã locked ảnh</b>
+                    <?php } else { ?>
+                        <a role="button" class="btn btn-danger" href="/staff/lock-photo?id=<?php echo $staff['id']; ?>">Lock Photo</a>
+                    <?php } ?>                    
                 </div>
         </div>
         <?php endforeach;?>

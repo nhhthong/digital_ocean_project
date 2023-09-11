@@ -14,7 +14,7 @@ class Application_Model_Staff extends Zend_Db_Table_Abstract
 			'team'       => 't2.name',
 			'title'      => 't3.name',
 			'p.phone_number',
-			'p.email', 'p.photo', 'p.status'
+			'p.email', 'p.photo', 'p.status', 'p.is_locked_photo'
         );
         $select->from(array('p' => $this->_name), $arrCols);
         $select->joinLeft(array('t1' => 'team'), 't1.id = p.department', array());

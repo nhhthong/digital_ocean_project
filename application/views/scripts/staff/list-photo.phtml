@@ -2,18 +2,6 @@
     <h1>List Staff's Photo</h1>
 </div>
 
-<?php
-    if (isset($this->messages) and $this->messages)
-        foreach ($this->messages as $message):
-            echo '<div class="alert alert-error">'.$message.'</div>';
-        endforeach;
-
-    if (isset($this->messages_success) and $this->messages_success)
-        foreach ($this->messages_success as $message):
-            echo '<div class="alert alert-success">'.$message.'</div>';
-        endforeach;
-?>
-
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
