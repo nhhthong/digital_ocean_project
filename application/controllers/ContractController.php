@@ -2,7 +2,81 @@
 
 class ContractController extends My_Controller_Action {
     public function printAction() {
+        $QStaff = new Application_Model_Staff();
+        $page   = $this->getRequest()->getParam("page", 1);
+        $limit  = LIMITATION;
+        $params = [];
+        $total  = 0;
+        $result = $QStaff->fetchContractPagination($page, $limit, $total, $params);
+        $this->view->list   = $result;
+        $this->view->limit  = $limit;
+        $this->view->total  = $total;
+        $this->view->params = $params;
+        $this->view->url    = HOST . "/contract/print" . ( $params ? "?" . http_build_query($params) . "&" : "?" );
+        $this->view->offset = $limit * ($page - 1);
+    }
 
+    public function checkAction () {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        echo '<link href="/css/bootstrap.min.css" rel="stylesheet">';
+        try {
+            ignore_user_abort(true);
+            $id             = $this->getRequest()->getParam('id', null);
+            $QStaffContract = new Application_Model_StaffContract();
+            $QAssignLabel   = new Application_Model_AssignLabel();
+            if (!$id) throw new Exception ("Không có hợp đồng nào được chọn!");
+
+            $contract_info  = $QStaffContract->print($id);
+            $contract_info  = $contract_info[0];
+            // BEGIN PROCESS
+            $system_variable                          = [];
+            $system_variable['tennhanvien']           = $contract_info['fullname'];
+            $system_variable['sinhngay']              = $contract_info['dob'];
+            $system_variable['cmnd']                  = $contract_info['ID_number'];
+            $system_variable['ngaycap']               = date_format(date_create($contract_info['ID_date']), "d/m/Y"); 
+            $system_variable['codenhanvien']          = $contract_info['code'];
+            // END
+            // lấy đường dẫn file để chèn biến vào
+            $template_directory = HOST . "img" . DIRECTORY_SEPARATOR . "template.docx";
+            // Khai báo thư viện
+            require_once APPLICATION_PATH.'/../library/phpword/vandor/autoload.php';
+            $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor($template_directory);  
+            \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);          
+            
+            $assign_labels = $QAssignLabel->get_cache();
+            
+            foreach ($assign_labels as $k => $v) {
+                $val_ = $system_variable[$v];
+                if (!$val_ && $val_ <> 0) continue;
+                $templateProcessor->setValue($k, $val_); 
+            }
+            $process_uniqid = uniqid();
+            $uploaded_dir   = APPLICATION_PATH . DIRECTORY_SEPARATOR . '..' 
+            . DIRECTORY_SEPARATOR . 'public' 
+            . DIRECTORY_SEPARATOR . 'files' 
+            . DIRECTORY_SEPARATOR . 'unsaving_directory' 
+            . DIRECTORY_SEPARATOR . $process_uniqid;
+            if(!is_dir($uploaded_dir)) @mkdir($uploaded_dir, 0777, true);
+            $file_uniqid = md5($contract_info['staff_id'] . time()) . ".docx";
+            $templateProcessor->saveAs($uploaded_dir . DIRECTORY_SEPARATOR . $file_uniqid);    
+        
+            set_time_limit ( 0 );
+            $file_path = $uploaded_dir . DIRECTORY_SEPARATOR . $file_uniqid;
+            $file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            $file_name = 'staff_contract_' . $process_uniqid . date('Ymd') . '.docx';
+            header('Content-Length: ' . filesize ($file_path));
+            header('Content-Disposition: filename="' . $file_name . '"');
+            header('Content-Type: ' . $file_type . '; name="' . $file_name . '"');
+            ob_clean();   // discard any data in the output buffer (if possible)
+            flush();      // flush headers (if possible)
+            readfile($file_path);
+            unlink($file_path);            
+        }catch (Exception $e) {
+            echo '<script>window.parent.document.getElementById("iframe").style.display = \'block\';</script>';
+            echo '<script>window.parent.document.getElementById("iframe").height = \'40px\';</script>';
+            echo '<div class="alert alert-error">Failed - ' . $e->getMessage() . '</div>';
+        }
     }
 
     public function saveAssignLabelAction() {

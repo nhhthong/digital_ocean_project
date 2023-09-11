@@ -1,39 +1,10 @@
 <div class="page-header">
     <h1>Staff Contract</h1>
     <div class="pull-right link-view" style="margin-top: -25px">
-        <a href="/contract/assign-label" class="btn btn-warning pull-right mr-3">Manage label</a>
         <a href="/contract/assign-label" class="btn btn-warning pull-right">Manage label</a>
     </div>
 </div>
 
-<?php
-    if (isset($this->messages) and $this->messages)
-        foreach ($this->messages as $message):
-            echo '<div class="alert alert-error">'.$message.'</div>';
-        endforeach;
-
-    if (isset($this->messages_success) and $this->messages_success)
-        foreach ($this->messages_success as $message):
-            echo '<div class="alert alert-success">'.$message.'</div>';
-        endforeach;
-?>
-
-<div class="accordion" id="accordion2">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                Search
-            </a>
-        </div>
-        <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
-            <div class="accordion-inner">
-                <?php
-                    echo $this->render('contract/partials/search.phtml');
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="table-responsive">
     <?php
@@ -63,5 +34,5 @@
 
     function multi() {
         $('.multiselect').multiselect(options);
-    }
+    }     
 </script>

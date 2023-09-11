@@ -1,0 +1,37 @@
+<iframe src="" name="eframe" id="iframe" frameborder="0" style="display: none;" width="100%"></iframe>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Team</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php $intStt = $this->offset;
+            foreach ($this->list as $key => $value):
+                ?>
+        <tr>
+            <td><?=++$intStt?></td>
+            <td><?php echo $value['code']; ?></td>                    
+            <td><?php echo $value['fullname']; ?></td>
+            <td><?php echo $value['department']; ?></td>
+            <td><?php echo $value['team']; ?></td>
+            <td><?php echo $value['title']; ?></td>
+            <td><?php echo $value['created_at'] ? "Đã in" : "Chưa in"; ?></td>            
+            <td>
+                <a role="button" class="btn btn-dark" target="eframe"
+                href="/contract/check?id=<?php echo $value['id'] ?>">Print</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<div class="paging">
+    <?php echo $this->paging($this->total, $this->limit, $this->offset, $this->url);?>
+</div>
