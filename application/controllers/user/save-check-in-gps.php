@@ -33,7 +33,7 @@ try {
     }
 
     $staff_id = $userStorage->id;
-    $stmt     = $db->prepare('CALL pr_insert_check_in_gps (:p_staff_id)');
+    $stmt     = $db->prepare('CALL pr_insert_check_in_gps (:p_staff_id, :p_latitude, :p_longitude)');
     $stmt->bindParam('p_staff_id', $staff_id, PDO::PARAM_INT);
     $stmt->bindParam('p_latitude', $latitude, PDO::PARAM_STR);     
     $stmt->bindParam('p_longitude', $longitude, PDO::PARAM_STR);     
