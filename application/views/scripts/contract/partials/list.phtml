@@ -23,9 +23,9 @@
             <td><?php echo $value['department']; ?></td>
             <td><?php echo $value['team']; ?></td>
             <td><?php echo $value['title']; ?></td>
-            <td><?php echo $value['created_at'] ? "Đã in" : "Chưa in"; ?></td>            
+            <td class="label_replace"><?php echo $value['created_at'] ? "Đã in" : "Chưa in"; ?></td>            
             <td>
-                <a role="button" class="btn btn-dark" target="eframe"
+                <a role="button" class="btn btn-dark btn-send" target="eframe"
                 href="/contract/check?id=<?php echo $value['id'] ?>">Print</a>
             </td>
         </tr>

@@ -32,6 +32,11 @@
         multi();
     });
 
+    $('.btn-send').click(function() {
+        var _self = $(this);            
+        _self.closest('tr').find('.label_replace').text("Đã in");         
+    });
+
     function multi() {
         $('.multiselect').multiselect(options);
     }     
