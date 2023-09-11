@@ -12,6 +12,11 @@ try {
     $db->beginTransaction();
     $QTimeGps = new Application_Model_TimeGps();
 
+    if ($dev) {
+        $latitude = "10.7326689";
+        $longitude = "106.6997696";
+    }
+
     if(empty($latitude) || empty($longitude)) {
         $flashMessenger->setNamespace('error')->addMessage('Vui lòng bật gps!');
         $this->_redirect(HOST . 'user/check-in-gps'); exit;
@@ -22,7 +27,7 @@ try {
     $office_longitude = "106.6997696";
     $distance_office  = My_DistanceGps::getDistanceOffice($latitude, $longitude, $office_latitude, $office_longitude);
 
-    if($distance_office > 2 && !$dev){
+    if($distance_office > 2){
         $flashMessenger->setNamespace('error')->addMessage('Bạn chấm công cách văn phòng vượt quá quy định. Vui lòng sử dụng 3g/4g để tăng độ chính xác!');
         $this->_redirect(HOST . 'user/check-in-gps'); exit;
     }

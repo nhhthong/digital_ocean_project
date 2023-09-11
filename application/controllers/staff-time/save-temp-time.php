@@ -25,6 +25,7 @@ try {
         'reason'      => $reason,
         'add_reason'  => $add_reason,
         'created_at'  => date('Y-m-d H:i:s'),
+        'status'      => 0
     );
 
     if (empty($result_date)) {

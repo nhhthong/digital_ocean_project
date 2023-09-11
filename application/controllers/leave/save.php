@@ -92,6 +92,7 @@ try {
             $total = $QAllDate->count($from, $to);
             $data['total'] = intval($total);
             $data['is_half_day'] = 0;
+            $data['status'] = 0;
             $QLeaveDetail->insert($data);
         }
     }else{
@@ -120,6 +121,7 @@ try {
         }
         $data['total'] = 0.5;
         $data['is_half_day'] = 1;
+        $data['status'] = 0;
         $QLeaveDetail = new Application_Model_LeaveDetail();
         $QLeaveDetail->insert($data);
     }
