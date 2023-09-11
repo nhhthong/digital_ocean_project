@@ -22,6 +22,7 @@ class ContractController extends My_Controller_Action {
         echo '<link href="/css/bootstrap.min.css" rel="stylesheet">';
         try {
             ignore_user_abort(true);
+            $userStorage = Zend_Auth::getInstance()->getStorage()->read();
             $id             = $this->getRequest()->getParam('id', null);
             $QStaffContract = new Application_Model_StaffContract();
             $QAssignLabel   = new Application_Model_AssignLabel();
@@ -36,6 +37,14 @@ class ContractController extends My_Controller_Action {
             $system_variable['cmnd']                  = $contract_info['ID_number'];
             $system_variable['ngaycap']               = date_format(date_create($contract_info['ID_date']), "d/m/Y"); 
             $system_variable['codenhanvien']          = $contract_info['code'];
+
+            $QStaffContract->insert(
+                [
+                    'staff_id' => $id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'created_by' => $userStorage->id
+                ]
+            );
             // END
             // lấy đường dẫn file để chèn biến vào
             $template_directory = HOST . "img" . DIRECTORY_SEPARATOR . "template.docx";
