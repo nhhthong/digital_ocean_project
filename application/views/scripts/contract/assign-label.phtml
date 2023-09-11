@@ -1,0 +1,240 @@
+<style>
+    #buttonTop {
+        display: inline-block;
+        background-color: #2aad6f;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        border-radius: 4px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: background-color .3s,
+            opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+    #buttonTop::after {
+        content: "\f077";
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: #fff;
+    }
+    #buttonTop:hover {
+        cursor: pointer;
+        background-color: #333;
+    }
+    #buttonTop:active {
+        background-color: #555;
+    }
+    #buttonTop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
+<a id="buttonTop"></a>
+<div class="card card-custom mt-3 shadow">
+    <div class="card-header">
+        <div class="card-title">
+            <h5 style="color:green">Gán biến hợp đồng</h5>
+        </div>
+        <div class="card-toolbar">
+            <a href="/contract/print" class="text-danger text-sm"><i class="icon-chevron-left"></i> Go back</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="row">                
+                <div class="form-group">
+                    <input type="text" class="form-control" name="title" value="<?php echo $this->params['title'] ? $this->params['title'] : NULL ?>" placeholder="Giá trị"/>
+                </div>
+                <div class="form-group ml-3">
+                    <input type="text" class="form-control" name="variable" value="<?php echo $this->params['variable'] ? $this->params['variable'] : NULL ?>" placeholder="Biến số"/>
+                </div>
+                <div class="form-group ml-3">
+                    <select class="form-control" name="status">
+                        <option value="" selected>Tình trạng</option>
+                        <option value="-1" <?php echo $this->params['status']=="-1" ? 'selected' : NULL ?>>Chưa active</option>
+                        <option value="1" <?php echo $this->params['status']=="1" ? 'selected' : NULL ?>>Đã active</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary font-weight-bold ml-3"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    <button class="btn btn-warning font-weight-bold" value="1" name="export"><i class="fas fa-file-export"></i> Xuất báo cáo</button>
+                </div>
+            </div>
+        </form>
+        <div class="form-group mb-8">
+            <div class="alert alert-custom alert-default" role="alert">
+                <div class="alert-icon"><i class="fas fa-question-circle text-danger"></i></div>
+                <div class="alert-text">
+                    Vui lòng điền biến số tương ứng vào giá trị để lấy đúng dữ liệu cho mẫu hợp đồng.
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-8">
+            <iframe name="frame" id="iframe" width="100%" style="display: none;border: none"></iframe>
+        </div>        
+        <form id="myForm" class="form-horizontal" action="<?php echo HOST; ?>contract/save-assign-label" method="post" enctype="multipart/form-data" target="frame">
+        <?php foreach ($this->assign_label as $key => $value) { ?>
+            <div class="form-group row">
+                <label  class="col-2 col-form-label"><?php echo $value['name']; ?></label>
+                <div class="col-4">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend"><span class="input-group-text">                        
+                        <?php 
+                            $update       = isset($value['assign_at']) && $value['assign_at'] ? true : false;                            
+                            $text_update  = $update ? "update" : "save";
+                        ?>
+                        <?php if ($update) { ?>
+                            <i class="fas fa-check-circle text-success"></i>
+                        <?php } else { ?>
+                            <i class="fas fa-check-circle"></i>
+                        <?php } ?>                       
+                        </span></div>                    
+                        <input type="text" class="form-control input_variable" name="variable[<?php echo $value['id']; ?>]" placeholder="..." 
+                                value="<?php echo isset($value['variable']) && $value['variable'] ? $value['variable'] : null; ?>"/>
+                        <div class="input-group-append">                        
+                            <a class="btn btn-secondary btn_part_save" data-id="<?php echo $value['id']; ?>" role="button"><?php echo $text_update; ?></a>
+                            <a class="link_copy text-success ml-10" role="button"><i class="ki ki-copy"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+            <div class="form-group row">
+                <button type="submit" class="btn btn-success mr-2 mt-5">Lưu thông tin <i class="fas fa-check-circle"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/jquery.blockUI.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.12.custom.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.8.12.custom.css"/>
+<script>
+    var btn = $('#buttonTop');
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 200) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+    btn.on('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: 0
+        }, '300');
+    });
+
+    $('#myForm').submit(function () {
+        initWaiting();
+    });
+
+    $('.link_copy').click( function() // copy to clipboard
+    {
+        var _self     = $(this);
+        var clipBoard = _self.parent().parent().find('.input_variable');
+        var current   = clipBoard.val();
+        var new_value = "${" + current + "}";
+        clipBoard.val(new_value);
+        clipBoard.select();
+        document.execCommand("copy");
+        Swal.fire({
+            icon: 'success',
+            position: "top-right",
+            title: "Đã copy",
+            showConfirmButton: false,
+            timer: 1000
+        });
+        clipBoard.val(current);
+    });
+
+    function initWaiting()
+    {
+        $.blockUI({
+            fadeIn: 700,
+            fadeOut: 700,
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+        }});
+    }
+
+    function unblockUI()
+    {
+        $.unblockUI();
+    }
+
+    function scroll2Top()
+    {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+    }
+
+    $(".btn_part_save").click(function(e){
+        var _self = $(this);
+        var input = _self.parent().parent().find('.input_variable').val();
+        var id    = _self.attr('data-id');
+        try {
+            if (input.length === 0) throw 'Chưa điền biến số'
+            Swal.fire({
+                title: "Xác nhận?",                     
+                text: "Gán biến này vào giá trị",
+                confirmButtonColor: 'rgb(221, 51, 51)',
+                showCancelButton: true,
+                confirmButtonText: "Đồng ý!",    
+                showClass: {
+                    popup: 'animate__animated animate__jackInTheBox'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__rotateOutDownLeft'
+                }        
+            }).then(function (result) {
+                if (result.isConfirmed) {                      
+                    $.ajax({
+                        method: 'post',
+                        url: '/contract/do-assign-label',
+                        data: {
+                            id: id,
+                            input: input
+                        },     
+                        dataType: 'json',               
+                        beforeSend: function() {
+                            Swal.fire({
+                                imageUrl: "<?php echo HOST . "/img/lg.-text-entering-comment-loader.gif" ?>",
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                        }
+                    }).done(function (data) {
+                        if (data.status === 1) {
+                            Swal.fire(
+                                'Success',
+                                'Thành công',
+                                'success'
+                            );  
+                            location.reload();
+                        } else {
+                            throw result.message; 
+                        }
+                    });
+                }         
+            });
+        } catch(err) {
+            Swal.fire(
+                '',
+                err,
+                'error'
+            );
+        }               
+    });
+</script>
