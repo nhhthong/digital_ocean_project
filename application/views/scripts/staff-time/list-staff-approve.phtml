@@ -2,6 +2,19 @@
     <h1>List Staff Approve</h1>
 </div>
 
+<?php
+if (isset($this->messages) and $this->messages)
+    foreach ($this->messages as $message):
+        echo '<div class="alert alert-error">'.$message.'</div>';
+    endforeach;
+?>
+
+<?php
+if (isset($this->success_messages) and $this->success_messages)
+    foreach ($this->success_messages as $message):
+        echo '<div class="alert alert-success">'.$message.'</div>';
+    endforeach;
+?>
 
 <div class="row" style="margin-left: 0px">
     <form class="form-group">
@@ -17,114 +30,108 @@
 
 <h3>Xác nhận phép</h3>
 
-<form method="post" action="/staff-time/action-staff-approve">
-    <input type="hidden" name="month_edit" value="<?php echo $this->params['month']; ?>">
-    <input type="hidden" name="year_edit" value="<?php echo $this->params['year']; ?>">
-    <table class="table table-bordered leaveTable table-responsive">
-        <thead>
-            <th>Mã nhân viên</th>
-            <th>Họ tên</th>
-            <th>Phòng ban</th>
-            <th>Chức vụ</th>
-            <th>Loại phép</th>
-            <th>Từ ngày</th>
-            <th>Đến ngày</th>
-            <th>Số ngày nghỉ</th>
-            <th>Lý do</th>
-            <th>Quản lý</th>
-            <th>Nhân sự</th>
-            <th>Phản hồi</th>
-        </thead>
-        <tbody>
-        <?php if(isset($this->data_leave) && $this->data_leave) { ?>
-            <?php foreach ($this->data_leave as $key => $value) { ?>
-            <tr>
-                <td><?php echo $value['code']; ?></td>
-                <td><?php echo $value['staff_name']; ?></td>
-                <td><?php echo $value['department_name']; ?></td>
-                <td><?php echo $value['title_name']; ?></td>
-                <td><?php echo $value['leave_type_note']; ?></td>
-                <td><?php echo date_format(date_create($value['from_date']), 'd/m/Y'); ?></td>
-                <td><?php echo date_format(date_create($value['to_date']), 'd/m/Y'); ?></td>
-                <td><?php echo $value['total']; ?></td>
-                <td><?php echo $value['reason']; ?></td>
-                <td>
-                <button class="label label-xs label-success" id="btn-approve" value="<?php echo $value['id'];?>" name="approved">Approve</button>
-                <button  class="label label-xs label-danger" id="not-approve" value="<?php echo $value['id'];?>" name="notapproved">Reject</button>
-                </td>
-                <td>
-                <?php
-                    if($value['status'] == 2)
+
+<table class="table table-bordered leaveTable table-responsive">
+    <thead>
+        <th>Mã nhân viên</th>
+        <th>Họ tên</th>
+        <th>Phòng ban</th>
+        <th>Chức vụ</th>
+        <th>Loại phép</th>
+        <th>Từ ngày</th>
+        <th>Đến ngày</th>
+        <th>Số ngày nghỉ</th>
+        <th>Lý do</th>
+        <th>Quản lý</th>
+        <th>Nhân sự</th>
+        <th>Phản hồi</th>
+    </thead>
+    <tbody>
+    <?php if(isset($this->data_leave) && $this->data_leave) { ?>
+        <?php foreach ($this->data_leave as $key => $value) { ?>
+        <tr>
+            <td><?php echo $value['code']; ?></td>
+            <td><?php echo $value['staff_name']; ?></td>
+            <td><?php echo $value['department_name']; ?></td>
+            <td><?php echo $value['title_name']; ?></td>
+            <td><?php echo $value['leave_type_note']; ?></td>
+            <td><?php echo date_format(date_create($value['from_date']), 'd/m/Y'); ?></td>
+            <td><?php echo date_format(date_create($value['to_date']), 'd/m/Y'); ?></td>
+            <td><?php echo $value['total']; ?></td>
+            <td><?php echo $value['reason']; ?></td>
+            <td>
+            <a role="button" class="label label-xs label-success" href="/staff-time/approve-leave-control?type=1&id=<?php echo $value['id'];?>" name="approved">Approve</a>
+            <a role="button" class="label label-xs label-danger" href="/staff-time/approve-leave-control?type=2&id=<?php echo $value['id'];?>" name="notapproved">Reject</a>
+            </td>
+            <td>
+            <?php
+                if($value['status'] == 2)
+                {
+                    echo "Quản lý từ chối";
+                }
+                else
+                {
+                    if($value['hr_approved'] == 0)
                     {
-                        echo "Quản lý từ chối";
+                        echo "Đang chờ xử lý";
                     }
-                    else
+                    elseif($value['hr_approved'] == 1)
                     {
-                        if($value['hr_approved'] == 0)
-                        {
-                            echo "Đang chờ xử lý";
-                        }
-                        elseif($value['hr_approved'] == 1)
-                        {
-                            echo 'Đồng ý';
-                        }
-                        elseif($value['hr_approved'] == 2)
-                        {
-                            echo 'Không đồng ý';
-                        }
+                        echo 'Đồng ý';
                     }
-                ?>
-                </td>
-                <td><?php echo $value['note']; ?></td>
-            </tr>
-            <?php } ?> 
-        <?php } ?>        
-        </tbody>
-    </table>
-</form>
+                    elseif($value['hr_approved'] == 2)
+                    {
+                        echo 'Không đồng ý';
+                    }
+                }
+            ?>
+            </td>
+            <td><?php echo $value['note']; ?></td>
+        </tr>
+        <?php } ?> 
+    <?php } ?>        
+    </tbody>
+</table>
+
 
 <h3>Xác nhận công</h3>
 
-<form action="/staff-time/action-staff-approve" method="post">
-    <input type="hidden" name="month_edit" value="<?php echo $this->params['month']; ?>">
-    <input type="hidden" name="year_edit" value="<?php echo $this->params['year']; ?>">
-    <table class="table table-bordered timeTable table-responsive">
-        <thead>
-            <th>Mã nhân viên</th>
-            <th>Họ tên</th>
-            <th>Phòng ban</th>
-            <th>Chức vụ</th>
-            <th>Những ngày cần xác nhận công</th>
-            <th>Những ngày cần xác nhận đi trễ / về sớm</th>
-            <th>Xác nhận</th>
-            <th>Chi tiết</th>
-        </thead>
-        <tbody>
-        <?php if(isset($this->list_staff_view) && $this->list_staff_view) { ?>
-            <?php foreach ($this->list_staff_view as $key => $value) { ?>
-            <tr>
-                <td><?php echo $value['code']; ?></td>
-                <td><?php echo $value['name']; ?></td>
-                <td><?php echo $value['dep']; ?></td>
-                <td><?php echo $value['title']; ?></td>
-                <td><?php echo $value['temp_time']; ?></td>
-                <td><?php echo $value['late_time']; ?></td>
-                <td>
-                    <button class="label label-xs label-success" id="btn-approve" value="<?php echo $value['id'];?>" name="approve_all_by_staff">Approve</button>
-                    <button  class="label label-xs label-danger" id="not-approve" value="<?php echo $value['id'];?>" name="deapprove_all_by_staff">Reject</button>
-                </td>
-                <td>
-                    <a href="javascript:void(0)" class="open-detail" data-toggle="modal" v-staff-id="<?php echo $value['staff_id'] ?>"
-                        v-month="<?php echo $this->params['month'] ?>" v-year="<?php echo $this->params['year'] ?>">
-                        <i class="icon-edit"></i>
-                    </a>
-                </td>
-            </tr>
-            <?php } ?>
+<table class="table table-bordered timeTable table-responsive">
+    <thead>
+        <th>Mã nhân viên</th>
+        <th>Họ tên</th>
+        <th>Phòng ban</th>
+        <th>Chức vụ</th>
+        <th>Những ngày cần xác nhận công</th>
+        <th>Những ngày cần xác nhận đi trễ / về sớm</th>
+        <th>Xác nhận</th>
+        <th>Chi tiết</th>
+    </thead>
+    <tbody>
+    <?php if(isset($this->list_staff_view) && $this->list_staff_view) { ?>
+        <?php foreach ($this->list_staff_view as $key => $value) { ?>
+        <tr>
+            <td><?php echo $value['code']; ?></td>
+            <td><?php echo $value['name']; ?></td>
+            <td><?php echo $value['dep']; ?></td>
+            <td><?php echo $value['title']; ?></td>
+            <td><?php echo $value['temp_time']; ?></td>
+            <td><?php echo $value['late_time']; ?></td>
+            <td>
+                <a role="button" class="label label-xs label-success" href="/staff-time/approve-time-control?type=1&id=<?php echo $value['id'];?>" name="approved">Approve</a>
+                <a role="button" class="label label-xs label-danger" href="/staff-time/approve-time-control?type=2&id=<?php echo $value['id'];?>" name="approved">Reject</a>
+            </td>
+            <td>
+                <a href="javascript:void(0)" class="open-detail" data-toggle="modal" v-staff-id="<?php echo $value['staff_id'] ?>"
+                    v-month="<?php echo $this->params['month'] ?>" v-year="<?php echo $this->params['year'] ?>">
+                    <i class="icon-edit"></i>
+                </a>
+            </td>
+        </tr>
         <?php } ?>
-        </tbody>
-    </table>
-</form>
+    <?php } ?>
+    </tbody>
+</table>
 
 <div class="modal fade" id="office-modal" tabindex="-1" role="dialog" aria-labelledby="office-modal-label" aria-hidden="true">
     <div class="modal-dialog" role="document">

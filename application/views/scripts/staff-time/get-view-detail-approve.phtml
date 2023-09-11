@@ -26,8 +26,6 @@
 </div>
 
 <div class="modal-body">
-    <form action="/staff-time/action-staff-approve" method="post" class="form-horizontal">
-    <input type='hidden' name='staff_approve' value='<?php echo $this->data[0]['staff_id']?>'>
     <table class='table'>
         <thead >
             <tr>
@@ -50,14 +48,13 @@
                 <td><?php echo (!empty($value['time_late_id']))?'Xác nhận không đi trễ / về sớm':'Xác nhận có đi làm';?></td>
                 <td><?php echo (!empty($value['temp_reason']) ? $value['temp_reason'] : (!empty($value['time_late_reason']) ? $value['time_late_reason'] : $value['time_reason']))?></td>
                 <td>
-                    <button name='date-approve' class="pull-right btn btn-success font-weight-bold btn-pill btn-block" value='<?php echo date('Y-m-d', strtotime($value['date']))?>'>Approve</button>
-                    <button name='date-none-approve' class="pull-right btn btn-warning font-weight-bold btn-pill btn-block" value='<?php echo date('Y-m-d', strtotime($value['date']))?>'>Reject</button>
+                    <a role="button" class="label label-xs label-success" href="/staff-time/approve-date-control?type=1&staff_id=<?php echo $this->data[0]['staff_id']?>&date=<?php echo date('Y-m-d', strtotime($value['date'])); ?>" name="approved">Approve</a>
+                    <a role="button" class="label label-xs label-danger" href="/staff-time/approve-date-control?type=2&staff_id=<?php echo $this->data[0]['staff_id']?>&date=<?php echo date('Y-m-d', strtotime($value['date'])); ?>" name="approved">Reject</a>
                 </td>
             </tr>
             <?php endforeach;?>
         </tbody>
     </table>
-    </form>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
